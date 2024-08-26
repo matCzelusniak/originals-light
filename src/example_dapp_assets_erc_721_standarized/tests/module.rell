@@ -1,0 +1,9 @@
+@test module;
+import importer_external: ^.importer.external;
+import ft_accounts_ext: lib.ft4.external.accounts;
+import originals_light_attributes: lib.originals_light.attributes;
+import originals_light_interfaces_ext: lib.originals_light.external.interfaces;
+import originals_light_interfaces: lib.originals_light.interfaces;
+import originals_light_assets: lib.originals_light.assets;
+import originals_light_assets_ext: lib.originals_light.external.assets;
+import ft_assets: lib.ft4.assets;

@@ -1,0 +1,8 @@
+struct simple_project_props {
+    id: text;
+    name: text;
+    avatar: text; 
+    background_image: text; 
+    website: text;
+    description: text;
+}

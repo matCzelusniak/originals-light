@@ -1,0 +1,8 @@
+// query get_pending_transfers_for_account(account_id: byte_array) {
+//   return pending_transfer @? {
+//     .sender.id == account_id
+//   } (
+//     tx_data = .transaction.tx_data,
+//     op_index = .op_index
+//   );
+// }

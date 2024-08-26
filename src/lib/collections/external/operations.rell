@@ -1,0 +1,98 @@
+@extend(ft_auth.auth_handler)
+function () = ft_auth.add_overridable_auth_handler(
+    scope = rell.meta(create_collection).mount_name,
+    flags = []
+);
+
+operation create_collection(
+    id: text,
+    symbol: text,
+    name: text,
+    description: text,
+    background_image: text,
+    collection_avatar: text,
+    author_account_id: byte_array,
+    project_id: text
+) {
+    val owner = ft_auth.authenticate();
+    val author = ft_accounts.Account(author_account_id);
+
+    val collection_struct = struct<collections.collection>(
+        id,
+        symbol,
+        projects.Project(project_id),
+        author,
+        name,
+        description,
+        owner,
+        background_image,
+        collection_avatar
+    );
+
+    collections.create_collection(collection_struct);
+}
+
+@extend(ft_auth.auth_handler)
+function () = ft_auth.add_overridable_auth_handler(
+    scope = rell.meta(update_collection_details).mount_name,
+    flags = []
+);
+
+operation update_collection_details(collection_id: text, name: text, description: text) {
+    val owner_account = ft_auth.authenticate();
+    val collection = collections.Collection(collection_id);
+
+    collections.update_collection_details(collection, name, description);
+}
+
+@extend(ft_auth.auth_handler)
+function () = ft_auth.add_overridable_auth_handler(
+    scope = rell.meta(add_social_url_to_collection).mount_name,
+    flags = []
+);
+
+operation add_social_url_to_collection(collection_id: text, social_name: text, social_url: text) {
+    val owner_account = ft_auth.authenticate();
+    val collection = collections.Collection(collection_id);
+
+    collections.add_social_url_to_collection(collection, social_name, social_url);
+}
+
+@extend(ft_auth.auth_handler)
+function () = ft_auth.add_overridable_auth_handler(
+    scope = rell.meta(update_collection_social_url).mount_name,
+    flags = []
+);
+
+operation update_collection_social_url(collection_id: text, social_name: text, url: text) {
+    val owner_account = ft_auth.authenticate();
+    val collection = collections.Collection(collection_id);
+
+    collections.update_collection_social_url(collection, social_name, url);
+}
+
+@extend(ft_auth.auth_handler)
+function () = ft_auth.add_overridable_auth_handler(
+    scope = rell.meta(update_collection_background_image).mount_name,
+    flags = []
+);
+
+operation update_collection_background_image(collection_id: text, new_background_image: text) {
+    val owner_account = ft_auth.authenticate();
+    val collection = collections.Collection(collection_id);
+    
+    collections.update_collection_background_image(collection, new_background_image);
+}
+
+@extend(ft_auth.auth_handler)
+function () = ft_auth.add_overridable_auth_handler(
+    scope = rell.meta(update_collection_avatar).mount_name,
+    flags = []
+);
+
+operation update_collection_avatar(collection_id: text, avatar: text) {
+    val owner_account = ft_auth.authenticate();
+    val collection = collections.Collection(collection_id);
+
+    collections.update_collection_avatar(collection, avatar);
+}

@@ -1,0 +1,33 @@
+function map_collection_basic(collection, socials: list<collection_social_url>) {
+    return (
+        id = collection.id,
+        symbol = collection.symbol,
+        project_id = collection.project.id,
+        author = collection.author.id,
+        name = collection.name,
+        description = collection.description,
+        owner = collection.owner.id,
+        background_image = collection.background_image,
+        collection_avatar = collection.collection_avatar,
+        socials = socials
+    );
+}
+
+function map_collection_details(collection, socials: list<collection_social_url>) {
+    return (
+        id = collection.id,
+        project = (
+            rowid = collection.project.rowid,
+            id = collection.project.id,
+            name = collection.project.name,
+            avatar = collection.project.avatar
+        ),
+        author = collection.author.id,
+        name = collection.name,
+        description = collection.description,
+        owner = collection.owner.id,
+        background_image = collection.background_image,
+        collection_avatar = collection.collection_avatar,
+        socials = socials
+    );
+}

@@ -1,0 +1,105 @@
+//todo matCzelusniak. It's centrallized app with possibility to set interface
+operation set_current_version_of_hero_interface_id(
+  id: big_integer
+) {
+  // todo matCzelusniak - add support for admin flag
+  //ft_admin.require_admin();
+  require(
+    originals_light_interfaces.interface @? {.id == id}, 
+    "Interface with given id does not exist."
+  );
+  game_assets.config.hero_interface_id = id;
+}
+
+operation set_current_version_of_battle_arena_interface_id(
+  id: big_integer
+) {
+  // todo matCzelusniak - add support for admin flag
+  //ft_admin.require_admin();
+  require(
+    originals_light_interfaces.interface @? {.id == id}, 
+    "Interface with given id does not exist."
+  );
+  game_assets.config.battle_arena_interface_id = id;
+}
+
+operation register_and_mint_asset_hero(
+  name: text,
+  symbol: text,
+  decimals: integer,
+  blockchain_rid: byte_array,
+  icon_url: text,
+  type: text = ft_assets.ASSET_TYPE_FT4,
+  attributes: list<(
+    attribute_name: text,
+    type: originals_light_attributes.attribute_type,
+    attribute_value: byte_array
+  )>
+) {
+  // every user of daap can register asset hero 
+  // for example after pay for it
+  // add support for auth later
+  //val account = ft_auth.authenticate();
+  val account = ft_accounts.account @ { .id == x"01" };
+  originals_light_interfaces.require_interface_compatibility(
+    attributes,
+    originals_light_interfaces.interface @ { .id == game_assets.config.hero_interface_id }
+  );
+
+  val asset = originals_light_assets.register_asset(
+    name,
+    symbol,
+    decimals,
+    blockchain_rid,
+    icon_url,
+    ft_assets.ASSET_TYPE_FT4,
+    attributes
+  );
+
+  originals_light_assets.mint_asset(
+    asset.id,
+    1,
+    [account.id]
+  );
+}
+
+
+//todo matCzelusniak add flag that user with flag 'ADMIN' can register battle arena
+operation register_and_mint_asset_battle_arena(
+  name: text,
+  symbol: text,
+  decimals: integer,
+  blockchain_rid: byte_array,
+  icon_url: text,
+  attributes: list<(
+    attribute_name: text,
+    type: originals_light_attributes.attribute_type,
+    attribute_value: byte_array
+  )>
+) {
+  // every user of daap can register asset battle arena 
+  // for example after pay for it
+  // add support for auth later
+  //val account = ft_auth.authenticate();
+  val account = ft_accounts.account @ { .id == x"01" };
+  originals_light_interfaces.require_interface_compatibility(
+    attributes,
+    originals_light_interfaces.interface @ { .id == game_assets.config.battle_arena_interface_id }
+  );
+
+  val asset = originals_light_assets.register_asset(
+    name,
+    symbol,
+    decimals,
+    blockchain_rid,
+    icon_url,
+    ft_assets.ASSET_TYPE_FT4,
+    attributes
+  );
+
+  originals_light_assets.mint_asset(
+    asset.id,
+    1,
+    [account.id]
+  );
+}

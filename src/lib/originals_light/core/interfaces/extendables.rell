@@ -1,0 +1,19 @@
+// todo matCzelusniak: add description
+@extendable
+function before_register_interface(
+  name: text,
+  attributes: list<(
+    attribute_name: text,
+    type: attributes.attribute_type
+  )>
+);
+
+// todo matCzelusniak: add description
+@extendable
+function after_register_interface(
+  name: text,
+  attributes: list<(
+    attribute_name: text,
+    type: attributes.attribute_type
+  )>
+);

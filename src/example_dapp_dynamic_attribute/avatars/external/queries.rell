@@ -1,0 +1,18 @@
+struct pudgy_rod {
+  id: byte_array;
+  name: name;
+  durability: big_integer;
+}
+
+query get_rods(): list<pudgy_rod> {
+  return originals_light_attributes.attribute @* {
+    .asset.name == "fishing_rod",
+    .name == "durability"
+  } (
+    pudgy_rod(
+      id = $.asset.id,
+      name = $.asset.name,
+      durability = big_integer.from_bytes($.value)
+    )
+  );
+}

@@ -1,0 +1,10 @@
+# General
+.env
+.env.local
+
+# Chromia CLI
+.secret
+.chromia
+.pmc
+logs
+build

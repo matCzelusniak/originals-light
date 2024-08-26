@@ -1,0 +1,25 @@
+operation add_attribute_to_asset(
+  asset_id: byte_array,
+  attribute_name: text,
+  type: attributes.attribute_type,
+  attribute_value: byte_array
+){
+  attributes.add_attribute_to_asset(
+    asset_id,
+    attribute_name,
+    type,
+    attribute_value
+  );
+}
+
+operation update_attribute(
+  asset_id: byte_array,
+  attribute_name: text,
+  attribute_value: byte_array
+) {
+  attributes.update_attribute(
+    asset_id,
+    attribute_name,
+    attribute_value
+  );
+}

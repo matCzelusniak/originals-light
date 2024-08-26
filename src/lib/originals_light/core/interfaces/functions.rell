@@ -1,0 +1,25 @@
+function register_interface(
+  name: text,
+  attributes: list<(
+    attribute_name: text,
+    type: attributes.attribute_type
+  )>
+) {
+  interface @* {} ( @sort_desc .id ) limit 1;
+
+  val last_id = (interface @* {} ( @sort_desc .id ) limit 1 );
+  val next_id = if (last_id.size() > 0) last_id[0] + 1 else 1;
+
+  val interface_created = create interface(
+    id = next_id,
+    name = name
+  );
+
+  for(attribute in attributes){
+    create interface_attributes(
+      interface = interface_created,
+      attribute_name = attribute.attribute_name,
+      type = attribute.type
+    );
+  }
+}

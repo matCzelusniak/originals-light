@@ -1,0 +1,36 @@
+query get_projects(page_cursor: text) {
+    val cursor = pagination.decode_cursor(page_cursor);
+    val projects = projects.get_projects(cursor);
+    
+    return pagination.make_page(projects, cursor);
+}
+
+query get_project_social_urls(project_id: text, page_cursor: text){
+    val project = projects.get_project(project_id);
+    if (empty(project)) {
+        return null;
+    }
+
+    val cursor = pagination.decode_cursor(page_cursor);
+    val project_social_urls = projects.project_social_urls(project, cursor);
+    
+    return pagination.make_page(project_social_urls, cursor);
+}
+
+query get_project(project_id: text) {
+    val project = projects.get_project(project_id);
+    if (empty(project)) {
+        return null;
+    }
+
+    return projects.map_project_details(project).to_gtv_pretty();
+}
+
+query get_project_hash(project_id: text) {
+    val project = projects.get_project(project_id);
+    if (empty(project)) {
+        return null;
+    }
+
+    return projects.get_project_hash(project);
+}

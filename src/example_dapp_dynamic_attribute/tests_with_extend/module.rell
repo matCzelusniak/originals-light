@@ -1,0 +1,7 @@
+@test module;
+import avatars_ext: ^.avatars.external;
+import ft_accounts_ext: lib.ft4.external.accounts;
+import originals_light_assets_ext: lib.originals_light.external.assets;
+import originals_light_attributes: lib.originals_light.attributes;
+import ft_assets: lib.ft4.assets;
+import avatars_external_extend: ^.avatars.external_extend_example;

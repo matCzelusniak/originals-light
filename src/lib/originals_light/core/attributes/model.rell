@@ -1,0 +1,20 @@
+enum attribute_type {
+  boolean,
+  byte_array,
+  decimal,
+  instance,
+  integer,
+  text,
+  big_integer
+  // set,
+  // list,
+  //map
+}
+
+entity attribute {
+  index asset: ft_assets.asset;
+  index name: text;
+  mutable value: byte_array;
+  key asset, name;
+  type: attribute_type;
+}

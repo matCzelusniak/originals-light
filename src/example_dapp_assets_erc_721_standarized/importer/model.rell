@@ -1,0 +1,3 @@
+object config {
+  mutable erc721_current_version: big_integer = 0;
+}

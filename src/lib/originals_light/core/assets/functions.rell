@@ -1,0 +1,76 @@
+function register_asset(
+  name,
+  symbol: text,
+  decimals: integer,
+  blockchain_rid: byte_array,
+  icon_url: text,
+  type: text = ft_assets.ASSET_TYPE_FT4,
+  asset_attributes: list<(
+    attribute_name: text,
+    type: attributes.attribute_type,
+    attribute_value: byte_array
+  )>?
+) : ft_assets.asset {
+  before_register_asset(
+    name,
+    symbol,
+    decimals,
+    blockchain_rid,
+    icon_url,
+    type,
+    asset_attributes
+  );
+
+  val asset = ft_assets.Unsafe.register_asset(
+    name = name,
+    symbol = symbol,
+    decimals = 0,
+    blockchain_rid = chain_context.blockchain_rid,
+    icon_url = icon_url,
+    type = type
+  );
+
+  if(asset_attributes != null){
+    for(attribute in asset_attributes){
+      attributes.add_attribute_to_asset(
+        asset.id,
+        attribute.attribute_name,
+        attribute.type,
+        attribute.attribute_value
+      );
+    }
+  }
+
+  after_register_asset(
+    asset,
+    asset_attributes
+  );
+
+  return asset;
+}
+
+function mint_asset(
+  asset_id: byte_array,
+  amount: big_integer,
+  accounts: list<byte_array>?
+) {
+  before_mint(
+    asset_id,
+    amount,
+    accounts
+  );
+  val accounts_list = get_accounts_to_mint(accounts);
+  val asset = ft_assets.Asset(asset_id);
+
+  for(account in accounts_list){
+    ft_assets.Unsafe.mint(
+      account,
+      asset,
+      amount
+    );
+  }
+
+  after_mint(
+    asset
+  );
+}

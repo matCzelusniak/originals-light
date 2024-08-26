@@ -1,0 +1,23 @@
+//todo matCzelusniak. It's centrallized app with possibility to set interface
+
+operation set_current_version_of_erc721_interface(
+  id: big_integer
+) {
+  require(
+    originals_light_interfaces.interface @? {.id == id}, 
+    "Interface with given id does not exist."
+  );
+  importer.config.erc721_current_version = id;
+}
+
+// simple registration without auth descriptors for test purposes
+// todo matCzelusniak - add support for registration with ft4 functions.
+operation register_account (
+  account_id: byte_array,
+  name: text
+) {
+  create ft_accounts.account(
+    id = account_id, 
+    name
+  );
+}

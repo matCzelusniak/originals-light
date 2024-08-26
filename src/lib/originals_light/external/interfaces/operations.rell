@@ -1,0 +1,12 @@
+operation register_interface(
+  name: text,
+  interface_attributes: list<(
+    attribute_name: text,
+    type: attributes.attribute_type
+  )>
+){
+  interfaces.register_interface(
+    name,
+    interface_attributes
+  );
+}

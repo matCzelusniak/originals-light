@@ -1,0 +1,25 @@
+
+function equip_fishing_rod(avatar_id: byte_array, fishing_rod_id: byte_array) {
+  create equipped_fishing_rod ( 
+    avatar = ft_assets.Asset(avatar_id), 
+    fishing_rod = ft_assets.Asset(fishing_rod_id)
+  );
+}
+
+function unequip_fishing_rod(avatar_id: byte_array) {
+  delete equipped_fishing_rod @ { .avatar.id == avatar_id };
+}
+
+function pull_fish(avatar_id: byte_array) {
+  val avatar = ft_assets.Asset(avatar_id);
+  val fishes_caught_attribute = originals_light_attributes.attribute @ { .asset.id == avatar_id, .name == "fishes_caught" };
+  update fishes_caught_attribute ( (big_integer.from_bytes(fishes_caught_attribute.value) + 1).to_bytes() );
+
+  val fishing_rod = equipped_fishing_rod @ { .avatar.id == avatar_id } ( .fishing_rod );
+  val fishing_rod_durability_attribute = 
+    originals_light_attributes.attribute @ { .asset.id == fishing_rod.id, .name == "durability" };
+
+  update fishing_rod_durability_attribute ( 
+    (big_integer.from_bytes(fishing_rod_durability_attribute.value) - 1).to_bytes() 
+  );
+}
