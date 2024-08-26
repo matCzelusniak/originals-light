@@ -1,0 +1,61 @@
+function add_attribute_to_asset(
+  asset_id: byte_array,
+  attribute_name: text,
+  type: attribute_type,
+  attribute_value: byte_array
+) {
+  val asset = ft_assets.Asset(asset_id);
+
+  before_add_attribute_to_asset(
+    asset,
+    attribute_name,
+    type,
+    attribute_value
+  );
+
+  when (type){
+    attribute_type.boolean,
+    attribute_type.byte_array,
+    attribute_type.decimal,
+    attribute_type.integer,
+    attribute_type.big_integer,
+    attribute_type.text
+     -> {
+      create attribute(
+        asset,
+        name = attribute_name,
+        value = attribute_value,
+        type = type
+      );
+    }
+    else -> {
+      require(false, "Unsupported attribute type");
+    }
+  }
+
+  after_add_attribute_to_asset(
+    asset,
+    attribute_name,
+    type,
+    attribute_value
+  );
+}
+
+function update_attribute(
+  asset_id: byte_array,
+  attribute_name: text,
+  attribute_value: byte_array
+) {
+  before_update_attribute(
+    asset_id,
+    attribute_name,
+    attribute_value
+  );
+  update attribute @ { .name == attribute_name, .asset.id == asset_id } ( value = attribute_value );
+
+  after_update_attribute(
+    asset_id,
+    attribute_name,
+    attribute_value
+  );
+}

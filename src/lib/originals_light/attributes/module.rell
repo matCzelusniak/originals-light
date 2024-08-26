@@ -1,0 +1,2 @@
+import ^.core.attributes.*;
+import external: ^.external.attributes;

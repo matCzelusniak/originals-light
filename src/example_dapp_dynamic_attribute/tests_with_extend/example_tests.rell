@@ -1,0 +1,28 @@
+
+function test_mint_avatar_with_standard_operation() {
+    val account_id = x"01";
+    avatars_ext.register_account(
+        account_id,
+        "test_account"
+    ).run();
+
+    originals_light_assets_ext.register_and_mint_asset(
+        "avatar",
+        "AVT",
+        0,
+        chain_context.blockchain_rid,
+        "https://example.com/avatar.png",
+        ft_assets.ASSET_TYPE_FT4,
+        [
+            (
+              attribute_name  = "fishes_caught",
+              type = originals_light_attributes.attribute_type.integer,
+              attribute_value = big_integer(0).to_bytes()
+            )
+        ],
+        [
+            account_id
+        ],
+        1
+    ).run();
+}

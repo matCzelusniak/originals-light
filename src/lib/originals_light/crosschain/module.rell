@@ -1,0 +1,14 @@
+// @mount("yours")
+// module;
+
+// import ^^.yours.*;
+
+// namespace ft4 {
+//   import lib.ft4.auth;
+//   import lib.ft4.accounts;
+// }
+
+// import lib.iccf;
+
+
+//todo matCzelusniak - use ft4 functionality for crosschain

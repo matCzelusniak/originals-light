@@ -1,0 +1,3 @@
+import ft_assets: lib.ft4.core.assets;
+import ft_accounts: lib.ft4.core.accounts;
+import ^.attributes;

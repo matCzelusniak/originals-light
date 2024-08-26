@@ -1,0 +1,31 @@
+
+@extend(originals_light_assets.before_register_asset)
+function (
+  name,
+  symbol: text,
+  decimals: integer,
+  blockchain_rid: byte_array,
+  icon_url: text,
+  type: text = ft_assets.ASSET_TYPE_FT4,
+  attributes: list<(
+    attribute_name: text,
+    type: originals_light_attributes.attribute_type,
+    attribute_value: byte_array
+  )>?
+) {
+  //In this dapp only authenticated account can create new asset
+  // add support for auth later
+  //ft_auth.authenticate();
+}
+
+@extend(originals_light_interfaces.before_register_interface)
+function (
+  name: text,
+  attributes: list<(
+    attribute_name: text,
+    type: originals_light_attributes.attribute_type
+  )>
+) {
+  // example of centralized app. Only admin of the app can define new interface/type of asset
+  ft_admin.require_admin();
+}

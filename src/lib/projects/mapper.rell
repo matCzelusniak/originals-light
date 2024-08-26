@@ -1,0 +1,28 @@
+function map_project_basic(project) {
+    return (
+        id = project.id,
+        name = project.name,
+        name_lowercased = project.name_lowercased,
+        avatar = project.avatar,
+        background_image = project.background_image,
+        owner = project.owner.id,
+        website = project.website,
+        description = project.description
+    );
+}
+
+function map_project_details(project) {
+    return (
+        id = project.id,
+        name = project.name,
+        name_lowercased = project.name_lowercased,
+        avatar = project.avatar,
+        background_image = project.background_image,
+        owner = project.owner.id,
+        treasury = project.treasury.id,
+        website = project.website,
+        description = project.description,  
+        created_at = project.created_at,
+        reports_count = project.reports_count
+    );
+}

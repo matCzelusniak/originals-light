@@ -1,0 +1,111 @@
+@extendable
+function before_create_project(
+    project_owner: ft_core_accounts.account,
+    projects.simple_project_props
+);
+
+@extendable
+function after_create_project(
+    project_owner: ft_core_accounts.account,
+    projects.simple_project_props
+);
+
+@extendable
+function before_create_project_admins(
+    projects.project,
+    admin_ids: list<byte_array>
+);
+
+@extendable
+function after_create_project_admins(
+    projects.project,
+    admin_ids: list<byte_array>
+);
+
+@extendable
+function before_update_project_background_image(
+    projects.project,
+    background_image: text
+);
+
+@extendable
+function after_update_project_background_image(
+    projects.project,
+    background_image: text
+);
+
+@extendable
+function before_update_project_avatar(
+    projects.project,
+    new_avatar: text
+);
+
+@extendable
+function after_update_project_avatar(
+    projects.project,
+    new_avatar: text
+);
+
+@extendable
+function before_update_project_name(
+    projects.project,
+    new_name: text
+);
+
+@extendable
+function after_update_project_name(
+    projects.project,
+    new_name: text
+);
+
+@extendable
+function before_update_project_description(
+    projects.project,
+    new_description: text
+);
+
+@extendable
+function after_update_project_description(
+    projects.project,
+    new_description: text
+);
+
+@extendable
+function before_add_project_social_url(
+    projects.project,
+    social_name: text,
+    social_url: text
+);
+
+@extendable
+function after_add_project_social_url(
+    projects.project,
+    social_name: text,
+    social_url: text
+);
+
+@extendable
+function before_update_project_social_url(
+    projects.project,
+    social_name: text,
+    social_url: text
+);
+
+@extendable
+function after_update_project_social_url(
+    projects.project,
+    social_name: text,
+    social_url: text
+);
+
+@extendable
+function before_update_project_website(
+    projects.project,
+    new_website: text
+);
+
+@extendable
+function after_update_project_website(
+    projects.project,
+    new_website: text
+);

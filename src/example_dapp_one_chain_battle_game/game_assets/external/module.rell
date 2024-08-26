@@ -1,0 +1,11 @@
+module;
+import ^.extend;
+import ^^.game_assets;
+import ft_accounts: lib.ft4.accounts;
+import ft_admin: lib.ft4.core.admin;
+import ft_assets: lib.ft4.assets;
+import ft_auth: lib.ft4.auth;
+
+import originals_light_assets: lib.originals_light.assets;
+import originals_light_attributes: lib.originals_light.attributes;
+import originals_light_interfaces: lib.originals_light.core.interfaces;

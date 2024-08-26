@@ -1,0 +1,73 @@
+@extendable
+function before_create_collection(
+    collection: struct<collections.collection>
+);
+
+@extendable
+function after_create_collection(
+    collection: struct<collections.collection>
+);
+
+@extendable
+function before_update_collection_details(
+    collections.collection,
+    new_name: text,
+    new_description: text
+);
+
+@extendable
+function after_update_collection_details(
+    collections.collection,
+    new_name: text,
+    new_description: text
+);
+
+@extendable
+function before_add_social_url_to_collection(
+    collections.collection,
+    social_name: text,
+    social_url: text
+);
+
+@extendable
+function after_add_social_url_to_collectionl(
+    collections.collection,
+    social_name: text,
+    social_url: text
+);
+
+@extendable
+function before_update_collection_social_url(
+    collections.collection_social_url,
+    social_url: text
+);
+
+@extendable
+function after_update_collection_social_url(
+    collections.collection_social_url,
+    social_url: text
+);
+
+@extendable
+function before_update_collection_avatar(
+    collections.collection,
+    new_avatar: text
+);
+
+@extendable
+function after_update_collection_avatar(
+    collections.collection,
+    new_avatar: text
+);
+
+@extendable
+function before_update_collection_background_image(
+    collections.collection,
+    new_background_image: text
+);
+
+@extendable
+function after_update_collection_background_image(
+    collections.collection,
+    new_background_image: text
+);

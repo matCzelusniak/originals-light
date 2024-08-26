@@ -1,0 +1,4 @@
+module;
+import ft_assets: lib.ft4.assets;
+import ^^.core.assets;
+import ^^.core.attributes;

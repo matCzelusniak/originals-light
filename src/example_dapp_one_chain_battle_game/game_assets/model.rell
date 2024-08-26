@@ -1,0 +1,4 @@
+object config {
+  mutable hero_interface_id: big_integer = 0;
+  mutable battle_arena_interface_id: big_integer = 0;
+}

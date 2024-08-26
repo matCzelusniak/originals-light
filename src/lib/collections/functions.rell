@@ -1,0 +1,120 @@
+function Collection(id: text) = require(
+    collection @? { id },
+    "Collection '%s' not found".format(id)
+);
+
+function CollectionSocial(name: text) = require(
+    collection_social_url @? { name },
+    "Collection social not found '%s'".format(name)
+);
+
+function validate_collection_does_not_exist(
+    id: text,
+    symbol: text
+) {
+    require(
+        not exists(collection @? { id }),
+        "Collection with id '%s' already exists".format(id)
+    );
+    require(
+        not exists(collection @? { symbol }),
+        "Collection with symbol '%s' already exists".format(symbol)
+    );
+}
+
+function validate_collection_params(
+    collection_data: struct<collection>
+) {
+    require(
+        common.is_alphanumeric_upper_case(collection_data.symbol),
+        "Collection symbol '%s' is not alphanumeric upper case".format(collection_data.symbol)
+    );
+    require(
+        collection_data.id.size() <= 50 and collection_data.id.size() > 0,
+        "Collection id '%s' has invalid length".format(collection_data.id)
+    );
+    require(
+        collection_data.name.size() <= 50 and collection_data.name.size() > 0, 
+        "Collection name '%s' has invalid length".format(collection_data.name)
+    );
+
+    validate_collection_description_length(collection_data.description);
+}
+
+function validate_collection_description_length(description: text) =
+    require(
+        description.size() <= 200 and description.size() > 0, 
+        "Collection description '%s' has invalid length".format(description)
+    );
+
+function add_social_url_to_collection(collection, social_name: text, social_url: text) {
+    extensions.before_add_social_url_to_collection(collection, social_name, social_url);
+
+    create collection_social_url(collection, url = social_url, name =  social_name);
+
+    extensions.after_add_social_url_to_collectionl(collection, social_name, social_url);
+}
+
+function create_collection(collection_struct: struct<collection>) {
+    extensions.before_create_collection(collection_struct);
+
+    validate_collection_params(collection_struct);
+    validate_collection_does_not_exist(collection_struct.id, collection_struct.symbol);
+
+    val collection = create collection(collection_struct);
+
+    extensions.after_create_collection(collection.to_struct());
+}
+
+function update_collection_details(collection, name: text, description: text) {
+    extensions.before_update_collection_details(collection, name, description);
+
+    require(
+        name.size() <= 50 and name.size() > 0, 
+        "Collection name '%s' has invalid length".format(name)
+    );
+    validate_collection_description_length(description);
+
+    update collection(name, description);
+
+    extensions.after_update_collection_details(collection, name, description);
+}
+
+function update_collection_social_url(collection, name: text, url: text) {
+    val collection_social = CollectionSocial(name);
+
+    extensions.before_update_collection_social_url(collection_social, url);
+
+    require(collection_social.url != url,
+        "Failed to update social url '%s' that is the same as the existing one".format(url)
+    );
+
+    update collection_social(url);
+
+    extensions.after_update_collection_social_url(collection_social, url);
+}
+
+function update_collection_avatar(collection, new_avatar: text) {
+    extensions.before_update_collection_avatar(collection, new_avatar);
+
+    update collection (.collection_avatar = new_avatar);
+
+    extensions.after_update_collection_avatar(collection, new_avatar);
+}
+
+function update_collection_background_image(collection, new_background_image: text) {
+    extensions.before_update_collection_background_image(collection, new_background_image);
+
+    update collection (.background_image = new_background_image);
+
+    extensions.after_update_collection_background_image(collection, new_background_image);
+}
+
+function get_collection_by_id(id: text) =
+    collection @? { id };
+
+function get_collection_hash(collection) {
+    val socials = collection_social_url @* { collection };
+
+    return map_collection_basic(collection, socials).hash();
+}

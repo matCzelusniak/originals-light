@@ -1,0 +1,29 @@
+{
+  "name": "yours",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start:network": "docker network create yours_network",
+    "start:postgres": "docker run -e POSTGRES_DB=postchain -e POSTGRES_USER=postchain -e POSTGRES_PASSWORD=postchain --network yours_network -p 5432:5432 -d --name postgres postgres:14.1-alpine",
+    "stop": "docker rm -f -v fondaco_blockchain postgres || true && docker network rm yours_network || true",
+    "postinstall": "node scripts/chr.js install",
+    "prestart:test": "npm run stop && npm run start:network && npm run start:postgres",
+    "test": "node scripts/rell-tests.js",
+    "test:integration": "jest --runInBand --detectOpenHandles --forceExit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@chromia/ft4": "^1.0.0",
+    "@testcontainers/postgresql": "^10.8.2",
+    "@types/jest": "^29.5.12",
+    "dotenv": "^16.4.5",
+    "jest": "^29.7.0",
+    "testcontainers": "^10.8.2",
+    "ts-jest": "^29.2.4",
+    "typescript": "^5.4.5"
+  }
+}

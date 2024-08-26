@@ -1,0 +1,11 @@
+function require_interface_compatibility(
+  asset_attributes: list<(
+    attribute_name: text,
+    type: attributes.attribute_type,
+    attribute_value: byte_array
+  )>,
+  interface: interface
+) {
+  val interface_attributes = interface_attributes @* {.interface == interface} (.attribute_name, .type);
+  attributes.check_required_attributes(asset_attributes, interface_attributes);
+}

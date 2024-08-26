@@ -1,0 +1,37 @@
+// entity applied_transfers {
+//   key init_tx_rid, init_op_index;
+//   init_tx_rid: byte_array;
+//   init_op_index: integer;
+//   transaction;
+//   op_index: integer;
+// }
+
+// entity canceled_transfers {
+//   key init_tx_rid, init_op_index;
+//   init_tx_rid: byte_array;
+//   init_op_index: integer;
+// }
+
+// entity unapplied_transfers {
+//   key init_tx_rid, init_op_index;
+//   init_tx_rid: byte_array;
+//   init_op_index: integer;
+// }
+
+// entity recalled_transfers {
+//   key init_tx_rid, init_op_index;
+//   init_tx_rid: byte_array;
+//   init_op_index: integer;
+// }
+
+// entity pending_transfer {
+//   key transaction, op_index;
+//   op_index: integer;
+//   index sender: ft4.accounts.account;
+// }
+
+// entity reverted_transfer {
+//   key init_tx_rid, init_op_index;
+//   init_tx_rid: byte_array;
+//   init_op_index: integer;
+// }

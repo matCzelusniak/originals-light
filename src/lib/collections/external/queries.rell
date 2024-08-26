@@ -1,0 +1,15 @@
+query get_collection_details_by_id(collection_id: text) {
+    val collection = collections.get_collection_by_id(collection_id);
+    if (empty(collection)) return null;
+    
+    val socials = collections.collection_social_url @* { collection };
+
+    return collections.map_collection_details(collection, socials);
+}
+
+query get_collection_hash(collection_id: text) {
+    val collection = collections.get_collection_by_id(collection_id);
+    if (empty(collection)) return null;
+
+    return collections.get_collection_hash(collection);
+}

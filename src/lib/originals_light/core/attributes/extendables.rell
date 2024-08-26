@@ -1,0 +1,33 @@
+// todo matCzelusniak: add description
+@extendable
+function before_add_attribute_to_asset(
+  ft_assets.asset,
+  attribute_name: text,
+  type: attribute_type,
+  attribute_value: byte_array
+);
+
+// todo matCzelusniak: add description
+@extendable
+function after_add_attribute_to_asset(
+  ft_assets.asset,
+  attribute_name: text,
+  type: attribute_type,
+  attribute_value: byte_array
+);
+
+// todo matCzelusniak: add description
+@extendable
+function before_update_attribute(
+  asset_id: byte_array,
+  attribute_name: text,
+  attribute_value: byte_array
+);
+
+// todo matCzelusniak: add description
+@extendable
+function after_update_attribute(
+  asset_id: byte_array,
+  attribute_name: text,
+  attribute_value: byte_array
+);

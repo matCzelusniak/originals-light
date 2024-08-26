@@ -1,0 +1,107 @@
+function test_mint_avatar_with_dedicated_operation() {
+    val account_id = x"01";
+    avatars_ext.register_account(
+        account_id,
+        "test_account"
+    ).run();
+
+    avatars_ext.register_and_mint_avatar(
+        "avatar",
+        "AVT",
+        0,
+        chain_context.blockchain_rid,
+        "https://example.com/avatar.png",
+        ft_assets.ASSET_TYPE_FT4,
+        [
+            (
+              attribute_name  = "fishes_caught",
+              type = originals_light.attribute_type.big_integer,
+              attribute_value = big_integer(0).to_bytes()
+            )
+        ],
+        [
+            account_id
+        ],
+        1
+    ).run();
+}
+
+function test_mint_avatar_with_dedicated_operation_failed_if_no_required_attribute() {
+    val account_id = x"01";
+    avatars_ext.register_account(
+        account_id,
+        "test_account"
+    ).run();
+
+    avatars_ext.register_and_mint_avatar(
+        "avatar",
+        "AVT",
+        0,
+        chain_context.blockchain_rid,
+        "https://example.com/avatar.png",
+        ft_assets.ASSET_TYPE_FT4,
+        [],
+        [
+            account_id
+        ],
+        1
+    ).run_must_fail("Not all required attributes are present");
+}
+
+
+function test_equip_fishing_rod() {
+    val account_id = x"01";
+    avatars_ext.register_account(
+        account_id,
+        "test_account"
+    ).run();
+
+    avatars_ext.register_and_mint_avatar(
+        "avatar",
+        "AVT",
+        0,
+        chain_context.blockchain_rid,
+        "https://example.com/avatar.png",
+        ft_assets.ASSET_TYPE_FT4,
+        [
+            (
+              attribute_name  = "fishes_caught",
+              type = originals_light.attribute_type.big_integer,
+              attribute_value = big_integer(0).to_bytes()
+            )
+        ],
+        [
+            account_id
+        ],
+        1
+    ).run();
+
+    val avatar = ft_assets.asset @{.name == "avatar"};
+
+    avatars_ext.register_and_mint_fishing_rod(
+        "fishing_rod",
+        "FR",
+        0,
+        chain_context.blockchain_rid,
+        "https://example.com/fishing_rod.png",
+        ft_assets.ASSET_TYPE_FT4,
+        [
+            (
+              attribute_name  = "durability",
+              type = originals_light.attribute_type.big_integer,
+              attribute_value = big_integer(100).to_bytes()
+            )
+        ],
+        [
+            account_id
+        ],
+        1
+    ).run();
+
+    val fishing_rod = ft_assets.asset @{.name == "fishing_rod"};
+
+    avatars_ext.equip_fishing_rod(
+        avatar.id,
+        fishing_rod.id
+    ).run();
+}

@@ -1,0 +1,27 @@
+struct page_cursor {
+    page_size: integer;
+    after_rowid: rowid? = null;
+    after_page: integer? = null;
+}
+
+struct pagination_result {
+    data: gtv;
+    rowid: rowid;
+}
+
+struct paged_result {
+    next_cursor: text?;
+    data: list<gtv>;
+}
+
+struct page_cursor_instance_id {
+    page_size: integer;
+    instance_rowid: rowid = rowid.from_gtv(integer(0).to_gtv());
+    prototype_rowid: rowid = rowid.from_gtv(integer(0).to_gtv());
+}
+
+struct pagination_result_with_instance_id {
+    data: gtv;
+    instance_rowid: rowid;
+    prototype_rowid: rowid;
+}

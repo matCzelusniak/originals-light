@@ -1,0 +1,33 @@
+module;
+
+import lib.yours;
+
+entity tracker {
+  key yours.token;
+  mutable last_block_time: integer;
+}
+
+@extend(yours.populate_metadata)
+function populate_metadata(yours.token, modules: set<name>): map<text, gtv>? {
+  if (not modules.contains("tracker")) return null;
+  val metadata = map<text, gtv>();
+
+  val tracker = tracker @? { token };
+  if (tracker == null) return null;
+
+  metadata.put("Recent Mega Chain Visit", tracker.last_block_time.to_gtv());
+
+  return metadata;
+}
+
+@extend(yours.after_apply_transfer)
+function after_apply_transfer(yours.token, modules: set<name>,attributes: map<text, gtv>) {
+  if (not modules.contains("tracker")) return;
+
+  val tracker = tracker @? { token };
+  if (tracker == null) {
+    create tracker(token, op_context.last_block_time);
+  } else {
+    update tracker ( last_block_time = op_context.last_block_time );
+  }
+}

@@ -1,0 +1,3 @@
+object config_game {
+  mutable battle_interface_id: big_integer = 0;
+}

@@ -1,0 +1,24 @@
+function is_alphanumeric_upper_case(input: text) = input.matches("[A-Z0-9]+");
+
+function is_valid_url(url: text) =
+    url.matches(
+        "^((https?:\\/\\/)|(filehub:\\/\\/))(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}(\\.[a-zA-Z0-9()]{1,6}\\b)?([-a-zA-Z0-9()@:%_\\+.~#?&\\\\/=]*)$"
+    );
+
+function validate_url(url: text, message: text = "Invalid URL") = 
+    require(is_valid_url(url), "%s %s".format(message, url));
+
+function validate_input_text_length(
+    input_text: text,
+    max_length: integer,
+    message: text = "Input too long"
+    ) = 
+    require(input_text.size() <= max_length, "%s %s".format(message, input_text));
+
+function now_from_blocks() {
+    return block @ {} ( @sort_desc .timestamp ) limit 1;
+}
+
+function now_from_context() {
+    return op_context.last_block_time;
+}
