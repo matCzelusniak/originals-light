@@ -15,11 +15,11 @@ Dynamic attributes willing to handle not only game and fun related stuff but als
 **Performance**
 Originals-light uses FT4 assets directly without additional wrappers. This approach simplifies and standardizes processes such as asset transferring, balance management, and cross-chain operations. Each dynamic attribute is strictly related to the asset, so for example transferring assets doesn't require additional action on attribute entity.
 
-# Reason of creation Originals-light
+**Reason of creation Originals-light**
 
 We foresee a future where digital assets play a critical role across various sectors, from gaming to industrial use, DeFi, logistics, and beyond. Originals-light is crafted to support this vision by leveraging standard FT4 assets directly, enabling seamless asset transfers, efficient balance management, and streamlined cross-chain operations. Unlike traditional approaches where essential asset-related data often resides off-chain, Originals-light ensures that all relevant information is securely and fully integrated within the blockchain, enhancing transparency and trust in digital asset management.
 
-# Architecture overview
+**Architecture overview**
 
 Originals-light is designed as a modular framework, allowing each component to function independently while working cohesively to manage digital assets with metadata on the Chromia blockchain. The architecture leverages the FT4 standard to handle core functionalities like asset transfers, balance management, and cross-chain operations without additional layers of abstraction.
 
