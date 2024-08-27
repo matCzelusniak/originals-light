@@ -72,7 +72,6 @@ function require_asset_ownership(
   amount: big_integer = 1L
 ) {
   val main_account_balance_amount = ft_assets.get_asset_balance(account, asset);
-  val special_accounts = ft_assets_locking.ensure_lock_account(LINKED, account);
   val special_account_balance_amount = ft_assets_locking.get_locked_asset_aggregated_balance(account, asset, [LINKED]);
 
   require(
@@ -93,6 +92,27 @@ function link_assets(
   require_asset_ownership(account, child_asset, amount);
 
   ft_assets_locking.lock_asset(
+    LINKED,
+    account,
+    child_asset,
+    amount
+  );
+}
+
+
+// Todo create an operation to unlink linked assets -> Ensure it deletes the created attribute
+function unlink_assets(
+  parent_asset: ft_assets.asset,
+  child_asset_id: byte_array,
+  ft_accounts.account,
+  amount: big_integer = 1L
+) {
+  val child_asset = ft_assets.Asset(child_asset_id);
+
+  require_asset_ownership(account, parent_asset);
+  require_asset_ownership(account, child_asset, amount);
+
+  ft_assets_locking.unlock_asset(
     LINKED,
     account,
     child_asset,
