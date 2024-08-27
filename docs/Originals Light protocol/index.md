@@ -1,1 +1,1 @@
-# Description with examples of protocol
+# Protocol description
