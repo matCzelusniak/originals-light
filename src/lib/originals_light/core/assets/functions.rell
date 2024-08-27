@@ -30,17 +30,6 @@ function register_asset(
     type = type
   );
 
-  if(asset_attributes != null){
-    for(attribute in asset_attributes){
-      attributes.add_attribute_to_asset(
-        asset.id,
-        attribute.attribute_name,
-        attribute.type,
-        attribute.attribute_value
-      );
-    }
-  }
-
   after_register_asset(
     asset,
     asset_attributes
@@ -73,4 +62,47 @@ function mint_asset(
   after_mint(
     asset
   );
+}
+
+function register_and_mint_asset(
+  name: text,
+  symbol: text,
+  decimals: integer,
+  blockchain_rid: byte_array,
+  icon_url: text,
+  type: text = ft_assets.ASSET_TYPE_FT4,
+  asset_attributes: list<(
+    attribute_name: text,
+    type: attributes.attribute_type,
+    attribute_value: byte_array
+  )>?,
+  accounts: list<byte_array>?,
+  amount: integer
+){
+  val asset = register_asset(
+    name,
+    symbol,
+    decimals,
+    blockchain_rid,
+    icon_url,
+    type,
+    asset_attributes
+  );
+
+  mint_asset(
+    asset.id,
+    amount,
+    accounts
+  );
+
+  if(asset_attributes != null){
+    for(attribute in asset_attributes){
+      attributes.add_attribute_to_asset(
+        asset.id,
+        attribute.attribute_name,
+        attribute.type,
+        attribute.attribute_value
+      );
+    }
+  }
 }
