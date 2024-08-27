@@ -2,7 +2,7 @@
 
 - [Framework](./Framework/index.md)
 - [Originals-light protocol](./originals_light_protocol/index.md)
-  - [Getting started] (./originals_light_protocol/Getting\ started.index.md)
+  - [Getting started] (./originals_light_protocol/getting_started.index.md)
   - [Assets] (./originals_light_protocol/Assets.index.md)
   - [Attributes] (./originals_light_protocol/Attributes.index.md)
   - [Interfaces] (./originals_light_protocol/Interfaces.index.md)
