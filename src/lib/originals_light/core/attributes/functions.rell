@@ -59,3 +59,7 @@ function update_attribute(
     attribute_value
   );
 }
+
+function get_asset_attributes(asset_id: byte_array): list<attribute> {
+  return attribute @* { .asset.id == asset_id };
+}
