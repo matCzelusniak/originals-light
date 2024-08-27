@@ -24,8 +24,8 @@ Originals-light is designed as a modular framework, allowing each component to f
 
 Key modules include:
 
-Assets Module: Direct interaction with FT4 assets, ensuring streamlined and standardized asset operations.
-Attributes Module: Manages dynamic attributes, allowing assets to evolve and link with other assets.
-Interfaces Module: Defines asset types and ensures compliance with those types. It allows the definition of interfaces without attributes, enabling the implementation of restrictions for specific assets based on whether they implement or do not implement such an interface.
-Collections: Facilitates the organization and grouping of assets for various applications. Collections do not depend on the Projects module, giving users the flexibility to decide whether to connect both.
-Projects: Provides another method of organizing assets.
+- Assets Module: Direct interaction with FT4 assets, ensuring streamlined and standardized asset operations.
+- Attributes Module: Manages dynamic attributes, allowing assets to evolve and link with other assets.
+- Interfaces Module: Defines asset types and ensures compliance with those types. It allows the definition of interfaces without attributes, enabling the implementation of restrictions for specific assets based on whether they implement or do not implement such an interface.
+- Collections: Facilitates the organization and grouping of assets for various applications. Collections do not depend on the - Projects module, giving users the flexibility to decide whether to connect both.
+- Projects: Provides another method of organizing assets.
