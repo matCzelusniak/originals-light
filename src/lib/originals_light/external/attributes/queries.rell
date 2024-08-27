@@ -1,0 +1,3 @@
+query get_attribute_value(asset_id: byte_array, attribute_name: text): byte_array {
+    return attributes.attribute @ { .name == attribute_name, .asset.id == asset_id }(.value);
+}

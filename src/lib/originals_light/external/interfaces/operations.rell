@@ -10,3 +10,13 @@ operation register_interface(
     interface_attributes
   );
 }
+
+operation add_interface_to_asset(
+  asset_id: byte_array,
+  interface_id: big_integer
+){
+  interfaces.add_interface_to_asset(
+    asset_id,
+    interface_id
+  );
+}
