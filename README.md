@@ -1,43 +1,28 @@
-# Originals Light -
+---
+cover: https://gitbookio.github.io/onboarding-template-images/header.png
+coverY: 0
+layout:
+  cover:
+    visible: true
+    size: full
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+---
 
-The Originals Light protocol is a library built on Chromia's relational blockchain that allows the development of decentralized applications without predetermined standards, featuring dynamic attributes and a modular approach.
+# Welcome
 
-Dynamic attributes allow the description of real-world assets without the limitations imposed by standards like pure Yours Protocol, ERC-20, ERC-721, or ERC-1155.
+Welcome to the GitBook Starter Template! Here you'll get an overview of all the amazing features GitBook offers to help you build beautiful, interactive documentation.
 
-## 🌟 Key Features
+You'll see some of the best parts of GitBook in action — and find help on how you can turn this template into your own.
 
-- **Dynamic On-Chain Metadata**: Keep your metadata intact while leveraging generic operations and queries. Minimal code, maximum possibilities
-- **Dynamic On-Chain Metadata**: Predefined algorithms for metadata. User predefined algorithms like rarity calculation with dynamic attributes.
-- **Versatile Token Support**: Accommodate all meaning token types like ERC20, ERC721, ERC1155 as interface with specified metadata. Generate your own schema/interface for required metadata.
-- **Interoperable Schema**: Use standardized ft4 lib for cross-chain transfers.
-- **Interface-Approach**: Use interfaces to authorize access to specific resources. Burnable, Holder, Soulbound interfaces that would be implemented without attributes.
-- **No extra wrappers**: No wrappers for ft4 assets, transfers etc. Keep performance good as ft4 is.
-- **Compability**: FT4 library under the hood. Easier cross chain (standardized) communication.
-- **Keep as you want**: Keep your metadata in your own entities with your own queries and operations if you want.
-- **Partial usage**: Use only attributes if you don't need interfaces and asset type checking.
+### Jump right in
 
-## 🌟 Example
-
-Run tests by command 'chr test' in main directory.
-
-Application example_dapp_dynamic_attribute
-
-- Feature dynamic attributes enabled
-- Dynamic attributes without obligatory interface
-- Possibility of checking required attributes for specific asset in dedicated operation/function or with extension
-- Comparison to the example dapp yours-protocol-dynamic/src/example_dapp2/avatars.
-- Less entities in compare to the yours-protocol-dynamic/src/example_dapp2/avatars
-- Usage generic functions for dynamic attributes.
-
-Application example_dapp_assets_erc_721_standarized
-
-- Example shows importer dapp with standarized metadata schema for asset
-- Feature dynamic attributes enabled
-- Schema by interface
-- Possibility of checking required attributes for specific asset in dedicated operation/function or with extension
-
-Application example_dapp_one_chain_battle_game
-
-- Example of assets for simple battle game
-- Linking one asset to another (helmet to hero)
-- Support for interfaces/types
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Getting Started</strong></td><td>Create your first site</td><td><a href=".gitbook/assets/1.png">1.png</a></td><td></td><td><a href="getting-started/quickstart.md">quickstart.md</a></td></tr><tr><td><strong>Basics</strong></td><td>Learn the basics of GitBook</td><td><a href=".gitbook/assets/2.png">2.png</a></td><td></td><td><a href="broken-reference">Broken link</a></td></tr><tr><td><strong>Publish your docs</strong></td><td>Share your docs online</td><td><a href=".gitbook/assets/3.png">3.png</a></td><td></td><td><a href="getting-started/publish-your-docs.md">publish-your-docs.md</a></td></tr></tbody></table>
