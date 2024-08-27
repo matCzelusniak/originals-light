@@ -47,6 +47,7 @@ operation register_and_mint_asset_battle(
   );
 
   val asset = originals_light_assets.register_asset(
+    account,
     name,
     symbol,
     decimals,

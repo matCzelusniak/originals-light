@@ -1,4 +1,5 @@
 function register_asset(
+  ft_accounts.account,
   name,
   symbol: text,
   decimals: integer,
@@ -10,7 +11,7 @@ function register_asset(
     type: attributes.attribute_type,
     attribute_value: byte_array
   )>?
-) : ft_assets.asset {
+): ft_assets.asset {
   before_register_asset(
     name,
     symbol,
@@ -30,17 +31,6 @@ function register_asset(
     type = type
   );
 
-  if(asset_attributes != null){
-    for(attribute in asset_attributes){
-      attributes.add_attribute_to_asset(
-        asset.id,
-        attribute.attribute_name,
-        attribute.type,
-        attribute.attribute_value
-      );
-    }
-  }
-
   after_register_asset(
     asset,
     asset_attributes
@@ -59,10 +49,16 @@ function mint_asset(
     amount,
     accounts
   );
-  val accounts_list = get_accounts_to_mint(accounts);
+  val accounts_list = list<ft_accounts.account>();
+  if (not empty(accounts)) {
+    for (id in accounts) {
+      accounts_list.add(ft_accounts.Account(id));
+    }
+  }
+
   val asset = ft_assets.Asset(asset_id);
 
-  for(account in accounts_list){
+  for(account in accounts_list) {
     ft_assets.Unsafe.mint(
       account,
       asset,
@@ -73,4 +69,32 @@ function mint_asset(
   after_mint(
     asset
   );
+}
+
+function get_related_assets(id: byte_array) {
+  val children = get_children(id);
+
+  val grandchildren = list<byte_array>();
+  grandchildren.add_all(children);
+
+  while (not empty(children)) {
+    print("===>Child id", children[0]);
+    print("===>Grand children ids", get_children(children[0]));
+    grandchildren.add_all(
+      get_children(children[0])
+    );
+
+    children.remove(children[0]);
+  }
+
+  print("=======>Children", grandchildren);
+  return grandchildren;
+}
+
+function get_children(id: byte_array) {
+    return (fta: ft_assets.asset, att: attributes.attribute) @* {
+        fta == att.asset,
+        fta.id == id,
+        att.type == attributes.attribute_type.asset_id
+    } (att.value);
 }

@@ -39,14 +39,15 @@ operation register_and_mint_asset_hero(
   // every user of daap can register asset hero 
   // for example after pay for it
   // add support for auth later
-  //val account = ft_auth.authenticate();
-  val account = ft_accounts.account @ { .id == x"01" };
+  val account = ft_auth.authenticate();
+
   originals_light_interfaces.require_interface_compatibility(
     attributes,
     originals_light_interfaces.interface @ { .id == game_assets.config.hero_interface_id }
   );
 
   val asset = originals_light_assets.register_asset(
+    account,
     name,
     symbol,
     decimals,
@@ -61,6 +62,18 @@ operation register_and_mint_asset_hero(
     1,
     [account.id]
   );
+
+  for(attribute in attributes) {
+    originals_light_attributes.add_attribute_to_asset(
+      account,
+      originals_light_attributes.attribute_dto(
+        asset_id = asset.id,
+        name = attribute.attribute_name,
+        type = attribute.type,
+        value = attribute.attribute_value
+      )
+    );
+  }
 }
 
 
@@ -80,14 +93,60 @@ operation register_and_mint_asset_battle_arena(
   // every user of daap can register asset battle arena 
   // for example after pay for it
   // add support for auth later
-  //val account = ft_auth.authenticate();
-  val account = ft_accounts.account @ { .id == x"01" };
+  // val account = ft_accounts.account @ { .id == x"01" };
+  val account = ft_auth.authenticate();
   originals_light_interfaces.require_interface_compatibility(
     attributes,
     originals_light_interfaces.interface @ { .id == game_assets.config.battle_arena_interface_id }
   );
 
   val asset = originals_light_assets.register_asset(
+    account,
+    name,
+    symbol,
+    decimals,
+    blockchain_rid,
+    icon_url,
+    ft_assets.ASSET_TYPE_FT4,
+    attributes
+  );
+
+  originals_light_assets.mint_asset(
+    asset.id,
+    1,
+    [account.id]
+  );
+}
+
+
+
+operation register_and_mint_hero_equipment(
+  name: text,
+  symbol: text,
+  decimals: integer,
+  blockchain_rid: byte_array,
+  icon_url: text,
+  type: text = ft_assets.ASSET_TYPE_FT4,
+  attributes: list<(
+    attribute_name: text,
+    type: originals_light_attributes.attribute_type,
+    attribute_value: byte_array
+  )>
+) {
+  // every user of daap can register asset hero 
+  // for example after pay for it
+  // add support for auth later
+  // val account = ft_accounts.account @ { .id == x"01" };
+  val account = ft_auth.authenticate();
+
+  // Todo enable
+  // originals_light_interfaces.require_interface_compatibility(
+  //   attributes,
+  //   originals_light_interfaces.interface @ { .id == game_assets.config.hero_interface_id }
+  // );
+
+  val asset = originals_light_assets.register_asset(
+    account,
     name,
     symbol,
     decimals,

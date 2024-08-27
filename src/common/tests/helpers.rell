@@ -1,0 +1,59 @@
+@test module;
+
+import ft_accounts: lib.ft4.accounts;
+import ft_admin_external: lib.ft4.external.admin;
+import ft_auth_external: lib.ft4.external.auth;
+
+struct auth_data {
+    ft_accounts.auth_descriptor;
+    account_id: byte_array;
+    rell.test.keypair;
+}
+
+function admin_keypair() = rell.test.keypair(
+    priv = x"854D8402085EC5F737B1BE63FFD980981EED2A0DA5FAC6B4468CB1F176BA0321",
+    pub = x"02897FAC9964FBDF97E6B83ECCBDE4A8D28729E0FB27059487D1B6B29F70B48767"
+);
+
+function alice_keypair() = rell.test.keypair(
+    priv = x"a3a0b4cd66de47ad5fce84300cc31b0b6ae9713ab9cec6f2de56f6b77817948f",
+    pub = x"02ae9f061829533b2e15ee723e39fc3084d1ff31e8779a68c25444006a06c1832c"
+);
+
+function create_ft_test_acc(rell.test.keypair) {
+    val flags = set<text>(["A", "T"]);
+
+    val auth_descriptor = ft_accounts.single_sig_auth_descriptor(
+        signer = keypair.pub,
+        flags = flags
+    );
+    
+    val auth_descriptor_id = auth_descriptor.hash();
+    var account_id = ft_accounts.account_auth_descriptor @? { .id == auth_descriptor_id } (.account.id);
+    if(not empty (account_id)){
+        return auth_data(keypair, auth_descriptor, account_id);
+    }
+
+    rell.test.tx().nop().op(ft_admin_external.register_account(auth_descriptor))
+        .sign(admin_keypair())
+        .run();
+
+    account_id = ft_accounts.AuthDescriptor(auth_descriptor_id).account.id;
+
+    return auth_data(keypair, auth_descriptor, account_id);
+}
+
+function register_admin() = create_ft_test_acc(admin_keypair());
+
+function register_alice() = create_ft_test_acc(alice_keypair());
+
+
+function get_signed_test_nop_tx(auth_data, op: rell.test.op) {
+    val op_auth = ft_auth_external.ft_auth(auth_data.account_id, auth_data.auth_descriptor.hash());
+
+    return rell.test.tx()
+        .nop()
+        .op(op_auth)
+        .op(rell.test.op(op.name, op.args))
+        .sign(auth_data.keypair);
+}

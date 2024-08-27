@@ -1,0 +1,3 @@
+query get_asset_children(id: byte_array) {
+  return core_assets.get_related_assets(id);
+}

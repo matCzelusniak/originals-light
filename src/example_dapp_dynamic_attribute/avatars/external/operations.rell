@@ -1,3 +1,7 @@
+@extend(ft_auth.auth_handler)
+function () = ft_auth.add_auth_handler(
+  flags = []
+);
 
 // one of the options for checking attributes and can be decided by user of lib
 operation register_and_mint_avatar(
@@ -14,13 +18,16 @@ operation register_and_mint_avatar(
   )>,
   accounts: list<byte_array>,
   amount: big_integer
-){
+) {
+  val account = ft_auth.authenticate();
+
   originals_light_attributes.check_required_attributes(
     attributes, 
     list([(attribute_name ="fishes_caught", type = originals_light_attributes.attribute_type.big_integer)])
   );
 
   val asset = originals_light_assets.register_asset(
+    account,
     name,
     symbol,
     decimals,
@@ -52,13 +59,16 @@ operation register_and_mint_fishing_rod(
   )>,
   accounts: list<byte_array>,
   amount: big_integer
-){
+) {
+  val account = ft_auth.authenticate();
+
   originals_light_attributes.check_required_attributes(
     attributes, 
     list([(attribute_name = "durability", type = originals_light_attributes.attribute_type.big_integer)])
   );
 
   val asset = originals_light_assets.register_asset(
+    account,
     name,
     symbol,
     decimals,
@@ -77,7 +87,7 @@ operation register_and_mint_fishing_rod(
 
 // simple registration without auth descriptors for test purposes
 // todo matCzelusniak - add support for registration with ft4 functions.
-operation register_account (
+operation register_account(
   account_id: byte_array,
   name: text
 ) {

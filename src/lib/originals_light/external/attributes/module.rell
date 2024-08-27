@@ -1,2 +1,5 @@
 module;
 import ^^.core.attributes;
+import ft_auth: lib.ft4.auth;
+import ft_assets: lib.ft4.core.assets;
+import core_assets: ^^.core.assets;

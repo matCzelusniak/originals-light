@@ -5,7 +5,8 @@ enum attribute_type {
   instance,
   integer,
   text,
-  big_integer
+  big_integer,
+  asset_id
   // set,
   // list,
   //map
@@ -17,4 +18,12 @@ entity attribute {
   mutable value: byte_array;
   key asset, name;
   type: attribute_type;
+}
+
+struct attribute_dto {
+  asset_id: byte_array;
+  name: text;
+  type: attribute_type;
+  value: byte_array;
+  amount: big_integer = 1L;
 }

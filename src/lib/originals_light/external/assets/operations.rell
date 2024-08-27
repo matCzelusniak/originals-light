@@ -3,6 +3,8 @@ operation mint_asset(
   amount: integer,
   accounts: list<byte_array>?
 ) {
+  ft_auth.authenticate();
+
   assets.mint_asset(asset_id, amount, accounts);
 }
 
@@ -18,8 +20,11 @@ operation register_asset(
     type: attributes.attribute_type,
     attribute_value: byte_array
   )>?,
-){
+) {
+  val account = ft_auth.authenticate();
+
   assets.register_asset(
+    account,
     name,
     symbol,
     decimals,
@@ -37,22 +42,24 @@ operation register_and_mint_asset(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<(
+  attributes_list: list<(
     attribute_name: text,
     type: attributes.attribute_type,
     attribute_value: byte_array
   )>,
   accounts: list<byte_array>?,
   amount: integer
-){
+) {
+  val account = ft_auth.authenticate();
   val asset = assets.register_asset(
+    account,
     name,
     symbol,
     decimals,
     blockchain_rid,
     icon_url,
     type,
-    attributes
+    attributes_list
   );
 
   assets.mint_asset(
@@ -60,4 +67,16 @@ operation register_and_mint_asset(
     amount,
     accounts
   );
+
+  for(attribute in attributes_list) {
+    attributes.add_attribute_to_asset(
+      account,
+      attributes.attribute_dto(
+        asset_id = asset.id,
+        name = attribute.attribute_name,
+        type = attribute.type,
+        value = attribute.attribute_value
+      )
+    );
+  }
 }

@@ -1,14 +1,16 @@
+@extend(ft_auth.auth_handler)
+function () = ft_auth.add_auth_handler(
+  flags = []
+);
+
 operation add_attribute_to_asset(
-  asset_id: byte_array,
-  attribute_name: text,
-  type: attributes.attribute_type,
-  attribute_value: byte_array
-){
+  attribute: attributes.attribute_dto
+) {
+  val account = ft_auth.authenticate();
+
   attributes.add_attribute_to_asset(
-    asset_id,
-    attribute_name,
-    type,
-    attribute_value
+    account,
+    attribute
   );
 }
 
@@ -22,4 +24,17 @@ operation update_attribute(
     attribute_name,
     attribute_value
   );
+}
+
+operation add_attributes_to_asset_batch(
+  attributes_list: list<attributes.attribute_dto>
+) {
+  val account = ft_auth.authenticate();
+
+  for (attribute in attributes_list) {
+    attributes.add_attribute_to_asset(
+      account,
+      attribute
+    );
+  }
 }
