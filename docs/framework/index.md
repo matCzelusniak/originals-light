@@ -1,5 +1,6 @@
-# Framework Originals-light overview
+# Framework Originals-light
 
+**Framework Originals-light overview**
 The Originals-light library is a lightweight, modular library designed for the Chromia Originals framework. It enables the creation and management of dynamic attributes for assets within decentralized applications (dApps) built on the Chromia blockchain. This library leverages the FT4 standard to ensure interoperability, good performance and flexibility in handling on-chain assets.
 
 **Modular**
