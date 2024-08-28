@@ -31,3 +31,15 @@ function after_update_attribute(
   attribute_name: text,
   attribute_value: byte_array
 );
+
+@extendable
+function before_remove_attribute(
+  asset_id: byte_array,
+  attribute_name: text
+);
+
+@extendable
+function after_remove_attribute(
+  asset_id: byte_array,
+  attribute_name: text
+);

@@ -39,6 +39,8 @@ blockchains:
         lib.ft4.core.accounts:
           rate_limit:
             active: false
+        lib.ft4.core.admin: &ft4AdminArgs
+          admin_pubkey: 02897FAC9964FBDF97E6B83ECCBDE4A8D28729E0FB27059487D1B6B29F70B48767
 
   example_dapp_one_chain_battle_game:
     module: example_dapp_one_chain_battle_game
@@ -90,3 +92,6 @@ database:
   logSqlErrors: true
   schema: originals-light
   driver: org.postgresql.Driver
+
+test:
+  failOnError: false

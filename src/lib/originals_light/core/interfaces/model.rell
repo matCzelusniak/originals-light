@@ -1,5 +1,5 @@
 //todo matCzelusniak: type for asset, but not obligatory
-entity interface{
+entity interface {
   key id: big_integer;
   index name: text;
 }

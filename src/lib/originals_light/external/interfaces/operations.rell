@@ -1,7 +1,7 @@
 operation register_interface(
   name: text,
   interface_attributes: list<(
-    attribute_name: text,
+    name: text,
     type: attributes.attribute_type
   )>
 ){

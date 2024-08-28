@@ -3,7 +3,7 @@
 function before_register_interface(
   name: text,
   attributes: list<(
-    attribute_name: text,
+    name: text,
     type: attributes.attribute_type
   )>
 );
@@ -13,7 +13,7 @@ function before_register_interface(
 function after_register_interface(
   name: text,
   attributes: list<(
-    attribute_name: text,
+    name: text,
     type: attributes.attribute_type
   )>
 );
