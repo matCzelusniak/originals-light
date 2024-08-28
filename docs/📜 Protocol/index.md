@@ -28,14 +28,6 @@ The protocol is designed to be extendable, with hooks provided before and after 
 
 Assets can be grouped into collections or projects, which serve as organizational tools within the protocol. Collections do not depend on projects, allowing users to decide how to structure their asset management based on their application's requirements.
 
-## Dependencies
-
-The protocol integrates several key libraries:
-
-- **FT4 Core**: For managing assets and accounts.
-- **Attributes Module**: For managing asset attributes.
-- **Interfaces Module**: For defining and applying interfaces to assets.
-
 ## Summary
 
 The Originals-light protocol is a robust and adaptable framework that streamlines the management of digital assets on the Chromia blockchain. Its modular design, direct use of FT4 assets, and flexible interface system make it suitable for a wide range of applications, from gaming to industrial use cases.
