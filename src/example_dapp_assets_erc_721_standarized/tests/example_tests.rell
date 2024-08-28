@@ -10,31 +10,31 @@ function test_import_erc721_asset() {
         "erc721_hero",
         [
             (
-                attribute_name = "strength",
+                name = "strength",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "agility",
+                name = "agility",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "intelligence",
+                name = "intelligence",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "durability",
+                name = "durability",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "network_name",
+                name = "network_name",
                 type = originals_light_attributes.attribute_type.text
             ),
             (
-                attribute_name = "chain_id",
+                name = "chain_id",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "image",
+                name = "image",
                 type = originals_light_attributes.attribute_type.text
             )
         ]
@@ -54,40 +54,40 @@ function test_import_erc721_asset() {
             "https://example.com/hero.png",
             "ft4",
             [
-                (
-                    attribute_name = "strength",
+                originals_light_attributes.simple_attribute(
+                    name = "strength",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(10).to_bytes()
+                    value = big_integer(10).to_bytes()
                 ),
-                (
-                    attribute_name = "agility",
+                originals_light_attributes.simple_attribute(
+                    name = "agility",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(11).to_bytes()
+                    value = big_integer(11).to_bytes()
                 ),
-                (
-                    attribute_name = "intelligence",
+                originals_light_attributes.simple_attribute(
+                    name = "intelligence",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(12).to_bytes()
+                    value = big_integer(12).to_bytes()
                 ),
-                (
-                    attribute_name = "durability",
+                originals_light_attributes.simple_attribute(
+                    name = "durability",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(13).to_bytes()
+                    value = big_integer(13).to_bytes()
                 ),
-                (
-                    attribute_name = "network_name",
+                originals_light_attributes.simple_attribute(
+                    name = "network_name",
                     type = originals_light_attributes.attribute_type.text,
-                    attribute_value = "ethereum".to_bytes()
+                    value = "ethereum".to_bytes()
                 ),
-                (
-                    attribute_name = "chain_id",
+                originals_light_attributes.simple_attribute(
+                    name = "chain_id",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(1).to_bytes()
+                    value = big_integer(1).to_bytes()
                 ),
-                (
-                    attribute_name = "image",
+                originals_light_attributes.simple_attribute(
+                    name = "image",
                     type = originals_light_attributes.attribute_type.text,
-                    attribute_value = "https://example.com/hero.png".to_bytes()
+                    value = "https://example.com/hero.png".to_bytes()
                 )
             ]
         )
@@ -109,31 +109,31 @@ function test_import_erc721_asset_failed_if_missed_attribute() {
             "erc721_hero",
             [
                 (
-                    attribute_name = "strength",
+                    name = "strength",
                     type = originals_light_attributes.attribute_type.big_integer
                 ),
                 (
-                    attribute_name = "agility",
+                    name = "agility",
                     type = originals_light_attributes.attribute_type.big_integer
                 ),
                 (
-                    attribute_name = "intelligence",
+                    name = "intelligence",
                     type = originals_light_attributes.attribute_type.big_integer
                 ),
                 (
-                    attribute_name = "durability",
+                    name = "durability",
                     type = originals_light_attributes.attribute_type.big_integer
                 ),
                 (
-                    attribute_name = "network_name",
+                    name = "network_name",
                     type = originals_light_attributes.attribute_type.text
                 ),
                 (
-                    attribute_name = "chain_id",
+                    name = "chain_id",
                     type = originals_light_attributes.attribute_type.big_integer
                 ),
                 (
-                    attribute_name = "image",
+                    name = "image",
                     type = originals_light_attributes.attribute_type.text
                 )
             ]
@@ -155,35 +155,35 @@ function test_import_erc721_asset_failed_if_missed_attribute() {
             "https://example.com/hero.png",
             "ft4",
             [
-                (
-                    attribute_name = "strength",
+                originals_light_attributes.simple_attribute(
+                    name = "strength",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(10).to_bytes()
+                    value = big_integer(10).to_bytes()
                 ),
-                (
-                    attribute_name = "intelligence",
+                originals_light_attributes.simple_attribute(
+                    name = "intelligence",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(12).to_bytes()
+                    value = big_integer(12).to_bytes()
                 ),
-                (
-                    attribute_name = "durability",
+                originals_light_attributes.simple_attribute(
+                    name = "durability",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(13).to_bytes()
+                    value = big_integer(13).to_bytes()
                 ),
-                (
-                    attribute_name = "network_name",
+                originals_light_attributes.simple_attribute(
+                    name = "network_name",
                     type = originals_light_attributes.attribute_type.text,
-                    attribute_value = "ethereum".to_bytes()
+                    value = "ethereum".to_bytes()
                 ),
-                (
-                    attribute_name = "chain_id",
+                originals_light_attributes.simple_attribute(
+                    name = "chain_id",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(1).to_bytes()
+                    value = big_integer(1).to_bytes()
                 ),
-                (
-                    attribute_name = "image",
+                originals_light_attributes.simple_attribute(
+                    name = "image",
                     type = originals_light_attributes.attribute_type.text,
-                    attribute_value = "https://example.com/hero.png".to_bytes()
+                    value = "https://example.com/hero.png".to_bytes()
                 )
             ]
         )
@@ -203,35 +203,35 @@ function test_import_erc721_asset_with_additional_attribute() {
         "erc721_hero",
         [
             (
-                attribute_name = "strength",
+                name = "strength",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "agility",
+                name = "agility",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "intelligence",
+                name = "intelligence",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "durability",
+                name = "durability",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "speed",
+                name = "speed",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "network_name",
+                name = "network_name",
                 type = originals_light_attributes.attribute_type.text
             ),
             (
-                attribute_name = "chain_id",
+                name = "chain_id",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "image",
+                name = "image",
                 type = originals_light_attributes.attribute_type.text
             )
         ]
@@ -251,45 +251,45 @@ function test_import_erc721_asset_with_additional_attribute() {
             "https://example.com/hero.png",
             "ft4",
             [
-                (
-                    attribute_name = "strength",
+                originals_light_attributes.simple_attribute(
+                    name = "strength",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(10).to_bytes()
+                    value = big_integer(10).to_bytes()
                 ),
-                (
-                    attribute_name = "agility",
+                originals_light_attributes.simple_attribute(
+                    name = "agility",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(11).to_bytes()
+                    value = big_integer(11).to_bytes()
                 ),
-                (
-                    attribute_name = "intelligence",
+                originals_light_attributes.simple_attribute(
+                    name = "intelligence",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(12).to_bytes()
+                    value = big_integer(12).to_bytes()
                 ),
-                (
-                    attribute_name = "durability",
+                originals_light_attributes.simple_attribute(
+                    name = "durability",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(13).to_bytes()
+                    value = big_integer(13).to_bytes()
                 ),
-                (
-                    attribute_name = "speed",
+                originals_light_attributes.simple_attribute(
+                    name = "speed",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(99).to_bytes()
+                    value = big_integer(99).to_bytes()
                 ),
-                (
-                    attribute_name = "network_name",
+                originals_light_attributes.simple_attribute(
+                    name = "network_name",
                     type = originals_light_attributes.attribute_type.text,
-                    attribute_value = "ethereum".to_bytes()
+                    value = "ethereum".to_bytes()
                 ),
-                (
-                    attribute_name = "chain_id",
+                originals_light_attributes.simple_attribute(
+                    name = "chain_id",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(1).to_bytes()
+                    value = big_integer(1).to_bytes()
                 ),
-                (
-                    attribute_name = "image",
+                originals_light_attributes.simple_attribute(
+                    name = "image",
                     type = originals_light_attributes.attribute_type.text,
-                    attribute_value = "https://example.com/hero.png".to_bytes()
+                    value = "https://example.com/hero.png".to_bytes()
                 )
             ]
         )

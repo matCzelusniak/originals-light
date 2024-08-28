@@ -8,18 +8,13 @@ function (
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<(
-    attribute_name: text,
-    type: originals_light_attributes.attribute_type,
-    attribute_value: byte_array
-  )>?
+  attributes: list<originals_light_attributes.simple_attribute>?
 ) {
   print("xyz before_register_asset");
   require(
     attributes != null,
     "Attributes are required"
   );
-  // list<(attribute_name: text, type: attribute_type)
   if(name == "avatar"){
     originals_light_attributes.check_required_attributes(
       attributes!!,

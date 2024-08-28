@@ -13,10 +13,10 @@ function test_mint_avatar_with_dedicated_operation() {
         "https://example.com/avatar.png",
         ft_assets.ASSET_TYPE_FT4,
         [
-            (
-              attribute_name  = "fishes_caught",
-              type = originals_light.attribute_type.big_integer,
-              attribute_value = big_integer(0).to_bytes()
+            originals_light_attributes.simple_attribute(
+              name  = "fishes_caught",
+              type = originals_light_attributes.attribute_type.big_integer,
+              value = big_integer(0).to_bytes()
             )
         ],
         [
@@ -64,10 +64,10 @@ function test_equip_fishing_rod() {
         "https://example.com/avatar.png",
         ft_assets.ASSET_TYPE_FT4,
         [
-            (
-              attribute_name  = "fishes_caught",
-              type = originals_light.attribute_type.big_integer,
-              attribute_value = big_integer(0).to_bytes()
+            originals_light_attributes.simple_attribute(
+              name  = "fishes_caught",
+              type = originals_light_attributes.attribute_type.big_integer,
+              value = big_integer(0).to_bytes()
             )
         ],
         [
@@ -86,10 +86,10 @@ function test_equip_fishing_rod() {
         "https://example.com/fishing_rod.png",
         ft_assets.ASSET_TYPE_FT4,
         [
-            (
-              attribute_name  = "durability",
-              type = originals_light.attribute_type.big_integer,
-              attribute_value = big_integer(100).to_bytes()
+            originals_light_attributes.simple_attribute(
+              name  = "durability",
+              type = originals_light_attributes.attribute_type.big_integer,
+              value = big_integer(100).to_bytes()
             )
         ],
         [

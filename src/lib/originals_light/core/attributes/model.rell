@@ -27,3 +27,9 @@ struct attribute_dto {
   value: byte_array;
   amount: big_integer = 1L;
 }
+
+struct simple_attribute {
+  name: text;
+  type: attribute_type;
+  value: byte_array;
+}

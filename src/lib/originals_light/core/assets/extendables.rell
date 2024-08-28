@@ -7,22 +7,14 @@ function before_register_asset(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<(
-    attribute_name: text,
-    type: attributes.attribute_type,
-    attribute_value: byte_array
-  )>?
+  attributes: list<attributes.simple_attribute>?
 );
 
 // todo matCzelusniak: add description
 @extendable
 function after_register_asset(
   asset: ft_assets.asset,
-  attributes: list<(
-    attribute_name: text,
-    type: attributes.attribute_type,
-    attribute_value: byte_array
-  )>?
+  attributes: list<attributes.simple_attribute>?
 );
 
 // todo matCzelusniak: add description
@@ -49,7 +41,7 @@ function after_mint(
 function before_register_interface(
   name: text,
   attributes: list<(
-    attribute_name: text,
+    name: text,
     type: attributes.attribute_type
   )>
 );
@@ -58,7 +50,7 @@ function before_register_interface(
 function after_register_interface(
   name: text,
   attributes: list<(
-    attribute_name: text,
+    name: text,
     type: attributes.attribute_type
   )>
 );

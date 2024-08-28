@@ -11,11 +11,7 @@ operation register_and_mint_avatar(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<(
-    attribute_name: text,
-    type: originals_light_attributes.attribute_type,
-    attribute_value: byte_array
-  )>,
+  attributes: list<originals_light_attributes.simple_attribute>,
   accounts: list<byte_array>,
   amount: big_integer
 ) {
@@ -27,7 +23,6 @@ operation register_and_mint_avatar(
   );
 
   val asset = originals_light_assets.register_asset(
-    account,
     name,
     symbol,
     decimals,
@@ -52,11 +47,7 @@ operation register_and_mint_fishing_rod(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<(
-    attribute_name: text,
-    type: originals_light_attributes.attribute_type,
-    attribute_value: byte_array
-  )>,
+  attributes: list<originals_light_attributes.simple_attribute>,
   accounts: list<byte_array>,
   amount: big_integer
 ) {
@@ -68,7 +59,6 @@ operation register_and_mint_fishing_rod(
   );
 
   val asset = originals_light_assets.register_asset(
-    account,
     name,
     symbol,
     decimals,

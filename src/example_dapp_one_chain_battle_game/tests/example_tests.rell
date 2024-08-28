@@ -5,19 +5,19 @@ function test_battle_of_2_heroes() {
         "hero",
         [
             (
-                attribute_name = "strength",
+                name = "strength",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "agility",
+                name = "agility",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "intelligence",
+                name = "intelligence",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "durability",
+                name = "durability",
                 type = originals_light_attributes.attribute_type.big_integer
             )
         ]
@@ -37,25 +37,25 @@ function test_battle_of_2_heroes() {
             "https://example.com/hero_1.png",
             "ft4",
             [
-                (
-                    attribute_name = "strength",
+                originals_light_attributes.simple_attribute(
+                    name = "strength",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(10).to_bytes()
+                    value = big_integer(10).to_bytes()
                 ),
-                (
-                    attribute_name = "agility",
+                originals_light_attributes.simple_attribute(
+                    name = "agility",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(11).to_bytes()
+                    value = big_integer(11).to_bytes()
                 ),
-                (
-                    attribute_name = "intelligence",
+                originals_light_attributes.simple_attribute(
+                    name = "intelligence",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(12).to_bytes()
+                    value = big_integer(12).to_bytes()
                 ),
-                (
-                    attribute_name = "durability",
+                originals_light_attributes.simple_attribute(
+                    name = "durability",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(13).to_bytes()
+                    value = big_integer(13).to_bytes()
                 )
             ]
         )
@@ -72,25 +72,25 @@ function test_battle_of_2_heroes() {
             "https://example.com/hero_2.png",
             "ft4",
             [
-                (
-                    attribute_name = "strength",
+                originals_light_attributes.simple_attribute(
+                    name = "strength",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(11).to_bytes()
+                    value = big_integer(11).to_bytes()
                 ),
-                (
-                    attribute_name = "agility",
+                originals_light_attributes.simple_attribute(
+                    name = "agility",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(12).to_bytes()
+                    value = big_integer(12).to_bytes()
                 ),
-                (
-                    attribute_name = "intelligence",
+                originals_light_attributes.simple_attribute(
+                    name = "intelligence",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(13).to_bytes()
+                    value = big_integer(13).to_bytes()
                 ),
-                (
-                    attribute_name = "durability",
+                originals_light_attributes.simple_attribute(
+                    name = "durability",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(14).to_bytes()
+                    value = big_integer(14).to_bytes()
                 )
             ]
         )
@@ -101,15 +101,15 @@ function test_battle_of_2_heroes() {
         "arena",
         [
             (
-                attribute_name = "height",
+                name = "height",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "width",
+                name = "width",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "image",
+                name = "image",
                 type = originals_light_attributes.attribute_type.text
             )
         ]
@@ -127,20 +127,20 @@ function test_battle_of_2_heroes() {
             chain_context.blockchain_rid,
             "https://example.com/battle_arena.png",
             [
-                (
-                    attribute_name = "height",
+                originals_light_attributes.simple_attribute(
+                    name = "height",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(100).to_bytes()
+                    value = big_integer(100).to_bytes()
                 ),
-                (
-                    attribute_name = "width",
+                originals_light_attributes.simple_attribute(
+                    name = "width",
                     type = originals_light_attributes.attribute_type.big_integer,
-                    attribute_value = big_integer(100).to_bytes()
+                    value = big_integer(100).to_bytes()
                 ),
-                (
-                    attribute_name = "image",
+                originals_light_attributes.simple_attribute(
+                    name = "image",
                     type = originals_light_attributes.attribute_type.text,
-                    attribute_value = "https://example.com/battle_arena.png".to_bytes()
+                    value = "https://example.com/battle_arena.png".to_bytes()
                 )
             ]
         )
@@ -153,19 +153,19 @@ function test_battle_of_2_heroes() {
         "battle",
         [
             (
-                attribute_name = "winner_id",
+                name = "winner_id",
                 type = originals_light_attributes.attribute_type.byte_array
             ),
             (
-                attribute_name = "battle_arena_id",
+                name = "battle_arena_id",
                 type = originals_light_attributes.attribute_type.byte_array
             ),
             (
-                attribute_name = "timestamp_start",
+                name = "timestamp_start",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "timestamp_end",
+                name = "timestamp_end",
                 type = originals_light_attributes.attribute_type.big_integer
             )
         ]
@@ -183,25 +183,25 @@ function test_battle_of_2_heroes() {
         chain_context.blockchain_rid,
         "https://example.com/battle_1.png",
         [
-            (
-                attribute_name = "winner_id",
+            originals_light_attributes.simple_attribute(
+                name = "winner_id",
                 type = originals_light_attributes.attribute_type.byte_array,
-                attribute_value = x"00"
+                value = x"00"
             ),
-            (
-                attribute_name = "battle_arena_id",
+            originals_light_attributes.simple_attribute(
+                name = "battle_arena_id",
                 type = originals_light_attributes.attribute_type.byte_array,
-                attribute_value = battle_arena_madrid_id
+                value = battle_arena_madrid_id
             ),
-            (
-                attribute_name = "timestamp_start",
+            originals_light_attributes.simple_attribute(
+                name = "timestamp_start",
                 type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(1724660646).to_bytes()
+                value = big_integer(1724660646).to_bytes()
             ),
-                        (
-                attribute_name = "timestamp_end",
+            originals_light_attributes.simple_attribute(
+                name = "timestamp_end",
                 type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(0).to_bytes()
+                value = big_integer(0).to_bytes()
             )
         ]
         )
@@ -231,7 +231,7 @@ function test_link_equipment_to_hero() {
         "helmet",
         [
             (
-                attribute_name = "power",
+                name = "power",
                 type = originals_light_attributes.attribute_type.integer
             )
         ]
@@ -251,10 +251,10 @@ function test_link_equipment_to_hero() {
             icon_url = "https://example.com/helmet.png",
             type = "ft4",
             attributes = [
-                (
-                    attribute_name = "power",
+                originals_light_attributes.simple_attribute(
+                    name = "power",
                     type = originals_light_attributes.attribute_type.integer,
-                    attribute_value = (5).to_gtv().to_bytes()
+                    value = (5).to_gtv().to_bytes()
                 )
             ]
         )
@@ -267,7 +267,7 @@ function test_link_equipment_to_hero() {
         "hero",
         [
             (
-                attribute_name = "equipment",
+                name = "equipment",
                 type = originals_light_attributes.attribute_type.asset_id
             )
         ]
@@ -288,10 +288,10 @@ function test_link_equipment_to_hero() {
             icon_url = "https://example.com/hero_1.png",
             type = "ft4",
             attributes = [
-                (
-                    attribute_name = "equipment",
+                originals_light_attributes.simple_attribute(
+                    name = "equipment",
                     type = originals_light_attributes.attribute_type.asset_id,
-                    attribute_value = helmet_asset_id
+                    value = helmet_asset_id
                 )
             ]
         )
@@ -311,11 +311,15 @@ function test_link_two_equipments_to_hero() {
         "helmet",
         [
             (
-                attribute_name = "power",
+                name = "power",
                 type = originals_light_attributes.attribute_type.integer
             )
         ]
     ).run();
+
+    val helmet_interface_id = originals_light_interfaces.interface @ {.name == "helmet"}.id;
+
+    game_assets_external.set_current_version_of_equipment_interface_id(helmet_interface_id).run();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -327,10 +331,10 @@ function test_link_two_equipments_to_hero() {
             icon_url = "https://example.com/helmet_1.png",
             type = "ft4",
             attributes = [
-                (
-                    attribute_name = "power",
+                originals_light_attributes.simple_attribute(
+                    name = "power",
                     type = originals_light_attributes.attribute_type.integer,
-                    attribute_value = (5).to_gtv().to_bytes()
+                    value = (5).to_gtv().to_bytes()
                 )
             ]
         )
@@ -343,11 +347,15 @@ function test_link_two_equipments_to_hero() {
         "sword",
         [
             (
-                attribute_name = "strength",
+                name = "strength",
                 type = originals_light_attributes.attribute_type.integer
             )
         ]
     ).run();
+
+    val sword_interface_id = originals_light_interfaces.interface @ {.name == "sword"}.id;
+
+    game_assets_external.set_current_version_of_equipment_interface_id(sword_interface_id).run();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -359,10 +367,10 @@ function test_link_two_equipments_to_hero() {
             icon_url = "https://example.com/sword_1.png",
             type = "ft4",
             attributes = [
-                (
-                    attribute_name = "sword",
+                originals_light_attributes.simple_attribute(
+                    name = "strength",
                     type = originals_light_attributes.attribute_type.integer,
-                    attribute_value = (5).to_gtv().to_bytes()
+                    value = (5).to_gtv().to_bytes()
                 )
             ]
         )
@@ -375,11 +383,11 @@ function test_link_two_equipments_to_hero() {
         "hero",
         [
             (
-                attribute_name = "helmet",
+                name = "helmet",
                 type = originals_light_attributes.attribute_type.asset_id
             ),
             (
-                attribute_name = "sword",
+                name = "sword",
                 type = originals_light_attributes.attribute_type.asset_id
             )
         ]
@@ -400,15 +408,15 @@ function test_link_two_equipments_to_hero() {
             icon_url = "https://example.com/hero_1.png",
             type = "ft4",
             attributes = [
-                (
-                    attribute_name = "helmet",
+                originals_light_attributes.simple_attribute(
+                    name = "helmet",
                     type = originals_light_attributes.attribute_type.asset_id,
-                    attribute_value = helmet_asset_id
+                    value = helmet_asset_id
                 ),
-                (
-                    attribute_name = "sword",
+                originals_light_attributes.simple_attribute(
+                    name = "sword",
                     type = originals_light_attributes.attribute_type.asset_id,
-                    attribute_value = sword_asset_id
+                    value = sword_asset_id
                 )
             ]
         )
@@ -428,11 +436,15 @@ function test_link_attachment_to_linked_equipment() {
         "gem",
         [
             (
-                attribute_name = "gem",
+                name = "gem",
                 type = originals_light_attributes.attribute_type.integer
             )
         ]
     ).run();
+
+    val gem_interface_id = originals_light_interfaces.interface @ {.name == "gem"}.id;
+
+    game_assets_external.set_current_version_of_equipment_interface_id(gem_interface_id).run();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -444,10 +456,10 @@ function test_link_attachment_to_linked_equipment() {
             icon_url = "https://example.com/gem_1.png",
             type = "ft4",
             attributes = [
-                (
-                    attribute_name = "gem",
+                originals_light_attributes.simple_attribute(
+                    name = "gem",
                     type = originals_light_attributes.attribute_type.integer,
-                    attribute_value = (1).to_gtv().to_bytes()
+                    value = (1).to_gtv().to_bytes()
                 )
             ]
         )
@@ -460,11 +472,15 @@ function test_link_attachment_to_linked_equipment() {
         "helmet",
         [
             (
-                attribute_name = "power",
+                name = "power",
                 type = originals_light_attributes.attribute_type.asset_id
             )
         ]
     ).run();
+
+    val helmet_interface_id = originals_light_interfaces.interface @ {.name == "helmet"}.id;
+
+    game_assets_external.set_current_version_of_equipment_interface_id(helmet_interface_id).run();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -476,10 +492,10 @@ function test_link_attachment_to_linked_equipment() {
             icon_url = "https://example.com/sword_1.png",
             type = "ft4",
             attributes = [
-                (
-                    attribute_name = "power",
+                originals_light_attributes.simple_attribute(
+                    name = "power",
                     type = originals_light_attributes.attribute_type.asset_id,
-                    attribute_value = gem_asset_id
+                    value = gem_asset_id
                 )
             ]
         )
@@ -492,7 +508,7 @@ function test_link_attachment_to_linked_equipment() {
         "hero",
         [
             (
-                attribute_name = "equipment",
+                name = "equipment",
                 type = originals_light_attributes.attribute_type.asset_id
             )
         ]
@@ -513,10 +529,10 @@ function test_link_attachment_to_linked_equipment() {
             icon_url = "https://example.com/hero_1.png",
             type = "ft4",
             attributes = [
-                (
-                    attribute_name = "equipment",
+                originals_light_attributes.simple_attribute(
+                    name = "equipment",
                     type = originals_light_attributes.attribute_type.asset_id,
-                    attribute_value = helmet_asset_id
+                    value = helmet_asset_id
                 )
             ]
         )

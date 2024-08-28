@@ -42,11 +42,7 @@ operation register_and_mint_asset_hero(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<(
-    attribute_name: text,
-    type: originals_light_attributes.attribute_type,
-    attribute_value: byte_array
-  )>
+  attributes: list<originals_light_attributes.simple_attribute>
 ) {
   // every user of daap can register asset hero 
   // for example after pay for it
@@ -78,11 +74,7 @@ operation register_and_mint_asset_battle_arena(
   decimals: integer,
   blockchain_rid: byte_array,
   icon_url: text,
-  attributes: list<(
-    attribute_name: text,
-    type: originals_light_attributes.attribute_type,
-    attribute_value: byte_array
-  )>
+  attributes: list<originals_light_attributes.simple_attribute>
 ) {
   // every user of daap can register asset battle arena 
   // for example after pay for it
@@ -112,18 +104,14 @@ operation register_and_mint_hero_equipment(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<(
-    attribute_name: text,
-    type: originals_light_attributes.attribute_type,
-    attribute_value: byte_array
-  )>
+  attributes: list<originals_light_attributes.simple_attribute>
 ) {
   val account = ft_auth.authenticate();
 
-  // originals_light_interfaces.require_interface_compatibility(
-  //   attributes,
-  //   originals_light_interfaces.interface @ { .id == game_assets.config.hero_equipment_interface_id }
-  // );
+  originals_light_interfaces.require_interface_compatibility(
+    attributes,
+    originals_light_interfaces.interface @ { .id == game_assets.config.hero_equipment_interface_id }
+  );
 
   originals_light_assets.register_and_mint_asset(
     name,

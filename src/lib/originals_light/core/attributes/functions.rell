@@ -27,7 +27,7 @@ function add_attribute_to_asset(
       );
     } attribute_type.asset_id-> {
       link_assets(asset, attribute.value, account, attribute.amount);
-      create attribute(
+       create attribute(
         asset,
         name = attribute.name,
         value = attribute.value,

@@ -5,11 +5,7 @@ function register_asset(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  asset_attributes: list<(
-    attribute_name: text,
-    type: attributes.attribute_type,
-    attribute_value: byte_array
-  )>?
+  asset_attributes: list<attributes.simple_attribute>?
 ): ft_assets.asset {
   before_register_asset(
     name,
@@ -77,11 +73,7 @@ function register_and_mint_asset(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  asset_attributes: list<(
-    attribute_name: text,
-    type: attributes.attribute_type,
-    attribute_value: byte_array
-  )>?,
+  asset_attributes: list<attributes.simple_attribute>?,
   account_ids: list<byte_array>?,
   amount: big_integer = 1L
 ) {
@@ -101,7 +93,6 @@ function register_and_mint_asset(
     account_ids
   );
 
-  
   if(asset_attributes != null) {
     // Todo resolve multiple account ids provided for linking
     require(account_ids);
@@ -112,9 +103,9 @@ function register_and_mint_asset(
         account,
         attributes.attribute_dto(
           asset_id = asset.id,
-          name = attribute.attribute_name,
+          name = attribute.name,
           type = attribute.type,
-          value = attribute.attribute_value,
+          value = attribute.value,
           amount = amount
         )
       );
@@ -139,10 +130,9 @@ function get_linked_assets(id: byte_array) {
   return grandchildren;
 }
 
-function get_children(id: byte_array) {
-    return (fta: ft_assets.asset, att: attributes.attribute) @* {
-        fta == att.asset,
-        fta.id == id,
-        att.type == attributes.attribute_type.asset_id
-    } (att.value);
-}
+function get_children(id: byte_array) =
+  (fta: ft_assets.asset, att: attributes.attribute) @* {
+    fta == att.asset,
+    fta.id == id,
+    att.type == attributes.attribute_type.asset_id
+  } (att.value);
