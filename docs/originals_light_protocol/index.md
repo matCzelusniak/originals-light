@@ -1,4 +1,4 @@
-# <i class="fa fa-quora"></i> Protocol Description
+# 📜 📜 Protocol Description
 
 The **Originals-light Protocol** is a highly modular framework designed to facilitate the creation and management of digital assets on the Chromia blockchain. It directly leverages the FT4 standard, ensuring standardized processes for asset registration, minting, and cross-chain operations.
 
