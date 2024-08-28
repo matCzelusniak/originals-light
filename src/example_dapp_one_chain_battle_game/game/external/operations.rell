@@ -1,15 +1,3 @@
-// simple registration without auth descriptors for test purposes
-// todo matCzelusniak - add support for registration with ft4 functions.
-operation register_account (
-  account_id: byte_array,
-  name: text
-) {
-  create ft_accounts.account(
-    id = account_id, 
-    name
-  );
-}
-
 operation set_current_version_of_battle_interface_id(
   id: big_integer
 ) {
@@ -30,31 +18,25 @@ operation register_and_mint_asset_battle(
   decimals: integer,
   blockchain_rid: byte_array,
   icon_url: text,
-  attributes: list<originals_light_attributes.simple_attribute>
+  attributes: list<originals_light_attributes.basic_attribute_dto>
 ) {
   // every user of daap can register asset battle 
   // for example after pay for it
   // todo matCzelusniak - add support for auth later
-  //val account = ft_auth.authenticate();
-  val account = ft_accounts.account @ { .id == x"01" };
+  val account = ft_auth.authenticate();
   originals_light_interfaces.require_interface_compatibility(
     attributes,
     originals_light_interfaces.interface @ { .id == game.config_game.battle_interface_id }
   );
 
-  val asset = originals_light_assets.register_asset(
+  originals_light_assets.register_and_mint_asset(
     name,
     symbol,
     decimals,
     blockchain_rid,
     icon_url,
     ft_assets.ASSET_TYPE_FT4,
-    attributes
-  );
-
-  originals_light_assets.mint_asset(
-    asset.id,
-    1,
+    attributes,
     [account.id]
   );
 }

@@ -7,7 +7,7 @@ function (
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<originals_light_attributes.simple_attribute>?
+  attributes: list<originals_light_attributes.basic_attribute_dto>?
 ) {
   originals_light_interfaces.require_interface_compatibility(
     attributes!!,

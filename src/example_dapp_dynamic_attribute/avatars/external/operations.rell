@@ -11,7 +11,7 @@ operation register_and_mint_avatar(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<originals_light_attributes.simple_attribute>,
+  attributes: list<originals_light_attributes.basic_attribute_dto>,
   accounts: list<byte_array>,
   amount: big_integer
 ) {
@@ -47,7 +47,7 @@ operation register_and_mint_fishing_rod(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<originals_light_attributes.simple_attribute>,
+  attributes: list<originals_light_attributes.basic_attribute_dto>,
   accounts: list<byte_array>,
   amount: big_integer
 ) {

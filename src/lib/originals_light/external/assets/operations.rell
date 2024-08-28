@@ -15,7 +15,7 @@ operation register_asset(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  asset_attributes: list<attributes.simple_attribute>?,
+  asset_attributes: list<attributes.basic_attribute_dto>?,
 ) {
   ft_auth.authenticate();
 
@@ -37,7 +37,7 @@ operation register_and_mint_asset(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  asset_attributes: list<attributes.simple_attribute>?,
+  asset_attributes: list<attributes.basic_attribute_dto>?,
   accounts: list<byte_array>?,
   amount: integer
 ){

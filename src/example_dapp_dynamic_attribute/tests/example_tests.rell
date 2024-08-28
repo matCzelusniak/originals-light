@@ -13,7 +13,7 @@ function test_mint_avatar_with_dedicated_operation() {
         "https://example.com/avatar.png",
         ft_assets.ASSET_TYPE_FT4,
         [
-            originals_light_attributes.simple_attribute(
+            originals_light_attributes.basic_attribute_dto(
               name  = "fishes_caught",
               type = originals_light_attributes.attribute_type.big_integer,
               value = big_integer(0).to_bytes()
@@ -64,7 +64,7 @@ function test_equip_fishing_rod() {
         "https://example.com/avatar.png",
         ft_assets.ASSET_TYPE_FT4,
         [
-            originals_light_attributes.simple_attribute(
+            originals_light_attributes.basic_attribute_dto(
               name  = "fishes_caught",
               type = originals_light_attributes.attribute_type.big_integer,
               value = big_integer(0).to_bytes()
@@ -86,7 +86,7 @@ function test_equip_fishing_rod() {
         "https://example.com/fishing_rod.png",
         ft_assets.ASSET_TYPE_FT4,
         [
-            originals_light_attributes.simple_attribute(
+            originals_light_attributes.basic_attribute_dto(
               name  = "durability",
               type = originals_light_attributes.attribute_type.big_integer,
               value = big_integer(100).to_bytes()

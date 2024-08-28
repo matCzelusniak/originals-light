@@ -1,5 +1,5 @@
 function require_interface_compatibility(
-  asset_attributes: list<attributes.simple_attribute>,
+  asset_attributes: list<attributes.basic_attribute_dto>,
   interface: interface
 ) {
   val interface_attributes = interface_attributes @* {.interface == interface} (.attribute_name, .type);

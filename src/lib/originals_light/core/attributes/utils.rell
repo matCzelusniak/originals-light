@@ -2,7 +2,7 @@
 // todo matCzelusniak - think about optimization ad better logging of missed parameters
 // foreach and require on every parameter is better for logger
 function check_required_attributes(
-  attributes: list<simple_attribute>, 
+  attributes: list<basic_attribute_dto>, 
   required_attributes: list<(attribute_name: text, type: attribute_type)>
 ){
   val attributes_names_with_types: list<(attribute_name: text, type: attribute_type)> = list();

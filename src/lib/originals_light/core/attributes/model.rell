@@ -28,7 +28,7 @@ struct attribute_dto {
   amount: big_integer = 1L;
 }
 
-struct simple_attribute {
+struct basic_attribute_dto {
   name: text;
   type: attribute_type;
   value: byte_array;

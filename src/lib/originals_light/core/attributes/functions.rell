@@ -57,12 +57,55 @@ function update_attribute(
     attribute_name,
     attribute_value
   );
-  update attribute @ { .name == attribute_name, .asset.id == asset_id } ( value = attribute_value );
+
+  update attribute @ {
+    .name == attribute_name,
+    .asset.id == asset_id
+  } ( value = attribute_value );
 
   after_update_attribute(
     asset_id,
     attribute_name,
     attribute_value
+  );
+}
+
+function remove_asset_attribute(
+  ft_accounts.account,
+  asset_id: byte_array,
+  attribute_name: text
+) {
+  before_remove_attribute(
+    asset_id,
+    attribute_name
+  );
+
+  val attribute = attribute @? {
+    .name == attribute_name,
+    .asset.id == asset_id
+  };
+
+  require(
+    attribute,
+    "Cannot remove asset attribute. Asset with id '%s' does not contain attribute with name '%s'."
+    .format(asset_id, attribute_name)
+  );
+
+  if (attribute.type == attribute_type.asset_id) {
+    // Todo - update to unlink fungible amount
+    unlink_assets(
+      attribute.asset,
+      attribute.value,
+      account,
+      1L
+    );
+  }
+
+  delete attribute;
+
+  after_remove_attribute(
+    asset_id,
+    attribute_name
   );
 }
 
@@ -99,8 +142,6 @@ function link_assets(
   );
 }
 
-
-// Todo create an operation to unlink linked assets -> Ensure it deletes the created attribute
 function unlink_assets(
   parent_asset: ft_assets.asset,
   child_asset_id: byte_array,

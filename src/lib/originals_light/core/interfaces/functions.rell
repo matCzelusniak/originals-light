@@ -32,7 +32,7 @@ function add_interface_to_asset(
 
   require_interface_compatibility(
     attributes.get_asset_attributes(asset_id) @* {} (
-      attributes.simple_attribute(
+      attributes.basic_attribute_dto(
         name = $.name,
         type = $.type,
         value = $.value

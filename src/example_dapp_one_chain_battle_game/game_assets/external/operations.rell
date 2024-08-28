@@ -42,7 +42,7 @@ operation register_and_mint_asset_hero(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<originals_light_attributes.simple_attribute>
+  attributes: list<originals_light_attributes.basic_attribute_dto>
 ) {
   // every user of daap can register asset hero 
   // for example after pay for it
@@ -74,7 +74,7 @@ operation register_and_mint_asset_battle_arena(
   decimals: integer,
   blockchain_rid: byte_array,
   icon_url: text,
-  attributes: list<originals_light_attributes.simple_attribute>
+  attributes: list<originals_light_attributes.basic_attribute_dto>
 ) {
   // every user of daap can register asset battle arena 
   // for example after pay for it
@@ -104,7 +104,7 @@ operation register_and_mint_hero_equipment(
   blockchain_rid: byte_array,
   icon_url: text,
   type: text = ft_assets.ASSET_TYPE_FT4,
-  attributes: list<originals_light_attributes.simple_attribute>
+  attributes: list<originals_light_attributes.basic_attribute_dto>
 ) {
   val account = ft_auth.authenticate();
 
