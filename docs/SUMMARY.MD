@@ -1,4 +1,4 @@
-# 📝📝 Summary
+# 📝 Summary
 
 - [🏗️ Framework](./Framework/index.md)
 - [📜 Originals-light Protocol](./Protocol/index.md)
