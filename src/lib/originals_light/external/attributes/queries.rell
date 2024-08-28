@@ -1,3 +1,7 @@
-query get_asset_children(id: byte_array) {
-  return core_assets.get_related_assets(id);
+query get_linked_assets(id: byte_array) {
+  return core_assets.get_linked_assets(id);
+}
+
+query get_attribute_value(asset_id: byte_array, attribute_name: text): byte_array {
+  return attributes.attribute @ { .name == attribute_name, .asset.id == asset_id }(.value);
 }

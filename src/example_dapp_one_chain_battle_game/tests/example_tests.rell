@@ -118,7 +118,6 @@ function test_battle_of_2_heroes() {
     val interface_arena_id = originals_light_interfaces.interface @ {.name == "arena"}.id;
     game_assets_external.set_current_version_of_battle_arena_interface_id(interface_arena_id).run();
     
-    
     common_test_helpers.get_signed_test_nop_tx(
         admin,
         game_assets_external.register_and_mint_asset_battle_arena(
@@ -238,6 +237,10 @@ function test_link_equipment_to_hero() {
         ]
     ).run();
 
+    val helmet_interface_id = originals_light_interfaces.interface @ {.name == "helmet"}.id;
+
+    game_assets_external.set_current_version_of_equipment_interface_id(helmet_interface_id).run();
+
     common_test_helpers.get_signed_test_nop_tx(
         admin,
         game_assets_external.register_and_mint_hero_equipment(
@@ -271,9 +274,9 @@ function test_link_equipment_to_hero() {
     )
         .run();
 
-    val interface_id = originals_light_interfaces.interface @ {.name == "hero"}.id;
+    val hero_interface_id = originals_light_interfaces.interface @ {.name == "hero"}.id;
 
-    game_assets_external.set_current_version_of_hero_interface_id(interface_id).run();
+    game_assets_external.set_current_version_of_hero_interface_id(hero_interface_id).run();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -294,6 +297,11 @@ function test_link_equipment_to_hero() {
         )
     )
         .run();
+
+    val hero_asset_id = ft_assets.asset @ {} (.id, @omit @sort_desc .rowid) limit 1;
+    val hero_children = originals_light_attributes_ext.get_linked_assets(hero_asset_id);
+
+    assert_equals(hero_children, [helmet_asset_id]);
 }
 
 function test_link_two_equipments_to_hero() {
@@ -406,9 +414,12 @@ function test_link_two_equipments_to_hero() {
         )
     )
         .run();
-}
 
-// Todo ensure proper results are returned
+    val hero_asset_id = ft_assets.asset @ {} (.id, @omit @sort_desc .rowid) limit 1;
+    val hero_children = originals_light_attributes_ext.get_linked_assets(hero_asset_id);
+
+    assert_equals(hero_children, [helmet_asset_id, sword_asset_id]);
+}
 
 function test_link_attachment_to_linked_equipment() {
     val admin = common_test_helpers.register_admin();
@@ -513,10 +524,11 @@ function test_link_attachment_to_linked_equipment() {
         .run();
 
     val hero_asset_id = ft_assets.asset @ {} (.id, @omit @sort_desc .rowid) limit 1;
+    val hero_children = originals_light_attributes_ext.get_linked_assets(hero_asset_id);
 
-    print("Gem asset id: ", gem_asset_id);
-    print("Helmet asset id: ", helmet_asset_id);
-    print("Hero asset id: ", hero_asset_id);
+    assert_equals(hero_children, [helmet_asset_id, gem_asset_id]);
 
-    val children = originals_light_attributes_ext.get_asset_children(hero_asset_id);
+    val helmet_children = originals_light_attributes_ext.get_linked_assets(helmet_asset_id);
+
+    assert_equals(helmet_children, [gem_asset_id]);
 }

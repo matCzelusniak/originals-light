@@ -1,5 +1,4 @@
 function register_asset(
-  ft_accounts.account,
   name,
   symbol: text,
   decimals: integer,
@@ -71,15 +70,65 @@ function mint_asset(
   );
 }
 
-function get_related_assets(id: byte_array) {
+function register_and_mint_asset(
+  name: text,
+  symbol: text,
+  decimals: integer,
+  blockchain_rid: byte_array,
+  icon_url: text,
+  type: text = ft_assets.ASSET_TYPE_FT4,
+  asset_attributes: list<(
+    attribute_name: text,
+    type: attributes.attribute_type,
+    attribute_value: byte_array
+  )>?,
+  account_ids: list<byte_array>?,
+  amount: big_integer = 1L
+) {
+  val asset = register_asset(
+    name,
+    symbol,
+    decimals,
+    blockchain_rid,
+    icon_url,
+    type,
+    asset_attributes
+  );
+
+  mint_asset(
+    asset.id,
+    amount,
+    account_ids
+  );
+
+  
+  if(asset_attributes != null) {
+    // Todo resolve multiple account ids provided for linking
+    require(account_ids);
+    val account = ft_accounts.Account(account_ids[0]);
+
+    for(attribute in asset_attributes) {
+      attributes.add_attribute_to_asset(
+        account,
+        attributes.attribute_dto(
+          asset_id = asset.id,
+          name = attribute.attribute_name,
+          type = attribute.type,
+          value = attribute.attribute_value,
+          amount = amount
+        )
+      );
+    }
+  }
+}
+
+function get_linked_assets(id: byte_array) {
   val children = get_children(id);
 
   val grandchildren = list<byte_array>();
   grandchildren.add_all(children);
 
   while (not empty(children)) {
-    print("===>Child id", children[0]);
-    print("===>Grand children ids", get_children(children[0]));
     grandchildren.add_all(
       get_children(children[0])
     );
@@ -87,7 +136,6 @@ function get_related_assets(id: byte_array) {
     children.remove(children[0]);
   }
 
-  print("=======>Children", grandchildren);
   return grandchildren;
 }
 

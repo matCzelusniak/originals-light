@@ -11,7 +11,7 @@ function check_required_attributes(
 ){
   val attributes_names_with_types: list<(attribute_name: text, type: attribute_type)> = list();
 
-  for(attribute in attributes){
+  for(attribute in attributes) {
     attributes_names_with_types.add((attribute_name = attribute.attribute_name, type = attribute.type));
   };
   require(

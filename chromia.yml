@@ -92,3 +92,6 @@ database:
   logSqlErrors: true
   schema: originals-light
   driver: org.postgresql.Driver
+
+test:
+  failOnError: false

@@ -1,0 +1,83 @@
+Use https://sequencediagram.org/ to read diagrams
+
+## 🌟 Linking Assets - Parent asset 'hero'
+
+title Linking Assets - Parent asset 'hero'
+
+Client_app->Backend:Register and mint parent Asset with name='hero' to account x'01'. No attributes predefined.
+Client_app->Backend:Register and mint child Asset with name='helmet' to account x'01'.
+Client_app->Backend:Add attribute to parent asset with relation to child_asset
+note over Backend: operation add_attribute_to_asset(\n  asset_id: byte_array, \n  attribute_name: text, \n  type: attributes.attribute_type, \n  attribute_value: byte_array\n)
+
+note over Backend: Lock child asset with ft4 function \nlock_asset(type: text, accounts.account, assets.asset, amount: big_integer). Used type: LINK_TO_PARENT
+
+
+
+## 🌟 Linking Assets - Chain of linked assets
+title Linking Assets - Chain of linked assets
+
+
+title Linking Assets - Chain of linked assets
+
+
+Client_app->Backend:Register and mint parent Asset with name='hero' to account x'01'. No attributes predefined.
+Client_app->Backend:Register and mint child Asset with name='helmet' to account x'01'.
+Client_app->Backend:Add attribute to parent asset with relation to child_asset
+note over Backend: operation add_attribute_to_asset(\n  asset_id: byte_array, \n  attribute_name: text, \n  type: attributes.attribute_type, \n  attribute_value: byte_array\n)
+
+alt If child asset already linked
+    note over Backend: Operation fail
+else If child asset in not already linked
+    note over Backend: Lock child asset with ft4 function \nlock_asset(type: text, accounts.account, assets.asset, amount: big_integer). Use
+end alt
+
+Client_app->Backend:Register and mint child Asset with name='jew' to account x'01'.
+
+Client_app->Backend:Add attribute to asset helmet with relation to child_asset jew
+note over Backend: operation add_attribute_to_asset(\n  asset_id: byte_array, \n  attribute_name: text, \n  type: attributes.attribute_type, \n  attribute_value: byte_array\n)
+
+alt If child asset already linked
+    note over Backend: Operation fail
+else If child asset in not already linked
+    note over Backend: Lock child asset with ft4 function \nlock_asset(type: text, accounts.account, assets.asset, amount: big_integer). Use
+end alt
+
+
+note over Backend: Lock child asset with ft4 function \nlock_asset(type: text, accounts.account, assets.asset, amount: big_integer). Used type: LINK_TO_PARENT.
+
+
+
+
+## 🌟 Register and mint asset - use general ft4 operations. Add attributes and two interfaces later. Mark asset as burnable with interface
+title Register and mint asset - use general ft4 operations. Add attributes and two interfaces later. Mark asset as burnable with interface 
+
+
+Client_app->Backend:ft4.register_asset or register_asset_with_type. Type is not important  for originals-light currently.
+Client_app->Backend:Mint asset with operation ft4.mint
+
+Client_app->Backend: Add attribute 'strength' to the nft: operation 
+
+note over Backend: operation \nadd_attribute_to_asset( \n asset_id: byte_array, \n attribute_name: text, \n type: attributes.attribute_type,\n attribute_value: byte_array \n)
+
+Client_app->Backend: Query attribute value with generic query: get_attribute_value(asset_id: byte_array, attribute_name)
+
+note over Backend: Attribute has strict relation to the specific asset.\nAssets does not share attributes with another assets \nOne asset can be used as attribute in another asset. This is solution for linking assets \nAll attributes can be optional or required if are specified in interface
+
+Client_app->Backend: Register interface 'hero' with one attribute 'strength'
+ 
+note over Backend: operation register_interface( \n  name: text,\n  interface_attributes: list<(\n    attribute_name: text,\n    type: attributes.attribute_type\n  )>\n)
+
+Client_app->Backend:Add interface 'hero' to the asset by operation: add_interface_to_asset( \n asset_id: byte_array,\n interface_id: big_integer\n)
+
+alt Not all attributes required by interface were added to asset
+    note over Backend: Operation fail
+else All required attributes by interface has been already added to the asset
+    note over Backend: Connect asset to the interface
+end alt
+
+Client_app->Backend: Register interface 'burnable' without interface. It allows to call operation ft4.burn(accounts.account, asset, amount: big_integer)
+
+note over Backend: operation register_interface( \n  name: text,\n  interface_attributes: list<(\n    attribute_name: text,\n    type: attributes.attribute_type\n  )>\n)
+
+
+Client_app->Backend:Add interface 'burnable' to the asset by operation: add_interface_to_asset( \n asset_id: byte_array,\n interface_id: big_integer\n)
