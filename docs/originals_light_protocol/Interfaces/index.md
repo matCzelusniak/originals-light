@@ -1,4 +1,4 @@
-# Interfaces Module Overview
+# <i class="fa fa-quora"></i> Interfaces Module Overview
 
 The **Interfaces Module** in the Originals-light library is responsible for defining and managing interfaces for assets to work as asset type. Is possible to declare interface as bunch of rule for asset as well (Burnable, Soulbound,Tradable etc.). This module provides functions to register interfaces and ensure that assets comply with the required attributes defined by these interfaces.
 
