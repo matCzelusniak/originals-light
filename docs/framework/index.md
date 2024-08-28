@@ -1,3 +1,0 @@
-# Framework Overview
-
-Test autogeneration
