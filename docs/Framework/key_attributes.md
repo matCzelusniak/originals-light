@@ -1,4 +1,4 @@
-# Key attributes
+# 🔑 Key attributes
 
 **Originals-light keys and way of implemtation**
 
