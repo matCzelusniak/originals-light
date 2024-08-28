@@ -1,6 +1,6 @@
 # Summary
 
-- [Framework](./Framework/index.md)
+- [🏗️🏗️ Framework](./Framework/index.md)
 - [Originals-light Protocol](./originals_light_protocol/index.md)
   - [Getting Started](./originals_light_protocol/getting_started/index.md)
   - [Assets](./originals_light_protocol/Assets/index.md)
