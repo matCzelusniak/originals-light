@@ -39,7 +39,7 @@ operation register_and_mint_asset(
   type: text = ft_assets.ASSET_TYPE_FT4,
   asset_attributes: list<attributes.basic_attribute_dto>?,
   accounts: list<byte_array>?,
-  amount: integer
+  amount: big_integer
 ){
   ft_auth.authenticate();
 

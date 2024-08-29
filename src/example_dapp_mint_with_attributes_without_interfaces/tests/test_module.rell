@@ -14,7 +14,7 @@ function test_register_asset_without_attributes() {
     )
         .run();
 
-    val asset = get_last_asset();
+    val asset = common_test_helpers.get_last_asset();
     assert_equals(asset.name, mock_asset_name);
 
     val asset_attributes = originals_light_attributes.get_asset_attributes(asset.id);
@@ -37,7 +37,7 @@ function test_register_asset_with_attributes() {
     )
         .run();
 
-    val asset = get_last_asset();
+    val asset = common_test_helpers.get_last_asset();
 
     val attribute_name = "max_supply";
     val attribute_value = (1000000L).to_bytes();
@@ -83,7 +83,7 @@ function test_register_asset_and_add_attributes_batch() {
     )
         .run();
 
-    val asset = get_last_asset();
+    val asset = common_test_helpers.get_last_asset();
 
     val attributes: list<originals_light_attributes.attribute_dto> = [
         originals_light_attributes.attribute_dto(
@@ -139,7 +139,7 @@ function test_mint_asset() {
     )
         .run();
 
-    val asset = get_last_asset();
+    val asset = common_test_helpers.get_last_asset();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -184,7 +184,7 @@ function test_register_and_mint_asset_without_attributes() {
     )
         .run();
 
-    val asset = get_last_asset();
+    val asset = common_test_helpers.get_last_asset();
 
     val admin_account = ft_accounts.Account(admin.account_id);
     val admin_asset_balance = ft_assets.get_asset_balance(admin_account, asset);
@@ -223,7 +223,7 @@ function test_register_and_mint_asset_with_attributes() {
     )
         .run();
 
-    val asset = get_last_asset();
+    val asset = common_test_helpers.get_last_asset();
 
     val admin_account = ft_accounts.Account(admin.account_id);
     val admin_asset_balance = ft_assets.get_asset_balance(admin_account, asset);
@@ -268,7 +268,7 @@ function test_link_child_to_parent() {
     )
         .run();
 
-    val helmet_asset = get_last_asset();
+    val helmet_asset = common_test_helpers.get_last_asset();
 
     val character_attributes: list<originals_light_attributes.basic_attribute_dto> = [
         originals_light_attributes.basic_attribute_dto(
@@ -291,7 +291,7 @@ function test_link_child_to_parent() {
     )
         .run();
 
-    val character_asset = get_last_asset();
+    val character_asset = common_test_helpers.get_last_asset();
 
     val character_children = originals_light_attributes_external.get_linked_assets(character_asset.id);
     assert_equals(character_children, [helmet_asset.id]);
@@ -321,7 +321,7 @@ function test_unlink_child_attribute() {
     )
         .run();
 
-    val helmet_asset = get_last_asset();
+    val helmet_asset = common_test_helpers.get_last_asset();
 
     val character_attributes: list<originals_light_attributes.basic_attribute_dto> = [
         originals_light_attributes.basic_attribute_dto(
@@ -344,7 +344,7 @@ function test_unlink_child_attribute() {
     )
         .run();
 
-    val character_asset = get_last_asset();
+    val character_asset = common_test_helpers.get_last_asset();
 
     val character_children_linked = originals_light_attributes_external.get_linked_assets(character_asset.id);
     assert_equals(character_children_linked, [helmet_asset.id]);
@@ -378,7 +378,7 @@ function test_update_attribute() {
     )
         .run();
 
-    val asset = get_last_asset();
+    val asset = common_test_helpers.get_last_asset();
 
     val attribute_name = "max_supply";
     val attribute_value = (1000000L).to_bytes();
@@ -438,7 +438,7 @@ function test_remove_text_attributes() {
     )
         .run();
 
-    val asset = get_last_asset();
+    val asset = common_test_helpers.get_last_asset();
 
     val attribute_name = "max_supply";
     val attribute_value = (1000000L).to_bytes();
@@ -488,7 +488,7 @@ function test_register_and_mint_without_attributes_using_ft4() {
     )
         .run();
 
-    val asset_id = get_last_asset_id();
+    val asset_id = common_test_helpers.get_last_asset_id();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -515,7 +515,7 @@ function test_register_and_mint_using_ft4_and_add_attributes() {
     )
         .run();
 
-    val asset = get_last_asset();
+    val asset = common_test_helpers.get_last_asset();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -579,7 +579,7 @@ function test_register_mint_using_ft4_and_link_asset_with_attributes() {
     )
         .run();
 
-    val helmet_asset = get_last_asset();
+    val helmet_asset = common_test_helpers.get_last_asset();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -617,7 +617,7 @@ function test_register_mint_using_ft4_and_link_asset_with_attributes() {
     )
         .run();
 
-    val character_asset = get_last_asset();
+    val character_asset = common_test_helpers.get_last_asset();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -662,7 +662,7 @@ function test_register_mint_using_ft4_and_link_and_unlink_with_attributes() {
     )
         .run();
 
-    val helmet_asset = get_last_asset();
+    val helmet_asset = common_test_helpers.get_last_asset();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
@@ -700,7 +700,7 @@ function test_register_mint_using_ft4_and_link_and_unlink_with_attributes() {
     )
         .run();
 
-    val character_asset = get_last_asset();
+    val character_asset = common_test_helpers.get_last_asset();
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,

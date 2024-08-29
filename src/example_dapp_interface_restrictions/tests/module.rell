@@ -1,0 +1,11 @@
+@test module;
+
+import common_test_helpers: ^^.common.tests.helpers;
+import common_test_mocks: ^^.common.tests.mocks;
+import interface_restrictions_external: ^^.example_dapp_interface_restrictions.external;
+import interface_restrictions: ^^.example_dapp_interface_restrictions;
+import originals_light_assets_external: lib.originals_light.external.assets;
+import originals_light_interfaces: lib.originals_light.interfaces;
+import originals_light_interfaces_external: lib.originals_light.external.interfaces;
+import ft_assets: lib.ft4.core.assets;
+import ft_assets_external: lib.ft4.external.assets;

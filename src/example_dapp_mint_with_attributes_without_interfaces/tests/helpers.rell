@@ -1,3 +1,0 @@
-function get_last_asset() = ft_assets.asset @ {} ($, @omit @sort_desc .rowid) limit 1;
-
-function get_last_asset_id() = ft_assets.asset @ {} (.id, @omit @sort_desc .rowid) limit 1;

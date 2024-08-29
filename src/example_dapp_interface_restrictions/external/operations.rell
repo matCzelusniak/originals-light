@@ -1,0 +1,13 @@
+@extend(ft_auth.auth_handler)
+function () = ft_auth.add_auth_handler(
+  flags = []
+);
+
+operation set_asset_interface(id: big_integer, asset_id: byte_array) {
+    ft_auth.authenticate();
+
+    val asset = ft_assets.Asset(asset_id);
+    val interface = originals_light_interfaces.Interface(id);
+
+    originals_light_interfaces.add_interface_to_asset(asset.id, interface.id);
+}

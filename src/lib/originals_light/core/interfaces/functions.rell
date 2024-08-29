@@ -1,3 +1,7 @@
+function Interface(id: big_integer) = require(
+  interface @? { id }, "Interface with id '%d' not found!".format(id)
+);
+
 function register_interface(
   name: text,
   attributes: list<(
@@ -5,8 +9,6 @@ function register_interface(
     type: attributes.attribute_type
   )>
 ) {
-  interface @* {} ( @sort_desc .id ) limit 1;
-
   val last_id = (interface @* {} ( @sort_desc .id ) limit 1 );
   val next_id = if (last_id.size() > 0) last_id[0] + 1 else 1;
 
@@ -15,7 +17,7 @@ function register_interface(
     name = name
   );
 
-  for(attribute in attributes){
+  for(attribute in attributes) {
     create interface_attributes(
       interface = interface_created,
       attribute_name = attribute.name,

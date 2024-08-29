@@ -1,0 +1,235 @@
+function test_create_interface() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.BURNABLE_INTERFACE,
+            []
+        )
+    )
+        .run();
+    
+}
+
+function test_set_asset_interface() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.BURNABLE_INTERFACE,
+            []
+        )
+    )
+        .run();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_assets_external.register_and_mint_asset(
+            common_test_mocks.MOCK_ASSET_NAME,
+            common_test_mocks.MOCK_ASSET_SYMBOL,
+            0,
+            chain_context.blockchain_rid,
+            common_test_mocks.MOCK_URL,
+            ft_assets.ASSET_TYPE_FT4,
+            [],
+            [admin.account_id],
+            1L
+        )
+    )
+        .run();
+
+    val asset = common_test_helpers.get_last_asset();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        interface_restrictions_external.set_asset_interface(
+            get_last_interface_id(),
+            asset.id
+        )
+    )
+        .run();
+}
+
+function test_burn_asset_with_burnable_interface() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.BURNABLE_INTERFACE,
+            []
+        )
+    )
+        .run();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_assets_external.register_and_mint_asset(
+            common_test_mocks.MOCK_ASSET_NAME,
+            common_test_mocks.MOCK_ASSET_SYMBOL,
+            0,
+            chain_context.blockchain_rid,
+            common_test_mocks.MOCK_URL,
+            ft_assets.ASSET_TYPE_FT4,
+            [],
+            [admin.account_id],
+            1L
+        )
+    )
+        .run();
+
+    val asset = common_test_helpers.get_last_asset();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        interface_restrictions_external.set_asset_interface(
+            get_last_interface_id(),
+            asset.id
+        )
+    )
+        .run();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        ft_assets_external.burn(asset.id, 1L)
+    )
+        .run();
+}
+
+function test_cannot_burn_asset_without_burnable_interface() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_assets_external.register_and_mint_asset(
+            common_test_mocks.MOCK_ASSET_NAME,
+            common_test_mocks.MOCK_ASSET_SYMBOL,
+            0,
+            chain_context.blockchain_rid,
+            common_test_mocks.MOCK_URL,
+            ft_assets.ASSET_TYPE_FT4,
+            [],
+            [admin.account_id],
+            1L
+        )
+    )
+        .run();
+
+    val asset = common_test_helpers.get_last_asset();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        ft_assets_external.burn(asset.id, 1L)
+    )
+        .run_must_fail(
+            "Asset with id '%s' does not contain interface '%s', it cannot be burned"
+            .format(asset.id, interface_restrictions.BURNABLE_INTERFACE)
+        );
+}
+
+function test_transfer_asset_with_tradable_interface() {
+    val admin = common_test_helpers.register_admin();
+    val alice = common_test_helpers.register_alice();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.TRADABLE_INTERFACE,
+            []
+        )
+    )
+        .run();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_assets_external.register_and_mint_asset(
+            common_test_mocks.MOCK_ASSET_NAME,
+            common_test_mocks.MOCK_ASSET_SYMBOL,
+            0,
+            chain_context.blockchain_rid,
+            common_test_mocks.MOCK_URL,
+            ft_assets.ASSET_TYPE_FT4,
+            [],
+            [admin.account_id],
+            1L
+        )
+    )
+        .run();
+
+    val asset = common_test_helpers.get_last_asset();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        interface_restrictions_external.set_asset_interface(
+            get_last_interface_id(),
+            asset.id
+        )
+    )
+        .run();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        ft_assets_external.transfer(
+            alice.account_id,
+            asset.id,
+            1L
+        )
+    )
+        .run();
+}
+
+function test_cannot_transfer_asset_without_tradable_interface() {
+    val admin = common_test_helpers.register_admin();
+    val alice = common_test_helpers.register_alice();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.SOULBOUND_INTERFACE,
+            []
+        )
+    )
+        .run();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_assets_external.register_and_mint_asset(
+            common_test_mocks.MOCK_ASSET_NAME,
+            common_test_mocks.MOCK_ASSET_SYMBOL,
+            0,
+            chain_context.blockchain_rid,
+            common_test_mocks.MOCK_URL,
+            ft_assets.ASSET_TYPE_FT4,
+            [],
+            [admin.account_id],
+            1L
+        )
+    )
+        .run();
+
+    val asset = common_test_helpers.get_last_asset();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        interface_restrictions_external.set_asset_interface(
+            get_last_interface_id(),
+            asset.id
+        )
+    )
+        .run();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        ft_assets_external.transfer(
+            alice.account_id,
+            asset.id,
+            1L
+        )
+    )
+        .run_must_fail(
+            "Asset with id '%s' contains interface '%s', it cannot be transfered"
+            .format(asset.id, interface_restrictions.SOULBOUND_INTERFACE)
+        );
+}
