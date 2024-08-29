@@ -1,0 +1,41 @@
+module;
+
+import ft_assets: lib.ft4.core.assets;
+import ft_accounts: lib.ft4.core.accounts;
+import originals_light_interfaces: lib.originals_light.interfaces;
+import interface_restrictions: ^.example_dapp_interface_restrictions;
+
+@extend(ft_assets.before_burn) function(
+    ft_accounts.account,
+    ft_assets.asset,
+    amount: big_integer
+) {
+    val asset_interface_names = get_asset_interface_names(asset);
+
+    require(
+        asset_interface_names.contains(interface_restrictions.BURNABLE_INTERFACE),
+        "Asset with id '%s' does not contain interface '%s', it cannot be burned"
+        .format(asset.id, interface_restrictions.BURNABLE_INTERFACE)
+    );
+}
+
+@extend(ft_assets.before_transfer) function(
+    from: ft_accounts.account,
+    to: ft_accounts.account,
+    ft_assets.asset,
+    amount: big_integer
+) {
+    val asset_interface_names = get_asset_interface_names(asset);
+
+    require(
+        not asset_interface_names.contains(interface_restrictions.SOULBOUND_INTERFACE),
+        "Asset with id '%s' contains interface '%s', it cannot be transfered"
+        .format(asset.id, interface_restrictions.SOULBOUND_INTERFACE)
+    );
+
+    require(
+        asset_interface_names.contains(interface_restrictions.TRADABLE_INTERFACE),
+        "Asset with id '%s' does not contain interface '%s', it cannot be transfered"
+        .format(asset.id, interface_restrictions.TRADABLE_INTERFACE)
+    );
+}

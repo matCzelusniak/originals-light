@@ -1,6 +1,7 @@
 @test module;
 
 import ft_accounts: lib.ft4.accounts;
+import ft_assets: lib.ft4.assets;
 import ft_admin_external: lib.ft4.external.admin;
 import ft_auth_external: lib.ft4.external.auth;
 
@@ -57,3 +58,7 @@ function get_signed_test_nop_tx(auth_data, op: rell.test.op) {
         .op(rell.test.op(op.name, op.args))
         .sign(auth_data.keypair);
 }
+
+function get_last_asset() = ft_assets.asset @ {} ($, @omit @sort_desc .rowid) limit 1;
+
+function get_last_asset_id() = ft_assets.asset @ {} (.id, @omit @sort_desc .rowid) limit 1;

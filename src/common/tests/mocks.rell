@@ -1,0 +1,5 @@
+@test module;
+
+val MOCK_ASSET_NAME = "CHR MOCK NAME";
+val MOCK_ASSET_SYMBOL = "SYMBCHR";
+val MOCK_URL = "https://www.google.com/image_1";

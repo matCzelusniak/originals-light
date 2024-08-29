@@ -1,0 +1,5 @@
+module;
+
+import ft_auth: lib.ft4.auth;
+import ft_assets: lib.ft4.core.assets;
+import originals_light_interfaces: lib.originals_light.core.interfaces;

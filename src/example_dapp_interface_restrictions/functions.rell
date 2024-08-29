@@ -1,0 +1,4 @@
+function get_asset_interface_names(ft_assets.asset) = 
+    originals_light_interfaces.asset_interfaces @* {
+        asset
+    } (.interface.name);

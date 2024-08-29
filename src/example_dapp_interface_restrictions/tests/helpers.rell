@@ -1,0 +1,1 @@
+function get_last_interface_id() = originals_light_interfaces.interface @ {} (.id, @omit @sort_desc .rowid) limit 1;
