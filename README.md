@@ -45,3 +45,10 @@ Application example_dapp_one_chain_battle_game
 - Example of assets for simple battle game
 - Linking one asset to another (helmet to hero)
 - Support for interfaces/types
+
+Application example_dapp_asset_with_attributes_without_interface
+- Example of application with asssets and attributes without interfaces. 
+- App specificed for simple use cases
+
+Application example_dapp_interface_restrictions
+- Example of application with usage interfaces as rules/authorization for actions. 
