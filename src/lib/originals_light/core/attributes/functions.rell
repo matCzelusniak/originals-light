@@ -10,7 +10,6 @@ function add_attribute_to_asset(
     attribute.type,
     attribute.value
   );
-
   when (attribute.type) {
     attribute_type.boolean,
     attribute_type.byte_array,
