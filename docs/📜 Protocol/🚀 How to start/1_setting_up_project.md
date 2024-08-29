@@ -1,7 +1,5 @@
 # Set up Project
 
-## Project
-
 Just clone repo:
 [GitHub Repository for Originals Light](https://github.com/matCzelusniak/originals-light)
 
