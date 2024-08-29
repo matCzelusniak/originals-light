@@ -1,0 +1,1 @@
+# Register and mind asset
