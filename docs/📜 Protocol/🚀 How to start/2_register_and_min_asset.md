@@ -1,7 +1,7 @@
 
 # Tutorial: Asset Registration and Minting Scenarios with `originals-light` asset and attributes
 
-This tutorial will walk you through different scenarios of asset registration and minting using `originals-light` and `ft4`. We will cover three distinct cases, each demonstrating a different approach to managing assets.
+This tutorial will walk you through different scenarios of asset registration and minting using `originals-light`. We will cover three distinct cases, each demonstrating a different approach to managing assets.
 
 ---
 
@@ -10,6 +10,21 @@ This tutorial will walk you through different scenarios of asset registration an
 In this scenario, we will register and mint an asset while directly adding attributes, without using an interface. One attribute "fishes_caught".
 
 **Example: Register and Mint with Attributes**
+
+
+```rell
+    operation register_and_mint_asset(
+    name: text,
+    symbol: text,
+    decimals: integer,
+    blockchain_rid: byte_array,
+    icon_url: text,
+    type: text = ft_assets.ASSET_TYPE_FT4,
+    asset_attributes: list<attributes.basic_attribute_dto>?,
+    accounts: list<byte_array>?,
+    amount: integer
+    )
+```
 
 
 ```rell
@@ -64,54 +79,54 @@ Here, we'll register and mint an asset using `ft4` without any attributes initia
 
 ```rell
     operation add_attribute_to_asset(
-    attribute: attributes.attribute_dto
+        attribute: attributes.attribute_dto
     ) {
-    val account = ft_auth.authenticate();
+            val account = ft_auth.authenticate();
 
-    attributes.add_attribute_to_asset(
-        account,
-        attribute
-    );
+            attributes.add_attribute_to_asset(
+                account,
+                attribute
+            );
     }
 
     operation update_attribute(
-    asset_id: byte_array,
-    attribute_name: text,
-    attribute_value: byte_array
+        asset_id: byte_array,
+        attribute_name: text,
+        attribute_value: byte_array
     ) {
-    ft_auth.authenticate();
+        ft_auth.authenticate();
 
-    attributes.update_attribute(
-        asset_id,
-        attribute_name,
-        attribute_value
-    );
+        attributes.update_attribute(
+            asset_id,
+            attribute_name,
+            attribute_value
+        );
     }
 
     operation remove_attribute(
-    asset_id: byte_array,
-    name: text
+        asset_id: byte_array,
+        name: text
     ) {
-    val account = ft_auth.authenticate();
-    
-    attributes.remove_asset_attribute(
-        account,
-        asset_id,
-        name
-    );
+        val account = ft_auth.authenticate();
+        
+        attributes.remove_asset_attribute(
+            account,
+            asset_id,
+            name
+        );
     }
 
     operation add_attributes_to_asset_batch(
-    attributes_list: list<attributes.attribute_dto>
+        attributes_list: list<attributes.attribute_dto>
     ) {
-    val account = ft_auth.authenticate();
+        val account = ft_auth.authenticate();
 
-    for (attribute in attributes_list) {
-        attributes.add_attribute_to_asset(
-        account,
-        attribute
-        );
-    }
+        for (attribute in attributes_list) {
+            attributes.add_attribute_to_asset(
+            account,
+            attribute
+            );
+        }
     }
 
 ```
@@ -150,26 +165,26 @@ Finally, we will use `originals-light` to register and mint an asset without att
 
 ```rell
     operation register_interface(
-    name: text,
-    interface_attributes: list<(
         name: text,
-        type: attributes.attribute_type
-    )>
+        interface_attributes: list<(
+            name: text,
+            type: attributes.attribute_type
+        )>
     ){
-    interfaces.register_interface(
-        name,
-        interface_attributes
-    );
+        interfaces.register_interface(
+            name,
+            interface_attributes
+        );
     }
 
     operation add_interface_to_asset(
-    asset_id: byte_array,
-    interface_id: big_integer
+        asset_id: byte_array,
+        interface_id: big_integer
     ){
-    interfaces.add_interface_to_asset(
-        asset_id,
-        interface_id
-    );
+        interfaces.add_interface_to_asset(
+            asset_id,
+            interface_id
+        );
     }
 ```
 
