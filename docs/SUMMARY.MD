@@ -13,3 +13,7 @@
   - [🔌 Interfaces](./Protocol/Interfaces/index.md)
   - [Collections](./Protocol/Collections/index.md)
   - [Projects](./Protocol/Projects/index.md)
+- [🗳️  Examples](./Examples/index.md)
+- [📦 UML schemas](./UML%20schemas/index.md)
+
+
