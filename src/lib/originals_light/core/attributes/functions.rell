@@ -1,19 +1,16 @@
 function add_attribute_to_asset(
-  asset_id: byte_array,
-  attribute_name: text,
-  type: attribute_type,
-  attribute_value: byte_array
+  ft_accounts.account,
+  attribute: attribute_dto
 ) {
-  val asset = ft_assets.Asset(asset_id);
+  val asset = ft_assets.Asset(attribute.asset_id);
 
   before_add_attribute_to_asset(
     asset,
-    attribute_name,
-    type,
-    attribute_value
+    attribute.name,
+    attribute.type,
+    attribute.value
   );
-
-  when (type){
+  when (attribute.type) {
     attribute_type.boolean,
     attribute_type.byte_array,
     attribute_type.decimal,
@@ -23,11 +20,19 @@ function add_attribute_to_asset(
      -> {
       create attribute(
         asset,
-        name = attribute_name,
-        value = attribute_value,
-        type = type
+        name = attribute.name,
+        value = attribute.value,
+        type = attribute.type
       );
-    }
+    } attribute_type.asset_id-> {
+      link_assets(asset, attribute.value, account, attribute.amount);
+       create attribute(
+        asset,
+        name = attribute.name,
+        value = attribute.value,
+        type = attribute.type
+      );
+    } 
     else -> {
       require(false, "Unsupported attribute type");
     }
@@ -35,9 +40,9 @@ function add_attribute_to_asset(
 
   after_add_attribute_to_asset(
     asset,
-    attribute_name,
-    type,
-    attribute_value
+    attribute.name,
+    attribute.type,
+    attribute.value
   );
 }
 
@@ -51,12 +56,107 @@ function update_attribute(
     attribute_name,
     attribute_value
   );
-  update attribute @ { .name == attribute_name, .asset.id == asset_id } ( value = attribute_value );
+
+  update attribute @ {
+    .name == attribute_name,
+    .asset.id == asset_id
+  } ( value = attribute_value );
 
   after_update_attribute(
     asset_id,
     attribute_name,
     attribute_value
+  );
+}
+
+function remove_asset_attribute(
+  ft_accounts.account,
+  asset_id: byte_array,
+  attribute_name: text
+) {
+  before_remove_attribute(
+    asset_id,
+    attribute_name
+  );
+
+  val attribute = attribute @? {
+    .name == attribute_name,
+    .asset.id == asset_id
+  };
+
+  require(
+    attribute,
+    "Cannot remove asset attribute. Asset with id '%s' does not contain attribute with name '%s'."
+    .format(asset_id, attribute_name)
+  );
+
+  if (attribute.type == attribute_type.asset_id) {
+    // Todo - update to unlink fungible amount
+    unlink_assets(
+      attribute.asset,
+      attribute.value,
+      account,
+      1L
+    );
+  }
+
+  delete attribute;
+
+  after_remove_attribute(
+    asset_id,
+    attribute_name
+  );
+}
+
+function require_asset_ownership(
+  ft_accounts.account,
+  ft_assets.asset,
+  amount: big_integer = 1L
+) {
+  val main_account_balance_amount = ft_assets.get_asset_balance(account, asset);
+  val special_account_balance_amount = ft_assets_locking.get_locked_asset_aggregated_balance(account, asset, [LINKED]);
+
+  require(
+      main_account_balance_amount >= amount or special_account_balance_amount >= amount,
+      "Account with id '%s' does not own the asset with id '%s' and balance '%d'"
+      .format(account.id, asset.id, amount)
+  );
+}
+
+function link_assets(
+  parent_asset: ft_assets.asset,
+  child_asset_id: byte_array,
+  ft_accounts.account,
+  amount: big_integer = 1L
+) {
+  val child_asset = ft_assets.Asset(child_asset_id);
+  require_asset_ownership(account, parent_asset);
+  require_asset_ownership(account, child_asset, amount);
+
+  ft_assets_locking.lock_asset(
+    LINKED,
+    account,
+    child_asset,
+    amount
+  );
+}
+
+function unlink_assets(
+  parent_asset: ft_assets.asset,
+  child_asset_id: byte_array,
+  ft_accounts.account,
+  amount: big_integer = 1L
+) {
+  val child_asset = ft_assets.Asset(child_asset_id);
+
+  require_asset_ownership(account, parent_asset);
+  require_asset_ownership(account, child_asset, amount);
+
+  ft_assets_locking.unlock_asset(
+    LINKED,
+    account,
+    child_asset,
+    amount
   );
 }
 

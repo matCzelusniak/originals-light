@@ -1,0 +1,491 @@
+function test_register_asset_without_attributes() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_asset(
+            mock_asset_name,
+            "SYMB1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            []
+        )
+    )
+        .run();
+
+    val asset = get_last_asset();
+    assert_equals(asset.name, mock_asset_name);
+
+    val asset_attributes = originals_light_attributes.get_asset_attributes(asset.id);
+    assert_equals(asset_attributes.size(), 0);
+}
+
+function test_register_asset_with_attributes() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_asset(
+            mock_asset_name,
+            "SYMB1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            []
+        )
+    )
+        .run();
+
+    val asset = get_last_asset();
+
+    val attribute_name = "max_supply";
+    val attribute_value = (1000000L).to_bytes();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_attributes_external.add_attribute_to_asset(
+            originals_light_attributes.attribute_dto(
+                asset_id = asset.id,
+                name = attribute_name,
+                type = originals_light_attributes.attribute_type.big_integer,
+                value = attribute_value
+            )
+        )
+    )
+        .run();
+
+    val asset_attributes = originals_light_attributes.get_asset_attributes(asset.id);
+    assert_equals(
+        asset_attributes[0].to_struct(),
+        struct<originals_light_attributes.attribute>(
+            asset = asset,
+            name = attribute_name,
+            value = attribute_value,
+            type = originals_light_attributes.attribute_type.big_integer
+        )
+    );
+}
+
+function test_register_asset_and_add_attributes_batch() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_asset(
+            mock_asset_name,
+            "SYMB1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            []
+        )
+    )
+        .run();
+
+    val asset = get_last_asset();
+
+    val attributes: list<originals_light_attributes.attribute_dto> = [
+        originals_light_attributes.attribute_dto(
+            asset_id = asset.id,
+            name = "max_supply",
+            type = originals_light_attributes.attribute_type.big_integer,
+            value = (1000000L).to_bytes()
+        ),
+        originals_light_attributes.attribute_dto(
+            asset_id = asset.id,
+            name = "description",
+            type = originals_light_attributes.attribute_type.text,
+            value = ("In-game currency").to_bytes()
+        )
+    ];
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_attributes_external.add_attributes_to_asset_batch(
+            attributes
+        )
+    )
+        .run();
+
+    val asset_attributes = originals_light_attributes.get_asset_attributes(asset.id);
+
+    for (i in range(asset_attributes.size())) {
+        assert_equals(
+            asset_attributes[i].to_struct(),
+            struct<originals_light_attributes.attribute>(
+                asset = asset,
+                name = attributes[i].name,
+                value = attributes[i].value,
+                type = attributes[i].type
+            )
+        );
+    }
+}
+
+function test_mint_asset() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_asset(
+            mock_asset_name,
+            "SYMB1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            []
+        )
+    )
+        .run();
+
+    val asset = get_last_asset();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_attributes_external.add_attribute_to_asset(
+            originals_light_attributes.attribute_dto(
+                asset_id = asset.id,
+                name = "max_supply",
+                type = originals_light_attributes.attribute_type.big_integer,
+                value = (1000000L).to_bytes()
+            )
+        )
+    )
+        .run();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.mint_asset(
+            asset.id
+        )
+    )
+        .run();
+
+    val admin_account = ft_accounts.Account(admin.account_id);
+    val admin_asset_balance = ft_assets.get_asset_balance(admin_account, asset);
+
+    assert_equals(admin_asset_balance, 1L);
+}
+
+function test_register_and_mint_asset_without_attributes() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_and_mint_asset(
+            mock_asset_name,
+            "SYMB1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            list<originals_light_attributes.basic_attribute_dto>()
+        )
+    )
+        .run();
+
+    val asset = get_last_asset();
+
+    val admin_account = ft_accounts.Account(admin.account_id);
+    val admin_asset_balance = ft_assets.get_asset_balance(admin_account, asset);
+    assert_equals(admin_asset_balance, 1L);
+
+    val asset_attributes = originals_light_attributes.get_asset_attributes(asset.id);
+    assert_equals(asset_attributes.size(), 0);
+}
+
+function test_register_and_mint_asset_with_attributes() {
+    val admin = common_test_helpers.register_admin();
+
+    val attributes: list<originals_light_attributes.basic_attribute_dto> = [
+        originals_light_attributes.basic_attribute_dto(
+            name = "max_supply",
+            type = originals_light_attributes.attribute_type.big_integer,
+            value = (1000000L).to_bytes()
+        ),
+        originals_light_attributes.basic_attribute_dto(
+            name = "description",
+            type = originals_light_attributes.attribute_type.text,
+            value = ("In-game currency").to_bytes()
+        )
+    ];
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_and_mint_asset(
+            mock_asset_name,
+            "SYMB1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            attributes
+        )
+    )
+        .run();
+
+    val asset = get_last_asset();
+
+    val admin_account = ft_accounts.Account(admin.account_id);
+    val admin_asset_balance = ft_assets.get_asset_balance(admin_account, asset);
+    assert_equals(admin_asset_balance, 1L);
+
+    val asset_attributes = originals_light_attributes.get_asset_attributes(asset.id);
+
+    for (i in range(asset_attributes.size())) {
+        assert_equals(
+            asset_attributes[i].to_struct(),
+            struct<originals_light_attributes.attribute>(
+                asset = asset,
+                name = attributes[i].name,
+                value = attributes[i].value,
+                type = attributes[i].type
+            )
+        );
+    }
+}
+
+function test_link_child_to_parent() {
+    val admin = common_test_helpers.register_admin();
+
+    val helmet_attributes: list<originals_light_attributes.basic_attribute_dto> = [
+        originals_light_attributes.basic_attribute_dto(
+            name = "power",
+            type = originals_light_attributes.attribute_type.integer,
+            value = (5).to_gtv().to_bytes()
+        )
+    ];
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_and_mint_asset(
+            "helmet",
+            "H1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            helmet_attributes
+        )
+    )
+        .run();
+
+    val helmet_asset = get_last_asset();
+
+    val character_attributes: list<originals_light_attributes.basic_attribute_dto> = [
+        originals_light_attributes.basic_attribute_dto(
+            name = "helmet",
+            type = originals_light_attributes.attribute_type.asset_id,
+            value = helmet_asset.id
+        )
+    ];
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_and_mint_asset(
+            "character",
+            "C1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            character_attributes
+        )
+    )
+        .run();
+
+    val character_asset = get_last_asset();
+
+    val character_children = originals_light_attributes_external.get_linked_assets(character_asset.id);
+    assert_equals(character_children, [helmet_asset.id]);
+}
+
+function test_unlink_child_attribute() {
+    val admin = common_test_helpers.register_admin();
+
+    val helmet_attributes: list<originals_light_attributes.basic_attribute_dto> = [
+        originals_light_attributes.basic_attribute_dto(
+            name = "power",
+            type = originals_light_attributes.attribute_type.integer,
+            value = (5).to_gtv().to_bytes()
+        )
+    ];
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_and_mint_asset(
+            "helmet",
+            "H1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            helmet_attributes
+        )
+    )
+        .run();
+
+    val helmet_asset = get_last_asset();
+
+    val character_attributes: list<originals_light_attributes.basic_attribute_dto> = [
+        originals_light_attributes.basic_attribute_dto(
+            name = "helmet",
+            type = originals_light_attributes.attribute_type.asset_id,
+            value = helmet_asset.id
+        )
+    ];
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_and_mint_asset(
+            "character",
+            "C1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            character_attributes
+        )
+    )
+        .run();
+
+    val character_asset = get_last_asset();
+
+    val character_children_linked = originals_light_attributes_external.get_linked_assets(character_asset.id);
+    assert_equals(character_children_linked, [helmet_asset.id]);
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_attributes_external.remove_attribute(
+            character_asset.id,
+            "helmet"
+        )
+    )
+        .run();
+
+    val character_children_unlinked = originals_light_attributes_external.get_linked_assets(character_asset.id);
+    assert_equals(character_children_unlinked.size(), 0);
+}
+
+function test_update_attribute() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_asset(
+            mock_asset_name,
+            "SYMB1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            []
+        )
+    )
+        .run();
+
+    val asset = get_last_asset();
+
+    val attribute_name = "max_supply";
+    val attribute_value = (1000000L).to_bytes();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_attributes_external.add_attribute_to_asset(
+            originals_light_attributes.attribute_dto(
+                asset_id = asset.id,
+                name = attribute_name,
+                type = originals_light_attributes.attribute_type.big_integer,
+                value = attribute_value
+            )
+        )
+    )
+        .run();
+
+    val asset_attribute = originals_light_attributes.get_asset_attributes(asset.id)[0];
+
+    val updated_attribute_value = (2500000L).to_bytes();
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_attributes_external.update_attribute(
+            asset.id,
+            attribute_name,
+            updated_attribute_value
+        )
+    )
+        .run();
+
+    val updated_asset_attribute = originals_light_attributes.get_asset_attributes(asset.id)[0];
+
+    assert_equals(
+        updated_asset_attribute.to_struct(),
+        struct<originals_light_attributes.attribute>(
+            asset = asset,
+            name = attribute_name,
+            value = updated_attribute_value,
+            type = originals_light_attributes.attribute_type.big_integer
+        )
+    );
+}
+
+function test_remove_text_attributes() {
+    val admin = common_test_helpers.register_admin();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        dapp_without_interfaces_external.register_asset(
+            mock_asset_name,
+            "SYMB1",
+            0,
+            chain_context.blockchain_rid,
+            mock_url,
+            []
+        )
+    )
+        .run();
+
+    val asset = get_last_asset();
+
+    val attribute_name = "max_supply";
+    val attribute_value = (1000000L).to_bytes();
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_attributes_external.add_attribute_to_asset(
+            originals_light_attributes.attribute_dto(
+                asset_id = asset.id,
+                name = attribute_name,
+                type = originals_light_attributes.attribute_type.big_integer,
+                value = attribute_value
+            )
+        )
+    )
+        .run();
+
+    val asset_attribute = originals_light_attributes.get_asset_attributes(asset.id);
+
+    assert_equals(asset_attribute.size(), 1);
+
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_attributes_external.remove_attribute(
+            asset.id,
+            attribute_name
+        )
+    )
+        .run();
+
+    val removed_asset_attribute = originals_light_attributes.get_asset_attributes(asset.id);
+
+    assert_equals(removed_asset_attribute.size(), 0);
+}
+
+function test_register_and_mint_without_attributes_using_ft4_functions() {
+
+}
+
+function test_register_and_mint_using_ft4_functions_and_add_attributes() {
+
+}
+
+function test_register_mint_and_link_using_ft4_functions() {
+
+}
+
+function test_register_mint_and_link_and_unlink_using_ft4_functions() {
+    
+}

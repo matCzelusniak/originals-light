@@ -1,9 +1,5 @@
 function test_import_erc721_asset() {
-    val account_id = x"01";
-    importer_external.register_account(
-        account_id,
-        "test_account"
-    ).run();
+    val admin = common_test_helpers.register_admin();
 
     // erc721 token with standarized metadata for hero:
     // strength, agility, intelligence, durability
@@ -14,31 +10,31 @@ function test_import_erc721_asset() {
         "erc721_hero",
         [
             (
-                attribute_name = "strength",
+                name = "strength",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "agility",
+                name = "agility",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "intelligence",
+                name = "intelligence",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "durability",
+                name = "durability",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "network_name",
+                name = "network_name",
                 type = originals_light_attributes.attribute_type.text
             ),
             (
-                attribute_name = "chain_id",
+                name = "chain_id",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "image",
+                name = "image",
                 type = originals_light_attributes.attribute_type.text
             )
         ]
@@ -48,151 +44,155 @@ function test_import_erc721_asset() {
 
     importer_external.set_current_version_of_erc721_interface(interface_id).run();
 
-    originals_light_assets_ext.register_asset(
-        "hero",
-        "HERO",
-        0,
-        chain_context.blockchain_rid,
-        "https://example.com/hero.png",
-        "ft4",
-        [
-            (
-                attribute_name = "strength",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(10).to_bytes()
-            ),
-            (
-                attribute_name = "agility",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(11).to_bytes()
-            ),
-            (
-                attribute_name = "intelligence",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(12).to_bytes()
-            ),
-            (
-                attribute_name = "durability",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(13).to_bytes()
-            ),
-            (
-                attribute_name = "network_name",
-                type = originals_light_attributes.attribute_type.text,
-                attribute_value = "ethereum".to_bytes()
-            ),
-            (
-                attribute_name = "chain_id",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(1).to_bytes()
-            ),
-            (
-                attribute_name = "image",
-                type = originals_light_attributes.attribute_type.text,
-                attribute_value = "https://example.com/hero.png".to_bytes()
-            )
-        ]
-    ).run();
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_assets_ext.register_asset(
+            "hero",
+            "HERO",
+            0,
+            chain_context.blockchain_rid,
+            "https://example.com/hero.png",
+            "ft4",
+            [
+                originals_light_attributes.basic_attribute_dto(
+                    name = "strength",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(10).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "agility",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(11).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "intelligence",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(12).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "durability",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(13).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "network_name",
+                    type = originals_light_attributes.attribute_type.text,
+                    value = "ethereum".to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "chain_id",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(1).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "image",
+                    type = originals_light_attributes.attribute_type.text,
+                    value = "https://example.com/hero.png".to_bytes()
+                )
+            ]
+        )
+    )
+        .run();
 }
 
 function test_import_erc721_asset_failed_if_missed_attribute() {
-    val account_id = x"01";
-    importer_external.register_account(
-        account_id,
-        "test_account"
-    ).run();
+    val admin = common_test_helpers.register_admin();
 
     // erc721 token with standarized metadata for hero:
     // strength, agility, intelligence, durability
     // plus information required to store source chain information
     // network_name, network_url_rpc, chain_id, image
 
-    originals_light_interfaces_ext.register_interface(
-        "erc721_hero",
-        [
-            (
-                attribute_name = "strength",
-                type = originals_light_attributes.attribute_type.big_integer
-            ),
-            (
-                attribute_name = "agility",
-                type = originals_light_attributes.attribute_type.big_integer
-            ),
-            (
-                attribute_name = "intelligence",
-                type = originals_light_attributes.attribute_type.big_integer
-            ),
-            (
-                attribute_name = "durability",
-                type = originals_light_attributes.attribute_type.big_integer
-            ),
-            (
-                attribute_name = "network_name",
-                type = originals_light_attributes.attribute_type.text
-            ),
-            (
-                attribute_name = "chain_id",
-                type = originals_light_attributes.attribute_type.big_integer
-            ),
-            (
-                attribute_name = "image",
-                type = originals_light_attributes.attribute_type.text
-            )
-        ]
-    ).run();
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_interfaces_ext.register_interface(
+            "erc721_hero",
+            [
+                (
+                    name = "strength",
+                    type = originals_light_attributes.attribute_type.big_integer
+                ),
+                (
+                    name = "agility",
+                    type = originals_light_attributes.attribute_type.big_integer
+                ),
+                (
+                    name = "intelligence",
+                    type = originals_light_attributes.attribute_type.big_integer
+                ),
+                (
+                    name = "durability",
+                    type = originals_light_attributes.attribute_type.big_integer
+                ),
+                (
+                    name = "network_name",
+                    type = originals_light_attributes.attribute_type.text
+                ),
+                (
+                    name = "chain_id",
+                    type = originals_light_attributes.attribute_type.big_integer
+                ),
+                (
+                    name = "image",
+                    type = originals_light_attributes.attribute_type.text
+                )
+            ]
+        )
+    )
+        .run();
 
     val interface_id = originals_light_interfaces.interface @ {.name == "erc721_hero"}.id;
 
     importer_external.set_current_version_of_erc721_interface(interface_id).run();
 
-    originals_light_assets_ext.register_asset(
-        "hero",
-        "HERO",
-        0,
-        chain_context.blockchain_rid,
-        "https://example.com/hero.png",
-        "ft4",
-        [
-            (
-                attribute_name = "strength",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(10).to_bytes()
-            ),
-            (
-                attribute_name = "intelligence",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(12).to_bytes()
-            ),
-            (
-                attribute_name = "durability",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(13).to_bytes()
-            ),
-            (
-                attribute_name = "network_name",
-                type = originals_light_attributes.attribute_type.text,
-                attribute_value = "ethereum".to_bytes()
-            ),
-            (
-                attribute_name = "chain_id",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(1).to_bytes()
-            ),
-            (
-                attribute_name = "image",
-                type = originals_light_attributes.attribute_type.text,
-                attribute_value = "https://example.com/hero.png".to_bytes()
-            )
-        ]
-    ).run_must_fail("Not all required attributes are present");
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_assets_ext.register_asset(
+            "hero",
+            "HERO",
+            0,
+            chain_context.blockchain_rid,
+            "https://example.com/hero.png",
+            "ft4",
+            [
+                originals_light_attributes.basic_attribute_dto(
+                    name = "strength",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(10).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "intelligence",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(12).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "durability",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(13).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "network_name",
+                    type = originals_light_attributes.attribute_type.text,
+                    value = "ethereum".to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "chain_id",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(1).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "image",
+                    type = originals_light_attributes.attribute_type.text,
+                    value = "https://example.com/hero.png".to_bytes()
+                )
+            ]
+        )
+    )
+        .run_must_fail("Not all required attributes are present");
 }
 
 function test_import_erc721_asset_with_additional_attribute() {
-    val account_id = x"01";
-    importer_external.register_account(
-        account_id,
-        "test_account"
-    ).run();
+    val admin = common_test_helpers.register_admin();
 
     // erc721 token with standarized metadata for hero:
     // strength, agility, intelligence, durability
@@ -203,35 +203,35 @@ function test_import_erc721_asset_with_additional_attribute() {
         "erc721_hero",
         [
             (
-                attribute_name = "strength",
+                name = "strength",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "agility",
+                name = "agility",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "intelligence",
+                name = "intelligence",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "durability",
+                name = "durability",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "speed",
+                name = "speed",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "network_name",
+                name = "network_name",
                 type = originals_light_attributes.attribute_type.text
             ),
             (
-                attribute_name = "chain_id",
+                name = "chain_id",
                 type = originals_light_attributes.attribute_type.big_integer
             ),
             (
-                attribute_name = "image",
+                name = "image",
                 type = originals_light_attributes.attribute_type.text
             )
         ]
@@ -241,54 +241,58 @@ function test_import_erc721_asset_with_additional_attribute() {
 
     importer_external.set_current_version_of_erc721_interface(interface_id).run();
 
-    originals_light_assets_ext.register_asset(
-        "hero",
-        "HERO",
-        0,
-        chain_context.blockchain_rid,
-        "https://example.com/hero.png",
-        "ft4",
-        [
-            (
-                attribute_name = "strength",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(10).to_bytes()
-            ),
-            (
-                attribute_name = "agility",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(11).to_bytes()
-            ),
-            (
-                attribute_name = "intelligence",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(12).to_bytes()
-            ),
-            (
-                attribute_name = "durability",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(13).to_bytes()
-            ),
-            (
-                attribute_name = "speed",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(99).to_bytes()
-            ),
-            (
-                attribute_name = "network_name",
-                type = originals_light_attributes.attribute_type.text,
-                attribute_value = "ethereum".to_bytes()
-            ),
-            (
-                attribute_name = "chain_id",
-                type = originals_light_attributes.attribute_type.big_integer,
-                attribute_value = big_integer(1).to_bytes()
-            ),
-            (
-                attribute_name = "image",
-                type = originals_light_attributes.attribute_type.text,
-                attribute_value = "https://example.com/hero.png".to_bytes()
-            )
-        ]
-    ).run();
+    common_test_helpers.get_signed_test_nop_tx(
+        admin,
+        originals_light_assets_ext.register_asset(
+            "hero",
+            "HERO",
+            0,
+            chain_context.blockchain_rid,
+            "https://example.com/hero.png",
+            "ft4",
+            [
+                originals_light_attributes.basic_attribute_dto(
+                    name = "strength",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(10).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "agility",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(11).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "intelligence",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(12).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "durability",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(13).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "speed",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(99).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "network_name",
+                    type = originals_light_attributes.attribute_type.text,
+                    value = "ethereum".to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "chain_id",
+                    type = originals_light_attributes.attribute_type.big_integer,
+                    value = big_integer(1).to_bytes()
+                ),
+                originals_light_attributes.basic_attribute_dto(
+                    name = "image",
+                    type = originals_light_attributes.attribute_type.text,
+                    value = "https://example.com/hero.png".to_bytes()
+                )
+            ]
+        )
+    )
+        .run();
 }

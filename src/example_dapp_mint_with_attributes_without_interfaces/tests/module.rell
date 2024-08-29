@@ -1,0 +1,8 @@
+@test module;
+
+import ft_assets: lib.ft4.core.assets;
+import ft_accounts: lib.ft4.core.accounts;
+import common_test_helpers: ^^.common.tests.helpers;
+import dapp_without_interfaces_external: ^.external;
+import originals_light_attributes: lib.originals_light.core.attributes;
+import originals_light_attributes_external: lib.originals_light.external.attributes;

@@ -1,5 +1,3 @@
-// Todo adapt to models from the linking PR
-
 operation register_asset(
     name,
     symbol: text,
@@ -44,18 +42,15 @@ operation register_and_mint_asset(
 ) {
     val account = ft_auth.authenticate();
 
-    val asset = originals_light_assets.register_asset(
-        name = name,
-        symbol = symbol,
-        decimals = 0,
-        blockchain_rid = chain_context.blockchain_rid,
-        icon_url = icon_url,
-        asset_attributes = attributes
-    );
-
-    originals_light_assets.mint_asset(
-      asset.id,
-      amount,
-      [account.id]
+    originals_light_assets.register_and_mint_asset(
+        name,
+        symbol,
+        decimals,
+        blockchain_rid,
+        icon_url,
+        ft_assets.ASSET_TYPE_FT4,
+        attributes,
+        [account.id],
+        amount
     );
 }

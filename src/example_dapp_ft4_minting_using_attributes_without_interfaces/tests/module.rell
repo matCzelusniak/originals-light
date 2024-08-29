@@ -1,5 +1,0 @@
-@test module;
-
-import common_test_helpers: ^^.common.tests.helpers;
-import dapp_without_interfaces_external: ^.external;
-import ft_assets: lib.ft4.core.assets;
