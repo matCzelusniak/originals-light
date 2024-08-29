@@ -2,7 +2,7 @@
 
 **Originals-light keys and way of implemtation**
 
-| Attribute           | Description                                                                                                                                                                                                                                                               |
+| Attribute           | Library Requirements                                                                                                                                                                                                                                                               |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Ownability**      | Originals can be owned by a single address, or have no owner and be ‘up for grabs’. It is also possible for an address to voluntarily drop or give up ownership.                                                                                                          |
 | **Exchangeability** | Originals can be sold to transfer ownership, or ‘adopted’ if they have no current owner.                                                                                                                                                                                  |
