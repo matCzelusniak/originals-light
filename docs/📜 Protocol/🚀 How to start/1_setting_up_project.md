@@ -5,6 +5,10 @@
 Just clone repo:
 [GitHub Repository for Originals Light](https://github.com/matCzelusniak/originals-light)
 
+## Instal libs
+
+Run command 'chr intall' in root directory.
+
 ## Other libraries
 
 ```yaml
