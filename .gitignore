@@ -2,8 +2,13 @@ build
 logs
 .chromia
 
-!src/lib/yours
+!src/lib/originals_light
+!src/lib/projects
+!src/lib/collections
+!src/lib/common
 
 .DS_STORE
 
 node_modules
+
+lib/

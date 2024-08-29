@@ -1,2 +1,0 @@
-import ^.core.assets.*;
-import external: ^.external.assets;

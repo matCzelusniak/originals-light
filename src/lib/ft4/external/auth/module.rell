@@ -1,5 +1,0 @@
-@mount('ft4')
-module;
-
-import ^^.core.auth;
-import ^^.utils;

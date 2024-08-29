@@ -6,23 +6,19 @@ title Linking Assets - Parent asset 'hero'
 
 Client_app->Backend:Register and mint parent Asset with name='hero' to account x'01'. No attributes predefined.
 Client_app->Backend:Register and mint child Asset with name='helmet' to account x'01'.
-Client_app->Backend:Add attribute to parent asset with relation to child_asset
+Client_app->Backend:Add attribute with name = 'helmet', type = asset_id, and value asset_helmet.id to aseet 'hero. \nIt creates link between hero and helmet which is easy to read from db.
 note over Backend: operation add_attribute_to_asset(\n  asset_id: byte_array, \n  attribute_name: text, \n  type: attributes.attribute_type, \n  attribute_value: byte_array\n)
 
-note over Backend: Lock child asset with ft4 function \nlock_asset(type: text, accounts.account, assets.asset, amount: big_integer). Used type: LINK_TO_PARENT
-
+note over Backend: Locking child asset 'helmet' with ft4 function \nlock_asset(type: text, accounts.account, assets.asset, amount: big_integer).
 
 
 ## 🌟 Linking Assets - Chain of linked assets
 title Linking Assets - Chain of linked assets
 
 
-title Linking Assets - Chain of linked assets
-
-
-Client_app->Backend:Register and mint parent Asset with name='hero' to account x'01'. No attributes predefined.
-Client_app->Backend:Register and mint child Asset with name='helmet' to account x'01'.
-Client_app->Backend:Add attribute to parent asset with relation to child_asset
+Client_app->Backend:Register and mint Asset with name='hero' to account x'01'. No attributes predefined.
+Client_app->Backend:Register and mint Asset with name='helmet' to account x'01'.
+Client_app->Backend:Add attribute with name = 'helmet', type = asset_id, and value asset_helmet.id to aseet 'hero. \nIt creates link between hero and helmet which is easy to read from db.
 note over Backend: operation add_attribute_to_asset(\n  asset_id: byte_array, \n  attribute_name: text, \n  type: attributes.attribute_type, \n  attribute_value: byte_array\n)
 
 alt If child asset already linked
@@ -33,7 +29,7 @@ end alt
 
 Client_app->Backend:Register and mint child Asset with name='jew' to account x'01'.
 
-Client_app->Backend:Add attribute to asset helmet with relation to child_asset jew
+Client_app->Backend:Add attribute with name = 'jew', type = asset_id, and value asset_jew.id to aseet 'helmet. \nIt creates link between jew and helmet.
 note over Backend: operation add_attribute_to_asset(\n  asset_id: byte_array, \n  attribute_name: text, \n  type: attributes.attribute_type, \n  attribute_value: byte_array\n)
 
 alt If child asset already linked
