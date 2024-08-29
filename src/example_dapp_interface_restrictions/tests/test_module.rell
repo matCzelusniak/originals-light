@@ -3,8 +3,9 @@ function test_create_interface() {
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
-        interface_restrictions_external.create_interface(
-            interface_restrictions.BURNABLE_INTERFACE
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.BURNABLE_INTERFACE,
+            []
         )
     )
         .run();
@@ -16,8 +17,9 @@ function test_set_asset_interface() {
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
-        interface_restrictions_external.create_interface(
-            interface_restrictions.BURNABLE_INTERFACE
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.BURNABLE_INTERFACE,
+            []
         )
     )
         .run();
@@ -55,8 +57,9 @@ function test_burn_asset_with_burnable_interface() {
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
-        interface_restrictions_external.create_interface(
-            interface_restrictions.BURNABLE_INTERFACE
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.BURNABLE_INTERFACE,
+            []
         )
     )
         .run();
@@ -132,8 +135,9 @@ function test_transfer_asset_with_tradable_interface() {
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
-        interface_restrictions_external.create_interface(
-            interface_restrictions.TRADABLE_INTERFACE
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.TRADABLE_INTERFACE,
+            []
         )
     )
         .run();
@@ -182,8 +186,9 @@ function test_cannot_transfer_asset_without_tradable_interface() {
 
     common_test_helpers.get_signed_test_nop_tx(
         admin,
-        interface_restrictions_external.create_interface(
-            interface_restrictions.SOULBOUND_INTERFACE
+        originals_light_interfaces_external.register_interface(
+            interface_restrictions.SOULBOUND_INTERFACE,
+            []
         )
     )
         .run();

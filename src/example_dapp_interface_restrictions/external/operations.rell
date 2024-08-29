@@ -3,11 +3,6 @@ function () = ft_auth.add_auth_handler(
   flags = []
 );
 
-operation create_interface(name) {
-    ft_auth.authenticate();
-    originals_light_interfaces.register_interface(name, []);
-}
-
 operation set_asset_interface(id: big_integer, asset_id: byte_array) {
     ft_auth.authenticate();
 
