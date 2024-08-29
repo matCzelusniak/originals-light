@@ -14,15 +14,15 @@ In this scenario, we will register and mint an asset while directly adding attri
 
 ```rell
     operation register_and_mint_asset(
-    name: text,
-    symbol: text,
-    decimals: integer,
-    blockchain_rid: byte_array,
-    icon_url: text,
-    type: text = ft_assets.ASSET_TYPE_FT4,
-    asset_attributes: list<attributes.basic_attribute_dto>?,
-    accounts: list<byte_array>?,
-    amount: integer
+        name: text,
+        symbol: text,
+        decimals: integer,
+        blockchain_rid: byte_array,
+        icon_url: text,
+        type: text = ft_assets.ASSET_TYPE_FT4,
+        asset_attributes: list<attributes.basic_attribute_dto>?,
+        accounts: list<byte_array>?,
+        amount: integer
     )
 ```
 
@@ -193,6 +193,148 @@ In this scenario, we first register and mint the asset without interface using `
 If to asset already all attributes required by interface have been added, then interface can be connected to the asset. In another case operation will fail.
 
 ---
+
+## Functions under the hood
+```rell
+    function register_asset(
+    name,
+    symbol: text,
+    decimals: integer,
+    blockchain_rid: byte_array,
+    icon_url: text,
+    type: text = ft_assets.ASSET_TYPE_FT4,
+    asset_attributes: list<attributes.basic_attribute_dto>?
+    ): ft_assets.asset {
+    before_register_asset(
+        name,
+        symbol,
+        decimals,
+        blockchain_rid,
+        icon_url,
+        type,
+        asset_attributes
+    );
+
+    val asset = ft_assets.Unsafe.register_asset(
+        name = name,
+        symbol = symbol,
+        decimals = 0,
+        blockchain_rid = chain_context.blockchain_rid,
+        icon_url = icon_url,
+        type = type
+    );
+
+    after_register_asset(
+        asset,
+        asset_attributes
+    );
+
+    return asset;
+    }
+
+    function mint_asset(
+    asset_id: byte_array,
+    amount: big_integer,
+    accounts: list<byte_array>?
+    ) {
+    before_mint(
+        asset_id,
+        amount,
+        accounts
+    );
+    val accounts_list = list<ft_accounts.account>();
+    if (not empty(accounts)) {
+        for (id in accounts) {
+        accounts_list.add(ft_accounts.Account(id));
+        }
+    }
+
+    val asset = ft_assets.Asset(asset_id);
+
+    for(account in accounts_list) {
+        ft_assets.Unsafe.mint(
+        account,
+        asset,
+        amount
+        );
+    }
+
+    after_mint(
+        asset
+    );
+    }
+
+    function register_and_mint_asset(
+    name: text,
+    symbol: text,
+    decimals: integer,
+    blockchain_rid: byte_array,
+    icon_url: text,
+    type: text = ft_assets.ASSET_TYPE_FT4,
+    asset_attributes: list<attributes.basic_attribute_dto>?,
+    account_ids: list<byte_array>?,
+    amount: big_integer = 1L
+    ) {
+    val asset = register_asset(
+        name,
+        symbol,
+        decimals,
+        blockchain_rid,
+        icon_url,
+        type,
+        asset_attributes
+    );
+
+    mint_asset(
+        asset.id,
+        amount,
+        account_ids
+    );
+
+    if(asset_attributes != null) {
+        // Todo resolve multiple account ids provided for linking
+        require(account_ids);
+        val account = ft_accounts.Account(account_ids[0]);
+
+        for(attribute in asset_attributes) {
+        attributes.add_attribute_to_asset(
+            account,
+            attributes.attribute_dto(
+            asset_id = asset.id,
+            name = attribute.name,
+            type = attribute.type,
+            value = attribute.value,
+            amount = amount
+            )
+        );
+        }
+    }
+    }
+
+    function get_linked_assets(id: byte_array) {
+    val children = get_children(id);
+
+    val grandchildren = list<byte_array>();
+    grandchildren.add_all(children);
+
+    while (not empty(children)) {
+        grandchildren.add_all(
+        get_children(children[0])
+        );
+
+        children.remove(children[0]);
+    }
+
+    return grandchildren;
+    }
+
+    function get_children(id: byte_array) =
+    (fta: ft_assets.asset, att: attributes.attribute) @* {
+        fta == att.asset,
+        fta.id == id,
+        att.type == attributes.attribute_type.asset_id
+    } (att.value);
+```
 
 ## Conclusion
 
