@@ -1,4 +1,4 @@
-# Attributes Module Overview
+# 🏷️ 🏷️ Attributes Module Overview
 
 The **Attributes Module** in the Originals-light library is responsible for managing dynamic attributes associated with assets on the Chromia blockchain. This module provides extendable functions to add, update, and retrieve attributes, allowing for flexible asset management.
 

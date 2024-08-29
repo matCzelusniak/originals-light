@@ -1,6 +1,4 @@
-# Assets module
-
-# Asset Module Overview
+# 💰 💰 Asset Module Overview
 
 The **Asset Module** in the Originals-light library is designed to manage digital assets on the Chromia blockchain using the FT4 standard under the hood. This module provides functions for asset registration, minting with passing attributes and extendable hooks for custom behaviors.
 
