@@ -22,3 +22,14 @@
 - **Linking one asset to another** (helmet to hero)
 - **Support for interfaces/types**
 
+
+## Application: `example_dapp_asset_with_attributes_without_interface`
+
+- **Example of assets with attributes without interfaces** Example of application with asssets and attributes without interfaces.
+- **App specificed for simple use cases** 
+
+## Application: `example_dapp_interface_restrictions`
+
+- **Interfaces as rules** Example of application with usage interfaces as rules/authorization for actions.
+- **App specificed for simple use cases** 
+
