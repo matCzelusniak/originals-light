@@ -1,0 +1,56 @@
+operation register_asset(
+    name,
+    symbol: text,
+    decimals: integer,
+    blockchain_rid: byte_array,
+    icon_url: text,
+    attributes: list<originals_light_attributes.basic_attribute_dto>
+) {
+    ft_auth.authenticate();
+
+    originals_light_assets.register_asset(
+        name = name,
+        symbol = symbol,
+        decimals = 0,
+        blockchain_rid = chain_context.blockchain_rid,
+        icon_url = icon_url,
+        asset_attributes = attributes
+    );
+}
+
+operation mint_asset(
+    asset_id: byte_array,
+    amount: big_integer = 1L,
+) {
+    val account = ft_auth.authenticate();
+
+    originals_light_assets.mint_asset(
+      asset_id,
+      amount,
+      [account.id]
+    );
+}
+
+operation register_and_mint_asset(
+    name,
+    symbol: text,
+    decimals: integer,
+    blockchain_rid: byte_array,
+    icon_url: text,
+    attributes: list<originals_light_attributes.basic_attribute_dto>,
+    amount: big_integer = 1L,
+) {
+    val account = ft_auth.authenticate();
+
+    originals_light_assets.register_and_mint_asset(
+        name,
+        symbol,
+        decimals,
+        blockchain_rid,
+        icon_url,
+        ft_assets.ASSET_TYPE_FT4,
+        attributes,
+        [account.id],
+        amount
+    );
+}

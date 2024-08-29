@@ -58,6 +58,22 @@ blockchains:
         lib.ft4.core.admin: &ft4AdminArgs
           admin_pubkey: 02897FAC9964FBDF97E6B83ECCBDE4A8D28729E0FB27059487D1B6B29F70B48767
 
+  example_dapp_mint_with_attributes_without_interfaces:
+    module: example_dapp_mint_with_attributes_without_interfaces
+    moduleArgs:
+      lib.ft4.core.accounts:
+        rate_limit:
+          active: false
+    test:
+      modules:
+        - example_dapp_mint_with_attributes_without_interfaces.tests
+      moduleArgs:
+        lib.ft4.core.accounts:
+          rate_limit:
+            active: false
+        lib.ft4.core.admin: &ft4AdminArgs
+          admin_pubkey: 02897FAC9964FBDF97E6B83ECCBDE4A8D28729E0FB27059487D1B6B29F70B48767
+
 # test:
 #   modules:
 #     - example_dapp_dynamic_attribute.tests
