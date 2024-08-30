@@ -1,6 +1,8 @@
-# Crosschain - one or both dApps do not support originals-light dynamic attributes
+# Crosschain transfer asset attributes
 
 Solution on top of ft4 for passing dynamic attributes between dApps during a cross-chain transfer.
+
+Proposal is for case when both dApps support originals-light attributes, one of them or any of them.
 
 ## Step 1: ## Step 1: Define Attribute Support Check
 
