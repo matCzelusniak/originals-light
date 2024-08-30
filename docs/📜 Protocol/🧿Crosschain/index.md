@@ -31,6 +31,7 @@ function decode_attributes(encoded_attributes: byte_array): map<text, any> {
 ```
 
 ## Step 3: Operations for Handling Transfer of Attributes
+
 ```rell
 operation transfer_attributes(
     init_transfer_tx: gtx_transaction,
@@ -62,6 +63,8 @@ operation transfer_attributes(
 ```
 
 ## Step 4: Hook after_apply_transfer
+
+```rell
 @extendable function after_apply_transfer(
     sender_blockchain_rid: byte_array,
     sender_account_id: byte_array,
@@ -82,7 +85,7 @@ operation transfer_attributes(
         );
     }
 }
-
+```
 
 ## Step 5: Helper functions
 
