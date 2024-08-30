@@ -4,7 +4,7 @@ Solution on top of ft4 for passing dynamic attributes between dApps during a cro
 
 Proposal is for case when both dApps support originals-light attributes, one of them or any of them.
 
-## Step 1: ## Step 1: Define Attribute Support Check
+## Step 1: Define Attribute Support Check
 
 First, define a function that checks if a given dApp supports 'dynamic' attributes.
 
