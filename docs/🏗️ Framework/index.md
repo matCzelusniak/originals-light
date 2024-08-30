@@ -18,7 +18,7 @@ Dynamic attributes willing to handle not only game and fun related stuff but als
 
 **Performance**
 
-Originals-light uses FT4 assets directly without additional wrappers. This approach simplifies and standardizes processes such as asset transferring, balance management, and cross-chain operations. Each dynamic attribute is strictly related to the asset, so for example transferring assets doesn't require additional action on attribute entity.
+Originals-light uses FT4 assets directly without additional wrappers. This approach simplifies and standardizes processes such as asset transferring, balance management, and cross-chain operations. Each dynamic attribute is strictly related to the asset, so for example transferring assets does not require additional action on attribute entity.
 
 **Reason of creation Originals-light**
 
