@@ -2,6 +2,10 @@
 
 Example of test with usage linking.
 
+Notice:
+
+Once a child asset is linked to a parent using the asset_id, attribute data type, the child asset is transfered to the special account of the owner
+
 ```rell
 
 function test_link_equipment_to_hero() {
