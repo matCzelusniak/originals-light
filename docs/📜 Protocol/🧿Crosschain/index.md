@@ -89,6 +89,9 @@ operation transfer_attributes(
 
 ## Step 5: Helper functions
 
+Store Attributes: Function to store attributes during the initial transfer.
+Retrieve Attributes: Function to retrieve attributes during the application of the transfer.
+
 ```rell
 function store_attributes_for_transfer(
     tx_hash: byte_array,
