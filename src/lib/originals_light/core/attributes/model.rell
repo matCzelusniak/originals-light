@@ -14,6 +14,7 @@ enum attribute_type {
 
 entity attribute {
   index asset: ft_assets.asset;
+  //todo (comment matCzelusniak) - think twice about indexing name
   index name: text;
   mutable value: byte_array;
   key asset, name;
