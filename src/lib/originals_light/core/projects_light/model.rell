@@ -1,0 +1,4 @@
+entity project_asset {
+  index projects.project;
+  key ft_assets.asset;
+}

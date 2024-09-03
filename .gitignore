@@ -7,8 +7,11 @@ logs
 !src/lib/collections
 !src/lib/common
 
+
 .DS_STORE
 
 node_modules
 
-lib/
+src/lib/ft4/
+src/lib/iccf/
+src/lib/pagination/

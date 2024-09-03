@@ -1,0 +1,10 @@
+@extendable
+function before_add_asset_to_project(
+  asset_id: byte_array,
+  collection_id: text
+);
+
+@extendable
+function after_add_asset_to_project(
+  project_asset
+);

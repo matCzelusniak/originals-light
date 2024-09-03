@@ -1,4 +1,0 @@
-function attach(yours.token) {
-  yours.attach_module(token, "tracker");
-  create tracker ( token, op_context.last_block_time );
-}

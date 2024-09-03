@@ -1,7 +1,6 @@
 entity collection {
     key id: text;
     key symbol: text;
-    index projects.project;
     index author: ft_accounts.account;
     mutable name: text;
     mutable description: text;
@@ -14,13 +13,3 @@ entity collection_social_url {
     key collection, name;
     mutable url: text;
 }
-
-
-//todo eczemat: consider to delete predefined collection attributes and use generic attributes
-// entity collection_attribute {
-//   index collection;
-//   index name: text;
-//   mutable value: byte_array;
-//   key collection, name;
-//   type: attribute_type;
-// }

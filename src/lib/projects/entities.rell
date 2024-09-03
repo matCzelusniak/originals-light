@@ -5,16 +5,10 @@ entity project {
     mutable avatar: text;
     mutable background_image: text;
     owner: ft_accounts.account;
-    key treasury: ft_accounts.account;
     mutable website: text;
     mutable description: text;
     created_at: timestamp = common.now_from_context();
     mutable reports_count: integer = 0;
-}
-
-//todo matCzelusniak: consider to delete it from library
-entity project_admin {
-    key project, ft_accounts.account;
 }
 
 entity project_social_url {

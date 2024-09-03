@@ -1,3 +1,0 @@
-query get_tokens() {
-  return yours.token @* {} ( token_id = $.id, metadata = yours.get_metadata($) );
-}

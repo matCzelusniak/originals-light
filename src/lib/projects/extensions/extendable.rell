@@ -1,25 +1,16 @@
 @extendable
 function before_create_project(
-    project_owner: ft_core_accounts.account,
     projects.simple_project_props
 );
+
+@extendable
+function get_project_owner(
+    projects.simple_project_props
+): ft_accounts.account?;
 
 @extendable
 function after_create_project(
-    project_owner: ft_core_accounts.account,
-    projects.simple_project_props
-);
-
-@extendable
-function before_create_project_admins(
-    projects.project,
-    admin_ids: list<byte_array>
-);
-
-@extendable
-function after_create_project_admins(
-    projects.project,
-    admin_ids: list<byte_array>
+    projects.project
 );
 
 @extendable

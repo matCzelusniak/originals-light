@@ -1,0 +1,4 @@
+entity collection_asset {
+  index collections.collection;
+  key ft_assets.asset;
+}

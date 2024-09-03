@@ -3,38 +3,36 @@ function Project(id: text) = require(
     "Project with id '%s' not found".format(id)
 );
 
-function Project_admin(project_admin?) = require(project_admin, "Project admin not found!");
-
 function get_project(id: text) = project @? { id };
 
 function create_project(
-    owner: ft_accounts.account,
     simple_project_props
 ) {
-    extensions.before_create_project(owner, simple_project_props);
+    extensions.before_create_project(simple_project_props);
+    val owner = extensions.get_project_owner(simple_project_props);
+
+    require(owner != null, "Failed to create project - Owner account not found");
 
     validate_project_creation_parameters(simple_project_props);
-    val treasury = ft_accounts.create_account_without_auth(simple_project_props.id.hash(), "FT4_TREASURY");
 
     val project = create project(
         id = simple_project_props.id,
         name_lowercased = simple_project_props.name.lower_case(),
         name = simple_project_props.name,
         owner = owner,
-        treasury = treasury,
         avatar = simple_project_props.avatar,
         background_image = simple_project_props.background_image,
         website = simple_project_props.website,
         description = simple_project_props.description
     );
 
-    extensions.after_create_project(owner, simple_project_props);
+    extensions.after_create_project(project);
 
     return project;
 }
 
 function validate_project_creation_parameters(simple_project_props) {
-     require(simple_project_props.id.size() >= 3 and simple_project_props.id.size() <= 100,
+    require(simple_project_props.id.size() >= 3 and simple_project_props.id.size() <= 100,
         "Project id must be between 3 and 100 characters long"
     );
     
@@ -105,43 +103,15 @@ function update_project_background_image(project, background_image: text) {
     extensions.before_update_project_background_image(project, background_image);
 
     common.validate_url(background_image, "Project background image url is invalid:");
-    common.validate_input_text_length(
-        background_image,
-        common.MAX_TEXT_LENGTH_URL,
-        "Project background image url must be %s characters or less:".format(common.MAX_TEXT_LENGTH_URL)
-    );
+    //todo matCzelusniak - decide if below validation should be in lib or decided by user
+    // common.validate_input_text_length(
+    //     background_image,
+    //     common.MAX_TEXT_LENGTH_URL,
+    //     "Project background image url must be %s characters or less:".format(common.MAX_TEXT_LENGTH_URL)
+    // );
     project.background_image = background_image;
 
     extensions.after_update_project_background_image(project, background_image);
-}
-
-function create_project_admins(project, admin_ids: list<byte_array>) {
-    extensions.before_create_project_admins(project, admin_ids);
-
-    for (account_id in admin_ids) {
-        add_admin_by_account_id(project, account_id);
-    }
-
-    extensions.after_create_project_admins(project, admin_ids);
-}
-
-function add_admin_by_account_id(project, account_id: byte_array) {
-    var account = ft_accounts.Account(account_id);
-
-    create project_admin(account, project);
-}
-
-function get_project_admin_account_ids(project) =
-    project_admin @* { project } (.account.id);
-
-function get_project_admins(project) =
-    project_admin @* { project };
-
-function require_project_owner_or_admin(account: ft_accounts.account, project, message: text) {
-    require(
-        project.owner == account or exists(project_admin @? { project, account }),
-        message
-    );
 }
 
 function update_project_name(project, new_name: text) {
@@ -150,11 +120,12 @@ function update_project_name(project, new_name: text) {
     require(new_name.size() > 0,
         "Project name can not be empty"
     );
-    common.validate_input_text_length(
-        new_name,
-        common.MAX_TEXT_LENGTH_NAME,
-        "Project name must be %s characters or less:".format(common.MAX_TEXT_LENGTH_NAME)
-    );
+    //todo matCzelusniak - decide if below validation should be in lib or decided by user
+    // common.validate_input_text_length(
+    //     new_name,
+    //     common.MAX_TEXT_LENGTH_NAME,
+    //     "Project name must be %s characters or less:".format(common.MAX_TEXT_LENGTH_NAME)
+    // );
     project.name = new_name;
     project.name_lowercased = new_name.lower_case();
 
@@ -163,12 +134,12 @@ function update_project_name(project, new_name: text) {
 
 function update_project_description(project, new_description: text) {
     extensions.before_update_project_description(project, new_description);
-
-    common.validate_input_text_length(
-        new_description,
-        common.MAX_TEXT_LENGTH_DESCRIPTION,
-        "Project description must be %s characters or less:".format(common.MAX_TEXT_LENGTH_DESCRIPTION)
-    );
+    //todo matCzelusniak - decide if below validation should be in lib or decided by user
+    // common.validate_input_text_length(
+    //     new_description,
+    //     common.MAX_TEXT_LENGTH_DESCRIPTION,
+    //     "Project description must be %s characters or less:".format(common.MAX_TEXT_LENGTH_DESCRIPTION)
+    // );
     project.description = new_description;
 
     extensions.after_update_project_description(project, new_description);
@@ -182,11 +153,12 @@ function update_project_website(project, new_website: text) {
     );
 
     common.validate_url(new_website, "Project website url is invalid:");
-    common.validate_input_text_length(
-        new_website,
-        common.MAX_TEXT_LENGTH_URL,
-        "Project website url must be %s characters or less:".format(common.MAX_TEXT_LENGTH_URL)
-    );
+    //todo matCzelusniak - decide if below validation should be in lib or decided by user
+    // common.validate_input_text_length(
+    //     new_website,
+    //     common.MAX_TEXT_LENGTH_URL,
+    //     "Project website url must be %s characters or less:".format(common.MAX_TEXT_LENGTH_URL)
+    // );
     project.website = new_website;
 
     extensions.after_update_project_website(project, new_website);
@@ -223,11 +195,12 @@ function update_project_avatar(project, new_avatar: text) {
     extensions.before_update_project_avatar(project, new_avatar);
 
     common.validate_url(new_avatar, "Project avatar url is invalid:");
-    common.validate_input_text_length(
-        new_avatar,
-        common.MAX_TEXT_LENGTH_URL,
-        "Project avatar url must be %s characters or less:".format(common.MAX_TEXT_LENGTH_URL)
-    );
+    //todo matCzelusniak - decide if below validation should be in lib or decided by user
+    // common.validate_input_text_length(
+    //     new_avatar,
+    //     common.MAX_TEXT_LENGTH_URL,
+    //     "Project avatar url must be %s characters or less:".format(common.MAX_TEXT_LENGTH_URL)
+    // );
 
     update project(avatar = new_avatar);
 
@@ -236,7 +209,6 @@ function update_project_avatar(project, new_avatar: text) {
 
 function get_project_hash(project) {
     val social_urls = project_social_url @* { project } (.name, .url);
-    val project_admins = project_admin @* { project } (.account.id);
 
-    return (map_project_basic(project), social_urls.hash(), project_admins.hash()).hash();
+    return (map_project_basic(project), social_urls.hash()).hash();
 }
