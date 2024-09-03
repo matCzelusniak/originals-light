@@ -12,11 +12,6 @@ entity project {
     mutable reports_count: integer = 0;
 }
 
-//todo matCzelusniak: consider to delete it from library
-entity project_admin {
-    key project, ft_accounts.account;
-}
-
 entity project_social_url {
     key project, name;
     index project;

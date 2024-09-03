@@ -11,18 +11,6 @@ function after_create_project(
 );
 
 @extendable
-function before_create_project_admins(
-    projects.project,
-    admin_ids: list<byte_array>
-);
-
-@extendable
-function after_create_project_admins(
-    projects.project,
-    admin_ids: list<byte_array>
-);
-
-@extendable
 function before_update_project_background_image(
     projects.project,
     background_image: text

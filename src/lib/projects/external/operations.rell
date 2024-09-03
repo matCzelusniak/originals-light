@@ -11,37 +11,12 @@ operation create_project(projects.simple_project_props) {
 
 @extend(ft_auth.auth_handler)
 function () = ft_auth.add_overridable_auth_handler(
-    scope = rell.meta(create_project_admins).mount_name,
-    flags = []
-);
-
-operation create_project_admins(project_id: text, admin_ids: list<byte_array>) {
-    val account = ft_auth.authenticate();
-    val project = projects.Project(project_id);
-
-    require(
-        project.owner == account,
-        "Failed to create project admins - action is reserved by project owner"
-    );
-
-    projects.create_project_admins(project, admin_ids);
-}
-
-@extend(ft_auth.auth_handler)
-function () = ft_auth.add_overridable_auth_handler(
     scope = rell.meta(update_project_background_image).mount_name,
     flags = []
 );
 
 operation update_project_background_image(name, background_image: text) {
-    val account = ft_auth.authenticate();
     val project = projects.Project(name);
-
-    projects.require_project_owner_or_admin(
-        account,
-        project,
-        "Failed to update project background image - action is reserved by project owner or admin"
-    );
 
     projects.update_project_background_image(project, background_image);
 }
@@ -56,12 +31,6 @@ operation update_project_avatar(project_id: text, new_avatar: text) {
     val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
 
-    projects.require_project_owner_or_admin(
-        account,
-        project,
-        "Failed to update project avatar - action is reserved by project owner or admin"
-    );
-
     projects.update_project_avatar(project, new_avatar);
 }
 
@@ -74,12 +43,6 @@ function () = ft_auth.add_overridable_auth_handler(
 operation update_project_name(project_id: text, new_name: text) {
     val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
-
-    projects.require_project_owner_or_admin(
-        account,
-        project,
-        "Failed to update project name - action is reserved by project owner or admin"
-    );
 
     projects.update_project_name(project, new_name);
 }
@@ -94,12 +57,6 @@ operation update_project_description(project_id: text, new_description: text) {
     val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
 
-    projects.require_project_owner_or_admin(
-        account,
-        project,
-        "Failed to update project description - action is reserved by project owner or admin"
-    );
-
     projects.update_project_description(project, new_description);
 }
 
@@ -112,12 +69,6 @@ function () = ft_auth.add_overridable_auth_handler(
 operation add_project_social_url(project_id: text, social_name: text, social_url: text) {
     val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
-
-    projects.require_project_owner_or_admin(
-        account,
-        project,
-        "Failed to add social url - action is reserved by project owner or admin"
-    );
 
     projects.add_social_url_to_project(project, social_name, social_url);
 }
@@ -132,12 +83,6 @@ operation update_project_social_url(project_id: text, social_name: text, social_
     val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
 
-    projects.require_project_owner_or_admin(
-        account,
-        project,
-        "Failed to update social url - action is reserved by project owner or admin"
-    );
-
     projects.update_project_social_url(project, social_name, social_url);
 }
 
@@ -150,12 +95,6 @@ function () = ft_auth.add_overridable_auth_handler(
 operation update_project_website(project_id: text, new_website: text) {
     val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
-
-    projects.require_project_owner_or_admin(
-        account,
-        project,
-        "Failed to update project website - action is reserved by project owner or admin"
-    );
 
     projects.update_project_website(project, new_website);
 }

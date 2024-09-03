@@ -3,8 +3,6 @@ function Project(id: text) = require(
     "Project with id '%s' not found".format(id)
 );
 
-function Project_admin(project_admin?) = require(project_admin, "Project admin not found!");
-
 function get_project(id: text) = project @? { id };
 
 function create_project(
@@ -115,35 +113,6 @@ function update_project_background_image(project, background_image: text) {
     extensions.after_update_project_background_image(project, background_image);
 }
 
-function create_project_admins(project, admin_ids: list<byte_array>) {
-    extensions.before_create_project_admins(project, admin_ids);
-
-    for (account_id in admin_ids) {
-        add_admin_by_account_id(project, account_id);
-    }
-
-    extensions.after_create_project_admins(project, admin_ids);
-}
-
-function add_admin_by_account_id(project, account_id: byte_array) {
-    var account = ft_accounts.Account(account_id);
-
-    create project_admin(account, project);
-}
-
-function get_project_admin_account_ids(project) =
-    project_admin @* { project } (.account.id);
-
-function get_project_admins(project) =
-    project_admin @* { project };
-
-function require_project_owner_or_admin(account: ft_accounts.account, project, message: text) {
-    require(
-        project.owner == account or exists(project_admin @? { project, account }),
-        message
-    );
-}
-
 function update_project_name(project, new_name: text) {
     extensions.before_update_project_name(project, new_name);
 
@@ -236,7 +205,6 @@ function update_project_avatar(project, new_avatar: text) {
 
 function get_project_hash(project) {
     val social_urls = project_social_url @* { project } (.name, .url);
-    val project_admins = project_admin @* { project } (.account.id);
 
-    return (map_project_basic(project), social_urls.hash(), project_admins.hash()).hash();
+    return (map_project_basic(project), social_urls.hash()).hash();
 }
