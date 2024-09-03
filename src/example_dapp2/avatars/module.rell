@@ -1,8 +1,0 @@
-@mount("avatars")
-module;
-
-import lib.yours;
-
-namespace ft4 {
-  import lib.ft4.accounts;
-}
