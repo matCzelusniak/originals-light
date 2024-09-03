@@ -1,0 +1,7 @@
+@extend (collections_light.before_add_asset_to_collection)
+function (
+  asset_id: byte_array,
+  collection_id: text
+) {
+  print("Assigning asset %s to collection %s".format(asset_id, collection_id));
+}

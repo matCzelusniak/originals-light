@@ -1,0 +1,10 @@
+@extend (collections_light.before_add_asset_to_collection)
+function (
+  asset_id: byte_array,
+  collection_id: text
+) {
+  //check if collection exists
+  collections.Collection(collection_id);
+  //check if asset exists
+  ft_assets.Asset(asset_id);
+}
