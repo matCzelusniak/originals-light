@@ -1,4 +1,4 @@
-# 🔧🔧 Decorators Overview
+# 🔧 Decorators Overview
 
 In the `collections_light` module, decorators are used to extend or modify the behavior of core functions like `add_asset_to_collection` and `get_collection`. These decorators can add additional functionality, such as logging or enforcing requirements, without altering the original implementation of these functions. 
 
