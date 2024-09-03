@@ -32,7 +32,7 @@ function create_project(
 }
 
 function validate_project_creation_parameters(simple_project_props) {
-     require(simple_project_props.id.size() >= 3 and simple_project_props.id.size() <= 100,
+    require(simple_project_props.id.size() >= 3 and simple_project_props.id.size() <= 100,
         "Project id must be between 3 and 100 characters long"
     );
     
