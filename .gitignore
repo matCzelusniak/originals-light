@@ -12,4 +12,6 @@ logs
 
 node_modules
 
-lib/
+src/lib/ft4/
+src/lib/iccf/
+src/lib/pagination/

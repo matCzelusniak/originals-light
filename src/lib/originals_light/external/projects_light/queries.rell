@@ -1,0 +1,8 @@
+query get_project(asset_id: byte_array): struct<projects.project>? {
+  val collection = projects_light.get_project(asset_id);
+  if(collection != null) {
+    return collection.to_struct();
+  }
+
+  return null;
+}

@@ -1,0 +1,14 @@
+function get_collection(asset_id: byte_array): collections.collection? {
+  return collection_asset @? {.asset.id == asset_id}(.collection);
+}
+
+function add_asset_to_collection(asset_id: byte_array, collection_id: text) {
+  before_add_asset_to_collection(asset_id, collection_id);
+  
+  var collection_asset_added = create collection_asset(
+    .asset = ft_assets.Asset(asset_id),
+    .collection = collections.Collection(collection_id)
+  );
+
+  after_add_asset_to_collection(collection_asset_added);
+}

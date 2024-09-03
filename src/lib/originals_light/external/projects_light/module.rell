@@ -1,1 +1,3 @@
+module;
 import ^^.core.projects_light;
+import projects: lib.projects;

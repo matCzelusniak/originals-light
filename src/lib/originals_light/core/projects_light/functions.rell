@@ -1,0 +1,14 @@
+function get_project(asset_id: byte_array): projects.project? {
+  return project_asset @? {.asset.id == asset_id}(.project);
+}
+
+function add_asset_to_project(asset_id: byte_array, project_id: text) {
+  before_add_asset_to_project(asset_id, project_id);
+  
+  var project_asset_added = create project_asset(
+    .asset = ft_assets.Asset(asset_id),
+    .project = projects.Project(project_id)
+  );
+
+  after_add_asset_to_project(project_asset_added);
+}
