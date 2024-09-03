@@ -1,0 +1,6 @@
+@extend (collections_light.after_add_asset_to_collection)
+function after_add_asset_to_collection(
+  collections_light.collection_asset
+) {
+  print("Asset %s assigned to collection %s".format(collection_asset.asset.id, collection_asset.collection.id));
+}
