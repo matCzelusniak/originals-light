@@ -5,7 +5,6 @@ entity project {
     mutable avatar: text;
     mutable background_image: text;
     owner: ft_accounts.account;
-    key treasury: ft_accounts.account;
     mutable website: text;
     mutable description: text;
     created_at: timestamp = common.now_from_context();

@@ -1,19 +1,18 @@
-@extend(ft_auth.auth_handler)
-function () = ft_auth.add_overridable_auth_handler(
-    scope = rell.meta(create_project).mount_name,
-    flags = []
-);
+// @extend(ft_auth.auth_handler)
+// function () = ft_auth.add_overridable_auth_handler(
+//     scope = rell.meta(create_project).mount_name,
+//     flags = []
+// );
 
 operation create_project(projects.simple_project_props) {
-    val account = ft_auth.authenticate();
-    projects.create_project(account, simple_project_props);
+    projects.create_project(simple_project_props);
 }
 
-@extend(ft_auth.auth_handler)
-function () = ft_auth.add_overridable_auth_handler(
-    scope = rell.meta(update_project_background_image).mount_name,
-    flags = []
-);
+// @extend(ft_auth.auth_handler)
+// function () = ft_auth.add_overridable_auth_handler(
+//     scope = rell.meta(update_project_background_image).mount_name,
+//     flags = []
+// );
 
 operation update_project_background_image(name, background_image: text) {
     val project = projects.Project(name);
@@ -21,50 +20,53 @@ operation update_project_background_image(name, background_image: text) {
     projects.update_project_background_image(project, background_image);
 }
 
-@extend(ft_auth.auth_handler)
-function () = ft_auth.add_overridable_auth_handler(
-    scope = rell.meta(update_project_avatar).mount_name,
-    flags = []
-);
+// @extend(ft_auth.auth_handler)
+// function () = ft_auth.add_overridable_auth_handler(
+//     scope = rell.meta(update_project_avatar).mount_name,
+//     flags = []
+// );
 
 operation update_project_avatar(project_id: text, new_avatar: text) {
-    val account = ft_auth.authenticate();
+    // matCzelusniak authentication way should be decided in extension
+    // val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
 
     projects.update_project_avatar(project, new_avatar);
 }
 
-@extend(ft_auth.auth_handler)
-function () = ft_auth.add_overridable_auth_handler(
-    scope = rell.meta(update_project_name).mount_name,
-    flags = []
-);
+// @extend(ft_auth.auth_handler)
+// function () = ft_auth.add_overridable_auth_handler(
+//     scope = rell.meta(update_project_name).mount_name,
+//     flags = []
+// );
 
 operation update_project_name(project_id: text, new_name: text) {
-    val account = ft_auth.authenticate();
+    // matCzelusniak authentication way should be decided in extension
+    //val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
 
     projects.update_project_name(project, new_name);
 }
 
-@extend(ft_auth.auth_handler)
-function () = ft_auth.add_overridable_auth_handler(
-    scope = rell.meta(update_project_description).mount_name,
-    flags = []
-);
+// @extend(ft_auth.auth_handler)
+// function () = ft_auth.add_overridable_auth_handler(
+//     scope = rell.meta(update_project_description).mount_name,
+//     flags = []
+// );
 
 operation update_project_description(project_id: text, new_description: text) {
-    val account = ft_auth.authenticate();
+    // matCzelusniak authentication way should be decided in extension
+    //val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
 
     projects.update_project_description(project, new_description);
 }
 
-@extend(ft_auth.auth_handler)
-function () = ft_auth.add_overridable_auth_handler(
-    scope = rell.meta(add_project_social_url).mount_name,
-    flags = []
-);
+// @extend(ft_auth.auth_handler)
+// function () = ft_auth.add_overridable_auth_handler(
+//     scope = rell.meta(add_project_social_url).mount_name,
+//     flags = []
+// );
 
 operation add_project_social_url(project_id: text, social_name: text, social_url: text) {
     val account = ft_auth.authenticate();
@@ -73,27 +75,29 @@ operation add_project_social_url(project_id: text, social_name: text, social_url
     projects.add_social_url_to_project(project, social_name, social_url);
 }
 
-@extend(ft_auth.auth_handler)
-function () = ft_auth.add_overridable_auth_handler(
-    scope = rell.meta(update_project_social_url).mount_name,
-    flags = []
-);
+// @extend(ft_auth.auth_handler)
+// function () = ft_auth.add_overridable_auth_handler(
+//     scope = rell.meta(update_project_social_url).mount_name,
+//     flags = []
+// );
 
 operation update_project_social_url(project_id: text, social_name: text, social_url: text) {
-    val account = ft_auth.authenticate();
+    // matCzelusniak authentication way should be decided in extension
+    //val account = ft_auth.authenticate();
     val project = projects.Project(project_id);
 
     projects.update_project_social_url(project, social_name, social_url);
 }
 
-@extend(ft_auth.auth_handler)
-function () = ft_auth.add_overridable_auth_handler(
-    scope = rell.meta(update_project_website).mount_name,
-    flags = []
-);
+// @extend(ft_auth.auth_handler)
+// function () = ft_auth.add_overridable_auth_handler(
+//     scope = rell.meta(update_project_website).mount_name,
+//     flags = []
+// );
 
 operation update_project_website(project_id: text, new_website: text) {
-    val account = ft_auth.authenticate();
+    //val account = ft_auth.authenticate();
+    // matCzelusniak authentication way should be decided in extension
     val project = projects.Project(project_id);
 
     projects.update_project_website(project, new_website);

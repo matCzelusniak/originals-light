@@ -19,7 +19,6 @@ function map_project_details(project) {
         avatar = project.avatar,
         background_image = project.background_image,
         owner = project.owner.id,
-        treasury = project.treasury.id,
         website = project.website,
         description = project.description,  
         created_at = project.created_at,
