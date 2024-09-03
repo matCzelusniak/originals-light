@@ -11,8 +11,7 @@ operation create_collection(
     description: text,
     background_image: text,
     collection_avatar: text,
-    author_account_id: byte_array,
-    project_id: text
+    author_account_id: byte_array
 ) {
     val owner = ft_auth.authenticate();
     val author = ft_accounts.Account(author_account_id);
@@ -20,7 +19,6 @@ operation create_collection(
     val collection_struct = struct<collections.collection>(
         id,
         symbol,
-        projects.Project(project_id),
         author,
         name,
         description,
