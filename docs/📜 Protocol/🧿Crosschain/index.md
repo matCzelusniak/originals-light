@@ -21,6 +21,10 @@ function supports_attributes(dapp_rid: byte_array): boolean {
 ```rell
 function encode_attributes(attributes: map<text, gtv>): byte_array {
     // Logic to encode the attributes into a byte_array.
+    // we need to encode all attributes to structure similar to
+    // map<context_name: text, list<(attribute_name: text, attribute_value:, attribute_type)>>
+    //context_name: text-> type of 'attribute' (entity, dynamic_attribute and simiar)
+    // (attribute_name: text, attribute_value:, attribute_type) -> proposal for attributes
     return utils.encode(attributes);
 }
 
